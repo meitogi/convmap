@@ -125,7 +125,7 @@ textarea { font-family: ui-monospace, Menlo, monospace; font-size: 12px; resize:
 #regions .options { left: auto; right: 0; }
 
 /* The map tiles are light : in the dark theme they are inverted, hue kept. */
-:root[data-theme="dark"] .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9); }
+:root[data-theme="dark"] .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(1.05) contrast(0.85) saturate(0.6); }
 :root[data-theme="dark"] .leaflet-container { background: #14161a; }
 :root[data-theme="dark"] .leaflet-bar a, :root[data-theme="dark"] .leaflet-control-attribution { background: var(--card); color: var(--ink); border-color: var(--line); }
 :root[data-theme="dark"] .leaflet-control-attribution a { color: var(--accent); }

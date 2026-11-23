@@ -161,7 +161,7 @@ function drawMarkers() {
   for (const { series: s } of visible) {
     if (s.lat == null) continue;
     const id = s.id;
-    L.circleMarker([s.lat, s.lng], { radius: 6, color: '#14161a', weight: 1, fillColor: TAG_COLORS[s.tag], fillOpacity: 0.9 })
+    L.circleMarker([s.lat, s.lng], { radius: 7, color: '#fff', weight: 1.5, fillColor: TAG_COLORS[s.tag], fillOpacity: 1 })
       .bindTooltip(`${s.name} — ${s.city}`)
       .on('click', (event) => {
         L.DomEvent.stopPropagation(event);
