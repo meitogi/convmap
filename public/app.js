@@ -479,7 +479,7 @@ document.addEventListener('click', (event) => {
 function syncFilters() {
   const radius = state.radius;
   $('radius').value = radius;
-  $('radius-value').textContent = `${radius} km`;
+  $('radius-km').value = radius;
   $('period').value = state.period;
   $('from').value = state.from;
   $('from').disabled = state.period !== 'upcoming' && state.period !== 'announced';
@@ -501,13 +501,18 @@ $('sort').addEventListener('change', (event) => {
 });
 
 $('filters').addEventListener('submit', (event) => event.preventDefault());
-$('radius').addEventListener('input', (event) => {
-  state.radius = Number(event.target.value);
+// The slider and the number under it set the same radius ; the number may
+// go beyond the slider's range.
+function setRadius(event) {
+  const radius = Math.round(Number(event.target.value));
+  if (radius >= 1 && radius <= 1000) state.radius = radius;
   save();
   syncFilters();
   drawZone();
   render();
-});
+}
+$('radius').addEventListener('input', setRadius);
+$('radius-km').addEventListener('change', setRadius);
 $('period').addEventListener('change', (event) => {
   state.period = event.target.value;
   save();
