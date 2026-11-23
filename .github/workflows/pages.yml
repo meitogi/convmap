@@ -3,6 +3,11 @@ name: Pages
 # Publishes the page, and once a week re-reads the agenda into the snapshot
 # the page starts from. If the agenda is unreachable the snapshot already in
 # the repository is published as it is.
+#
+# Two jobs, as the deploy action recommends : `build` uploads the site,
+# `deploy` publishes it once that upload is complete. In one job, the deploy
+# step could look for the upload before GitHub listed it, and fail with
+# "No artifacts named github-pages were found".
 
 on:
   push:
@@ -11,21 +16,16 @@ on:
     - cron: '17 4 * * 1'
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      # To commit the refreshed snapshot.
+      contents: write
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -47,9 +47,19 @@ jobs:
       - run: node scripts/build-site.mjs
         env:
           AGENDA_KEY: ${{ secrets.AGENDA_KEY }}
-      - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v5
