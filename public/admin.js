@@ -8,6 +8,7 @@ import { fromBase64Url, toBase64Url } from './lib/crypto.mjs';
 
 const API = 'https://api.github.com';
 const FILE = 'snapshot/access.bin';
+const WORKFLOW = 'pages.yml';
 const SETTINGS = 'convmap-admin';
 const KEY_STORE = 'convmap-key';
 const $ = (id) => document.getElementById(id);
@@ -32,19 +33,24 @@ function el(tag, props, ...children) {
   return node;
 }
 
-async function github(method, body) {
-  const response = await fetch(`${API}/repos/${settings.repo.value.trim()}/contents/${FILE}`, {
+// One call to GitHub's API on this repository. path : what follows
+// /repos/<repository>/. Returns the answer, or null when there is none.
+async function githubCall(method, path, body) {
+  const response = await fetch(`${API}/repos/${settings.repo.value.trim()}/${path}`, {
     method,
     headers: { authorization: `Bearer ${settings.token.value.trim()}`, accept: 'application/vnd.github+json' },
     body: body && JSON.stringify(body),
   });
-  if (response.status === 401 || response.status === 403) throw new Error('GitHub refuse le jeton : vérifie qu\'il est valide et qu\'il a la permission Contents en écriture sur ce dépôt.');
+  if (response.status === 401 || response.status === 403) throw new Error('GitHub refuse le jeton : vérifie qu\'il est valide et qu\'il a les permissions Contents et Actions en écriture sur ce dépôt.');
   if (response.status === 404 && method === 'GET') return null;
-  if (response.status === 404) throw new Error('Dépôt introuvable avec ce jeton.');
+  if (response.status === 404) throw new Error('Introuvable avec ce jeton : vérifie le nom du dépôt et les permissions du jeton.');
   if (response.status === 409) throw new Error('La liste a changé entre-temps : recharge-la puis recommence.');
   if (!response.ok) throw new Error(`GitHub a répondu ${response.status}.`);
-  return response.json();
+  return response.status === 204 ? null : response.json();
 }
+
+// The access list's file.
+const github = (method, body) => githubCall(method, `contents/${FILE}`, body);
 
 function render() {
   const master = settings.key.value.trim();
@@ -64,11 +70,13 @@ function render() {
     }),
   );
   $('access').hidden = false;
+  $('data').hidden = false;
 }
 
 async function loadList() {
   showStatus('Chargement de la liste…');
   $('access').hidden = true;
+  $('data').hidden = true;
   try {
     const file = await github('GET');
     sha = file ? file.sha : null;
@@ -125,7 +133,23 @@ $('forget').addEventListener('click', () => {
   }
   $('settings').reset();
   $('access').hidden = true;
+  $('data').hidden = true;
   showStatus('Réglages oubliés sur ce navigateur.');
+});
+
+// Runs the publication workflow now instead of waiting for Monday : it
+// re-reads the agenda, refreshes the snapshot and republishes the site.
+$('refresh').addEventListener('click', async () => {
+  const button = $('refresh');
+  button.disabled = true;
+  showStatus('Demande envoyée à GitHub…');
+  try {
+    await githubCall('POST', `actions/workflows/${WORKFLOW}/dispatches`, { ref: 'main' });
+    showStatus('Mise à jour lancée : GitHub relit l\'agenda puis republie le site, compter 4 à 6 minutes. Le suivi est dans l\'onglet Actions du dépôt.');
+  } catch (error) {
+    showStatus(error.message);
+  }
+  button.disabled = false;
 });
 
 $('add').addEventListener('submit', (event) => {

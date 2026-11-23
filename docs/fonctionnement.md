@@ -78,13 +78,13 @@ sur `main`.
   le navigateur, il n'est jamais envoyé à GitHub. À l'ouverture du lien, le
   navigateur retient la clé et la retire aussitôt de la barre d'adresse.
 - **Un lien par personne.** La page `admin.html` liste les liens, en crée un
-  pour un nom, en révoque un. Un lien révoqué cesse de fonctionner à la
+  pour un nom, en révoque un ; elle lance aussi la mise à jour des données. Un lien révoqué cesse de fonctionner à la
   publication suivante, une à deux minutes plus tard.
 - **Ce que chacun ajoute reste chez lui.** Évènements ajoutés, corrections,
   notes et recherches enregistrées vivent dans le navigateur du visiteur
   (IndexedDB), pas dans le dépôt.
-- « Mettre à jour depuis l'agenda » lit l'agenda directement depuis le
-  navigateur (2 à 3 minutes), sans attendre le lundi.
+- Pour rafraîchir sans attendre le lundi : le bouton « Mettre à jour depuis
+  l'agenda » de `admin.html`, ou `npm run update` puis un push.
 
 La marche à suivre complète — dépôt, secret, domaine `convmap.suuuper.app`
 chez Cloudflare, jeton, essai de la page d'accès — est dans
@@ -94,12 +94,12 @@ chez Cloudflare, jeton, essai de la page d'accès — est dans
 
 1. `node scripts/key.mjs` crée la clé maître (fichier `.agenda-key`, hors
    git) et affiche le lien maître.
-2. `node scripts/snapshot.mjs` écrit la première copie chiffrée ; la commiter.
+2. `npm run update` écrit la première copie chiffrée et la commite.
 3. Sur GitHub : créer le dépôt, pousser, ajouter la clé maître comme secret
    `AGENDA_KEY` (Settings > Secrets and variables > Actions), et choisir
    « GitHub Actions » comme source dans Settings > Pages.
-4. Créer un « fine-grained token » limité à ce dépôt, permission Contents en
-   lecture et écriture, et le saisir dans `admin.html` avec la clé maître.
+4. Créer un « fine-grained token » limité à ce dépôt, permissions Contents et
+   Actions en lecture et écriture, et le saisir dans `admin.html` avec la clé maître.
 
 ### Comment les accès tiennent
 
@@ -119,20 +119,33 @@ Ce que cette protection ne fait pas :
 - Quelqu'un qui a eu accès a pu copier ce qu'il voyait ; révoquer ne reprend
   rien, cela coupe la suite.
 - La clé maître ouvre tout, y compris les anciennes copies dans l'historique
-  git. Si elle fuit : `node scripts/key.mjs --new`, refaire la copie, mettre
-  à jour le secret — et recréer les liens, la liste étant scellée avec elle.
+  git. Si elle fuit : `node scripts/key.mjs --new`, refaire la copie (`npm run update`),
+  mettre à jour le secret — et recréer les liens, la liste étant scellée avec elle.
 - Les réglages de `admin.html` (jeton compris) sont gardés par le navigateur
   où ils ont été saisis : sur un poste partagé, cliquer « Oublier ces
   réglages » après usage.
 
 ## Mise à jour depuis l'agenda
 
-Les évènements sont rapprochés par leur identifiant d'agenda. Une mise à jour :
+La page n'a pas de bouton de mise à jour : les données arrivent par l'un de
+ces trois chemins.
+
+| Chemin | Ce qu'il met à jour |
+|---|---|
+| `npm run update` | la base locale, et la copie chiffrée `snapshot/events.bin`, commitée — un push la publie |
+| le bouton de `admin.html` | la copie publiée, tout de suite, en lançant le workflow GitHub |
+| le workflow, chaque lundi | la copie publiée |
+
+`npm run update -- --no-commit` laisse la copie non commitée.
+
+Dans tous les cas, les évènements sont rapprochés par leur identifiant
+d'agenda, et une mise à jour :
 
 - rafraîchit les champs venus de l'agenda ;
 - ne touche ni aux corrections, ni aux notes, ni aux évènements ajoutés à la main ;
 - garde un évènement disparu de l'agenda, marqué « retiré de l'agenda » ;
-- ne change rien du tout si une page de l'agenda échoue après trois essais.
+- ne change rien du tout si une page de l'agenda échoue après trois essais ;
+- ne produit pas de nouvelle copie si l'agenda n'a pas changé.
 
 ## Données
 

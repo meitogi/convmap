@@ -12,7 +12,6 @@ export const listEvents = () => call('GET', 'api/events');
 export const createEvent = (input) => call('POST', 'api/events', input);
 export const updateEvent = (id, input) => call('PUT', `api/events/${id}`, input);
 export const deleteEvent = (id) => call('DELETE', `api/events/${id}`);
-export const refetch = () => call('POST', 'api/refetch');
 export const listSearches = () => call('GET', 'api/searches');
 export const saveSearch = (name, params) => call('POST', 'api/searches', { name, params });
 export const deleteSearch = (name) => call('DELETE', `api/searches?name=${encodeURIComponent(name)}`);

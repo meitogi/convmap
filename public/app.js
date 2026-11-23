@@ -318,10 +318,10 @@ async function load() {
   select.value = chosen;
 
   const fetchedAt = body.fetchedAt;
-  $('fetched').textContent = fetchedAt ? `${body.snapshot ? 'Instantané du' : 'Agenda lu le'} ${new Date(fetchedAt).toLocaleString('fr-FR', { dateStyle: 'medium', timeStyle: 'short' })}` : '';
+  $('fetched').textContent = fetchedAt ? `Agenda lu le ${new Date(fetchedAt).toLocaleString('fr-FR', { dateStyle: 'medium', timeStyle: 'short' })}` : '';
   if (body.locked === 'revoked') showStatus("Ce lien d'accès n'est plus valide. Demande un nouveau lien à la personne qui te l'a partagé.");
   else if (body.locked) showStatus("Cette page s'ouvre avec son lien d'accès, qui contient la clé des données. Demande-le à la personne qui te l'a partagé.");
-  else if (!events.length) showStatus("Aucun évènement en base. Clique « Mettre à jour depuis l'agenda » pour les récupérer (2 à 3 minutes).");
+  else if (!events.length) showStatus("Aucun évènement en base. Dans le dossier du projet, lance « npm run update » pour les récupérer (2 à 3 minutes), puis recharge la page.");
   if (shared) applyShared();
   else render();
 }
@@ -964,26 +964,6 @@ fetch('CHANGELOG.md')
   .catch(() => {
     // No release notes : the footer simply shows no version.
   });
-
-// ─── Re-fetch ───────────────────────────────────────────────────────────
-
-$('refetch').addEventListener('click', async () => {
-  const button = $('refetch');
-  const label = button.textContent;
-  button.disabled = true;
-  button.textContent = 'Mise à jour… (2 à 3 minutes)';
-  try {
-    const body = await store.refetch((page, pages) => {
-      button.textContent = `Mise à jour… page ${page} / ${pages}`;
-    });
-    await load();
-    showStatus(`Agenda relu : ${body.total} évènements — ${body.added} nouveaux, ${body.changed} modifiés, ${body.gone} disparus.`);
-  } catch (error) {
-    showStatus(`La mise à jour a échoué, rien n'a été modifié : ${error.message}`);
-  }
-  button.disabled = false;
-  button.textContent = label;
-});
 
 syncFilters();
 drawZone();

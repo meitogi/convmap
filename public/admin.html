@@ -22,7 +22,7 @@
 <div class="admin-body">
   <section class="card">
     <h2>Réglages</h2>
-    <p class="muted">Gardés dans ce navigateur uniquement. Le jeton est un « fine-grained token » GitHub limité à ce dépôt, avec la permission Contents en lecture et écriture.</p>
+    <p class="muted">Gardés dans ce navigateur uniquement. Le jeton est un « fine-grained token » GitHub limité à ce dépôt, avec les permissions Contents et Actions en lecture et écriture.</p>
     <form id="settings" class="grid">
       <label>Dépôt <input name="repo" placeholder="compte/depot" required></label>
       <label>Jeton GitHub <input name="token" type="password" autocomplete="off" required></label>
@@ -47,6 +47,12 @@
       <input name="name" placeholder="Nom de la personne" required>
       <button type="submit" class="primary">Ajouter un lien</button>
     </form>
+  </section>
+
+  <section class="card" id="data" hidden>
+    <h2>Données</h2>
+    <p class="muted">Le site relit l'agenda tout seul chaque lundi. Ce bouton le fait tout de suite, pour tout le monde.</p>
+    <div><button id="refresh" type="button">Mettre à jour depuis l'agenda</button></div>
   </section>
   <footer class="credits">Conv'Map — développé par <a href="https://github.com/meitogi" target="_blank" rel="noopener">meitogi</a> · données : <a href="https://lagendageek.com" target="_blank" rel="noopener">L'Agenda Geek</a> · carte © les contributeurs d'<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></footer>
 </div>

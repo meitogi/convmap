@@ -29,8 +29,8 @@ La commande crée la clé maître dans `.agenda-key` (jamais commité) et
 l'affiche. La garder sous la main pour les étapes 3 et 6.
 
 `snapshot/events.bin`, la copie chiffrée de l'agenda, est déjà dans le dépôt.
-Elle n'est à refaire (`node scripts/snapshot.mjs`, 2 à 3 minutes, puis commit)
-que si la clé maître a changé.
+Elle n'est à refaire (`npm run update`, 2 à 3 minutes, qui la commite) que si
+la clé maître a changé.
 
 ## 2. Le dépôt GitHub
 
@@ -131,8 +131,8 @@ par un workflow GitHub Actions, et dans ce cas GitHub n'en lit pas.
 
 ## 6. Le jeton de la page d'accès
 
-`admin.html` enregistre la liste des liens par un commit ; il lui faut un
-jeton limité à ce seul dépôt.
+`admin.html` enregistre la liste des liens par un commit et lance la mise à
+jour des données ; il lui faut un jeton limité à ce seul dépôt.
 
 Photo de profil > « Settings » > « Developer settings » > « Personal access
 tokens » > « Fine-grained tokens » > « Generate new token » —
@@ -140,6 +140,8 @@ tokens » > « Fine-grained tokens » > « Generate new token » —
 
 - « Repository access » : « Only select repositories » > `convmap`
 - « Permissions » > « Repository permissions » > « Contents » : « Read and write »
+- au même endroit, « Actions » : « Read and write » (pour le bouton de mise à
+  jour des données)
 - une date d'expiration au choix ; à l'expiration, en créer un nouveau et le
   ressaisir dans `admin.html`
 
@@ -161,6 +163,8 @@ Copier le jeton : GitHub ne le montre qu'une fois.
    navigation privée : les évènements s'affichent.
 6. « Révoquer » ce lien, attendre la publication suivante, recharger la
    fenêtre privée : la page dit que le lien n'est plus valide.
+7. « Mettre à jour depuis l'agenda » : une exécution du workflow « Pages »
+   démarre dans l'onglet « Actions ».
 
 ## Essayer la page d'accès avant la mise en ligne
 
@@ -194,6 +198,28 @@ npm run preview
 | Le workflow échoue avec « wrong key » | le secret ne correspond pas à la clé qui a chiffré `snapshot/events.bin` |
 | « DNS check unsuccessful » dans « Settings » > « Pages » | l'enregistrement n'est pas un CNAME vers `meitogi.github.io`, ou il est en « Proxied » |
 | « Enforce HTTPS » reste grisé | le certificat n'est pas encore émis ; vérifier que le nuage est gris, puis patienter |
-| `admin.html` : « GitHub refuse le jeton » | jeton expiré, ou sans « Contents : Read and write » sur ce dépôt |
+| `admin.html` : « GitHub refuse le jeton » | jeton expiré, ou sans « Contents » et « Actions » en « Read and write » sur ce dépôt |
 | `admin.html` : « La clé maître ne correspond pas » | la clé saisie n'est pas celle du secret |
 | Un lien tout juste créé dit « plus valide » | la publication n'est pas terminée : attendre la coche verte dans « Actions » |
+
+## Mettre à jour les données
+
+Le site relit l'agenda tout seul chaque lundi. Pour ne pas attendre :
+
+- **depuis le site** : sur `admin.html`, « Mettre à jour depuis l'agenda ».
+  GitHub relit l'agenda et republie, en 4 à 6 minutes ;
+- **depuis son poste** : dans le dossier du projet,
+
+```
+npm run update
+```
+
+  La commande lit l'agenda, met à jour la base locale, réécrit la copie
+  chiffrée et la commite. Il reste à pousser `main`. Si GitHub a rafraîchi la
+  copie entre-temps et refuse le push :
+
+```
+git pull --rebase -X theirs
+```
+
+  puis pousser de nouveau — les deux copies sont complètes et valables.

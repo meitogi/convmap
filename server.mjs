@@ -2,8 +2,7 @@ import { mkdirSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { fileURLToPath } from 'node:url';
-import { fetchAgenda } from './lib/agenda.mjs';
-import { createManualEvent, deleteManualEvent, deleteSearch, getMeta, listEvents, listSearches, openDb, saveSearch, updateEvent, upsertAgenda } from './lib/db.mjs';
+import { createManualEvent, deleteManualEvent, deleteSearch, getMeta, listEvents, listSearches, openDb, saveSearch, updateEvent } from './lib/db.mjs';
 
 const PORT = Number(process.env.PORT) || 4180;
 const HOST = process.env.HOST || '127.0.0.1';
@@ -34,7 +33,6 @@ const TYPES = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript'
 mkdirSync(`${ROOT}data`, { recursive: true });
 // AGENDA_DB : another base than the default one — the demo's, for instance.
 const db = openDb(process.env.AGENDA_DB || `${ROOT}data/agenda.db`);
-let refetching = null;
 
 function send(response, status, body) {
   response.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
@@ -45,11 +43,6 @@ async function readJson(request) {
   let text = '';
   for await (const chunk of request) text += chunk;
   return JSON.parse(text || '{}');
-}
-
-async function refetch() {
-  const rows = await fetchAgenda((page, pages) => console.log(`agenda : page ${page}/${pages}`));
-  return upsertAgenda(db, rows, new Date().toISOString());
 }
 
 async function api(request, response, path, query) {
@@ -65,11 +58,6 @@ async function api(request, response, path, query) {
   }
   if (path === '/api/events' && method === 'POST') {
     return send(response, 201, createManualEvent(db, await readJson(request)));
-  }
-  if (path === '/api/refetch' && method === 'POST') {
-    // One fetch at a time : a second click joins the one in flight.
-    refetching ??= refetch().finally(() => (refetching = null));
-    return send(response, 200, await refetching);
   }
   const match = /^\/api\/events\/(\d+)$/.exec(path);
   if (match && method === 'PUT') {

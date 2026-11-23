@@ -21,7 +21,7 @@ to yourself : personal links are made on the site's admin.html page.
    https://convmap.suuuper.app/#k=${key}
    The part after # stays in the browser : it is never sent to GitHub.
 ${fresh ? `
-The key changed : run node scripts/snapshot.mjs, commit and push, update the
+The key changed : run node scripts/update.mjs and push, update the
 AGENDA_KEY secret, and create the personal links again on admin.html — the
 previous list was sealed with the old key. Delete snapshot/access.bin first.
 ` : ''}`);

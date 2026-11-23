@@ -1,10 +1,9 @@
 // The page's data, kept in this browser (IndexedDB) : the hosted page has no
-// server. Events start from the encrypted snapshot published with the page,
-// so the page opens at once and works when the agenda cannot be reached ;
-// "update" reads the agenda itself. The snapshot's key comes with the access
+// server. Events come from the encrypted snapshot published with the page, so
+// the page opens at once and works when the agenda cannot be reached. The
+// snapshot's key comes with the access
 // link, after the # — a part of the address browsers never send anywhere.
 
-import { fetchAgenda } from './lib/agenda.mjs';
 import { unwrapDataKey } from './lib/access.mjs';
 import { open } from './lib/crypto.mjs';
 import { editChanges, manualValues, mergeAgenda, present } from './lib/events.mjs';
@@ -68,14 +67,13 @@ async function readSnapshot() {
   }
 }
 
-// { rows, fetchedAt, live } — live : the rows were last read from the agenda
-// itself, not from the snapshot.
+// { rows, fetchedAt } — fetchedAt : when the snapshot the rows come from was made.
 let state = null;
 let access = 'ok';
 
 async function load() {
   if (state) return state;
-  const stored = (await read('events')) || { rows: [], fetchedAt: null, live: false };
+  const stored = (await read('events')) || { rows: [], fetchedAt: null };
   // The snapshot is tried on every visit ; offline, the rows already stored do.
   const { status, snapshot } = await readSnapshot();
   access = status;
@@ -83,12 +81,10 @@ async function load() {
     // The copy kept here goes with the access ; what the visitor added stays.
     stored.rows = stored.rows.filter((row) => row.source === 'manual');
     stored.fetchedAt = null;
-    stored.live = false;
     await write('events', stored);
   } else if (snapshot && (!stored.fetchedAt || snapshot.fetchedAt > stored.fetchedAt)) {
     stored.rows = mergeAgenda(stored.rows, snapshot.events, snapshot.fetchedAt).rows;
     stored.fetchedAt = snapshot.fetchedAt;
-    stored.live = false;
     await write('events', stored);
   }
   state = stored;
@@ -102,10 +98,10 @@ function find(rows, id) {
 }
 
 export async function listEvents() {
-  const { rows, fetchedAt, live } = await load();
+  const { rows, fetchedAt } = await load();
   const events = rows.map(present).sort((a, b) => (a.start_date < b.start_date ? -1 : a.start_date > b.start_date ? 1 : a.id - b.id));
   // locked : 'nokey' or 'revoked' — the snapshot is closed to this visitor.
-  return { events, fetchedAt, snapshot: !live, locked: access === 'nokey' || access === 'revoked' ? access : '' };
+  return { events, fetchedAt, locked: access === 'nokey' || access === 'revoked' ? access : '' };
 }
 
 export async function createEvent(input) {
@@ -131,19 +127,6 @@ export async function deleteEvent(id) {
   if (row.source !== 'manual') throw new Error('not a manual event');
   rows.splice(rows.indexOf(row), 1);
   await write('events', current);
-}
-
-// onPage(page, pages) is called as the agenda is read.
-export async function refetch(onPage) {
-  const current = await load();
-  const fresh = await fetchAgenda(onPage);
-  const now = new Date().toISOString();
-  const { rows, stats } = mergeAgenda(current.rows, fresh, now);
-  current.rows = rows;
-  current.fetchedAt = now;
-  current.live = true;
-  await write('events', current);
-  return stats;
 }
 
 export async function listSearches() {

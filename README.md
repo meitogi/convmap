@@ -51,11 +51,12 @@ Pour obtenir un lien, s'adresser à [meitogi](https://github.com/meitogi).
 Node 24 ou plus récent, aucune dépendance à installer.
 
 ```
+npm run update
 npm start
 ```
 
-Puis ouvrir http://localhost:4180 et cliquer **Mettre à jour depuis l'agenda**
-(2 à 3 minutes la première fois). Cette version locale garde ses données dans
+La première commande lit l'agenda (2 à 3 minutes) ; la seconde sert la page
+sur http://localhost:4180. Cette version locale garde ses données dans
 un fichier SQLite et ne demande aucun lien d'accès. `PORT=8093 npm start` pour
 un autre port.
 
