@@ -987,6 +987,15 @@ $('edit-delete').addEventListener('click', () => {
 
 // ─── Version and release notes ──────────────────────────────────────────
 
+// A click beside the release notes closes them, as Escape does. The dialog's
+// own padding is the dialog too : only a click outside its box counts.
+$('releases-dialog').addEventListener('click', (event) => {
+  const dialog = event.currentTarget;
+  if (event.target !== dialog) return;
+  const box = dialog.getBoundingClientRect();
+  if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close();
+});
+
 // The footer shows the latest version of CHANGELOG.md ; a click lists them all.
 fetch('CHANGELOG.md')
   .then((response) => (response.ok ? response.text() : ''))

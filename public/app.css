@@ -54,6 +54,8 @@ button.danger { color: var(--danger); margin-right: auto; }
 input, select, textarea { border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; background: var(--card); width: 100%; min-width: 0; }
 input[type=checkbox], input[type=radio], input[type=range] { width: auto; padding: 0; }
 input[type=range] { width: 100%; }
+/* One height for every field, menu and button : side by side, they line up. */
+button, select, input:not([type=checkbox]):not([type=radio]), .multi summary { height: 32px; }
 a { color: var(--accent); }
 .muted { color: var(--muted); }
 .error { color: var(--danger); }
@@ -72,7 +74,7 @@ main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(380p
 .inline button { white-space: nowrap; }
 button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 #map.picking, #map.picking .leaflet-interactive { cursor: crosshair; }
-.filters input[type=range] { height: 31px; margin: 0; }
+.filters input[type=range] { margin: 0; }
 .km { display: flex; align-items: center; gap: 6px; }
 .km input { width: 76px; }
 .multi { position: relative; color: var(--ink); font-size: 14px; }
@@ -108,7 +110,7 @@ button[aria-pressed="true"] { background: var(--accent); border-color: var(--acc
 .row summary { cursor: pointer; color: var(--muted); }
 .row ul { margin: 4px 0 0; padding-left: 18px; }
 .row li { margin-bottom: 2px; }
-.row li button { padding: 0 6px; font-size: 12px; margin-left: 4px; }
+.row li button { padding: 0 6px; font-size: 12px; margin-left: 4px; height: auto; }
 .flag { font-size: 11px; color: var(--new); margin-left: 4px; }
 #unlocated { margin-top: 14px; }
 #unlocated > summary { cursor: pointer; color: var(--muted); margin-bottom: 8px; }
@@ -185,7 +187,7 @@ button.primary.copied { background: var(--regular); border-color: var(--regular)
 @media (max-width: 860px) {
   body { height: 100dvh; }
   button, select, input, textarea { font-size: 16px; }
-  button, select, input:not([type=checkbox]):not([type=radio]):not([type=range]) { min-height: 40px; }
+  button, select, input:not([type=checkbox]):not([type=radio]):not([type=range]), .multi summary { min-height: 40px; }
 
   .top { padding: 8px 12px; gap: 8px; }
   .top h1 { font-size: 16px; }
