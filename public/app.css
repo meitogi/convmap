@@ -104,7 +104,10 @@ button[aria-pressed="true"] { background: var(--accent); border-color: var(--acc
 .status { margin: 12px 0 0; background: var(--note); border: 1px solid var(--note-line); border-radius: 6px; padding: 8px 10px; }
 
 .row { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; margin-bottom: 7px; }
-.row.flash { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent); }
+.row.located { cursor: pointer; }
+.row.located:hover { border-color: var(--line-strong); }
+#map-card .row.located { cursor: auto; }
+.row.flash, .row.picked { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent); }
 .row > input { margin-top: 3px; align-self: start; }
 .row .body { min-width: 0; }
 .row .name { font-weight: 600; }

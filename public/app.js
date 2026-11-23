@@ -147,6 +147,9 @@ map.attributionControl.setPrefix(false);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© OpenStreetMap' }).addTo(map);
 const zone = L.layerGroup().addTo(map);
 const markers = L.layerGroup().addTo(map);
+// The ring around the event last picked in the list.
+const picked = L.layerGroup().addTo(map);
+const markerOf = {};
 
 function drawZone() {
   zone.clearLayers();
@@ -160,10 +163,12 @@ function drawZone() {
 
 function drawMarkers() {
   markers.clearLayers();
+  picked.clearLayers();
+  for (const id in markerOf) delete markerOf[id];
   for (const { series: s } of visible) {
     if (s.lat == null) continue;
     const id = s.id;
-    L.circleMarker([s.lat, s.lng], { radius: 7, color: '#fff', weight: 1.5, fillColor: TAG_COLORS[s.tag], fillOpacity: 1 })
+    markerOf[id] = L.circleMarker([s.lat, s.lng], { radius: 7, color: '#fff', weight: 1.5, fillColor: TAG_COLORS[s.tag], fillOpacity: 1 })
       .bindTooltip(`${s.name} — ${s.city}`)
       .on('click', (event) => {
         L.DomEvent.stopPropagation(event);
@@ -188,6 +193,25 @@ function showMapCard(id) {
   const close = el('button', { type: 'button' }, 'Fermer');
   close.dataset.close = 'card';
   card.replaceChildren(entry, el('div', { className: 'actions' }, inList, close));
+}
+
+// A click on a row shows its event on the map : centred, ringed, named. On a
+// small screen the map takes the place of the list, with the event's card
+// over it, as when its point is touched.
+function showOnMap(id) {
+  const marker = markerOf[id];
+  if (!marker) return;
+  const position = marker.getLatLng();
+  const small = SMALL.matches;
+  if (small) setView('map');
+  map.setView(position, Math.max(map.getZoom(), 11));
+  picked.clearLayers();
+  L.circleMarker(position, { radius: 13, color: '#1f5fd1', weight: 3, fill: false, interactive: false }).addTo(picked);
+  // Its row stays outlined, so that the list says which point is ringed.
+  for (const row of document.querySelectorAll('.row.picked')) row.classList.remove('picked');
+  $(`row-${id}`)?.classList.add('picked');
+  if (small) showMapCard(id);
+  else marker.openTooltip();
 }
 
 function focusRow(id) {
@@ -506,9 +530,9 @@ function row({ series: s, km }) {
     if (!years.includes(year)) years.push(year);
   }
 
-  return el(
+  const entry = el(
     'article',
-    { className: 'row', id: `row-${id}` },
+    { className: s.lat == null ? 'row' : 'row located', id: `row-${id}` },
     box,
     el(
       'div',
@@ -520,6 +544,8 @@ function row({ series: s, km }) {
       el('details', null, el('summary', null, `${count} édition${count > 1 ? 's' : ''} : ${years.join(', ')}`), el('ul', null, ...editions.map(editionLine))),
     ),
   );
+  entry.dataset.series = id;
+  return entry;
 }
 
 function checkedCount(items) {
@@ -578,8 +604,15 @@ mainArea.addEventListener('change', (event) => {
 });
 
 mainArea.addEventListener('click', (event) => {
-  const button = event.target.closest('button');
-  if (!button) return;
+  const target = event.target;
+  const button = target.closest('button');
+  if (!button) {
+    // A click on a row, but not on one of its links, boxes or menus, nor
+    // the end of a text selection.
+    const entry = target.closest('.row.located');
+    if (entry && !target.closest('a, input, label, summary, .pop-panel, #map-card') && !String(getSelection())) showOnMap(entry.dataset.series);
+    return;
+  }
   const { event: id, copy, focus, close } = button.dataset;
   if (id) openEdit(events.find((e) => e.id === Number(id)));
   else if (copy) copyWith(button, copy);
