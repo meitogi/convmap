@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { decodeEntities, mapEvent } from '../lib/agenda.mjs';
+import { decodeEntities, mapEvent, socialLinks } from '../lib/agenda.mjs';
 import { createManualEvent, deleteManualEvent, deleteSearch, getEvent, getMeta, listEvents, listSearches, openDb, saveSearch, updateEvent, upsertAgenda } from '../lib/db.mjs';
 import { rawEvents } from './helpers.mjs';
 
@@ -23,6 +23,7 @@ test('mapEvent keeps every field of a real event', () => {
     venue: decodeEntities(raw.venue.venue),
     city: 'Cesson-Sévigné',
     zip: raw.venue.zip,
+    country: 'France',
     lat: 48.13200156229,
     lng: -1.6216712603301,
     category: decodeEntities(raw.categories[0].name),
@@ -31,6 +32,8 @@ test('mapEvent keeps every field of a real event', () => {
     organizer: 'Bravo les Rôlistes',
     email: 'contact130051@example.org',
     phone: '01 23 45 67 89',
+    facebook: '',
+    instagram: 'https://www.instagram.com/bravolesrolistes/',
   });
 });
 
@@ -159,4 +162,50 @@ test('an edit that omits a field leaves it alone', () => {
   const edited = updateEvent(db, manual.id, { title: 'Y' });
   assert.equal(edited.url, 'https://example.org/x');
   assert.equal(edited.city, 'Brest');
+});
+
+test('socialLinks reads real events', () => {
+  const links = (title, date) => socialLinks(rawEvents.find((e) => e.title === title && e.start_date.startsWith(date)));
+  // Instagram with a tracking parameter in a custom field, Facebook profile as the website.
+  assert.deepEqual(links('ASOBI', '2024'), { facebook: 'https://www.facebook.com/profile.php?id=100090873729078', instagram: 'https://www.instagram.com/asobi_evenement/' });
+  assert.deepEqual(links('Bravo les Rôlistes : Aventures en Eternium #1', '2026'), {
+    facebook: 'https://www.facebook.com/events/1623250863146184',
+    instagram: 'https://www.instagram.com/bravolesrolistes/',
+  });
+  assert.deepEqual(links('Geek Days Rennes 2026', '2026'), { facebook: '', instagram: '' });
+});
+
+test('socialLinks : a page beats an event link, redirects and posts are ignored', () => {
+  const event = (fields) => ({ custom_fields: {}, organizer: [], website: '', description: '', ...fields });
+  assert.deepEqual(
+    socialLinks(event({ website: 'https://fb.me/e/1MaUbQ5dA', organizer: [{ website: 'https://m.facebook.com/MonSalon/?ref=bookmarks' }] })),
+    { facebook: 'https://www.facebook.com/MonSalon', instagram: '' },
+  );
+  assert.deepEqual(socialLinks(event({ website: 'https://fb.me/e/1MaUbQ5dA' })), { facebook: 'https://fb.me/e/1MaUbQ5dA', instagram: '' });
+  assert.deepEqual(
+    socialLinks(event({ description: '<a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fx.fr&amp;h=AT0">x</a> <a href="https://www.instagram.com/p/Cabc/">post</a>' })),
+    { facebook: '', instagram: '' },
+  );
+  // The description is read only when nothing better exists.
+  const described = { description: 'Invité : https://www.facebook.com/UnInvite et https://www.instagram.com/un_invite.' };
+  assert.deepEqual(socialLinks(event(described)), { facebook: 'https://www.facebook.com/UnInvite', instagram: 'https://www.instagram.com/un_invite/' });
+  assert.deepEqual(
+    socialLinks(event({ ...described, custom_fields: { a: { label: 'x', value: 'https://www.facebook.com/LeSalon' }, b: { label: 'y', value: 'https://instagram.com/le_salon' } } })),
+    { facebook: 'https://www.facebook.com/LeSalon', instagram: 'https://www.instagram.com/le_salon/' },
+  );
+});
+
+test('a base created before a column existed is migrated on open', async () => {
+  const { DatabaseSync } = await import('node:sqlite');
+  const { mkdtempSync } = await import('node:fs');
+  const path = `${mkdtempSync('/tmp/agenda-geek-')}/old.db`;
+  const old = new DatabaseSync(path);
+  old.exec("CREATE TABLE events (id INTEGER PRIMARY KEY, source TEXT NOT NULL, source_id INTEGER UNIQUE, title TEXT NOT NULL, start_date TEXT NOT NULL, end_date TEXT, venue TEXT, city TEXT, zip TEXT, lat REAL, lng REAL, category TEXT, url TEXT, website TEXT, organizer TEXT, email TEXT, phone TEXT, overrides TEXT, note TEXT, gone_at TEXT, fetched_at TEXT)");
+  old.exec("INSERT INTO events (source, title, start_date, note) VALUES ('manual', 'Ancien', '2026-01-01', 'gardé')");
+  old.close();
+  const db = openDb(path);
+  upsertAgenda(db, rows(), 't1');
+  assert.equal(byTitle(db, 'Ancien').note, 'gardé');
+  assert.equal(byTitle(db, 'Geek Days Rennes 2026').country, 'France');
+  assert.equal(byTitle(db, 'ASOBI').instagram, 'https://www.instagram.com/asobi_evenement/');
 });

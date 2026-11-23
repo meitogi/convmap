@@ -23,6 +23,9 @@ l'agenda** (2 à 3 minutes, une cinquantaine de requêtes espacées).
 ## Ce que fait la page
 
 - **Lieu + rayon** — taper une ville ou cliquer sur la carte, régler le rayon.
+- **Régions et départements** — sélection multiple, seule ou combinée au
+  rayon. Le département vient du code postal du lieu ; hors de France, le pays
+  tient lieu de région.
 - **Séries** — une ligne par évènement récurrent, avec toutes ses éditions.
 - **Tags**
 
@@ -38,7 +41,10 @@ l'agenda** (2 à 3 minutes, une cinquantaine de requêtes espacées).
   C'est une extrapolation : elle est toujours libellée « non annoncé ».
 - **Période** — « à venir : annoncé ou probable » avec « à partir de » répond
   à la question « qu'est-ce qu'il y aura dans le coin après telle date ? ».
-- **Recherches enregistrées** — lieu, rayon et filtres sous un nom, à rappeler
+- **Facebook et Instagram** — lus dans ce que l'agenda publie pour chaque
+  évènement (site, site de l'organisateur, champs libres, description en
+  dernier recours). Une page Facebook est préférée à un lien d'évènement.
+- **Recherches enregistrées** — lieu, rayon, régions et filtres sous un nom, à rappeler
   d'un clic.
 - **Ajouter / Modifier** — un évènement ajouté à la main, ou un champ corrigé
   sur un évènement de l'agenda, n'est jamais écrasé par une mise à jour.
@@ -82,6 +88,11 @@ demandes pourra se rattacher.
   comptées comme deux séries.
 - Un évènement sans coordonnées est listé à part, hors rayon, jusqu'à ce qu'on
   lui donne une latitude et une longitude via « Modifier ».
+- Un évènement sans code postal exploitable n'apparaît dans aucune région ni
+  aucun département.
+- Les champs libres de l'agenda contiennent aussi des adresses e-mail de
+  personnes ayant soumis un évènement : elles ne sont pas lues, seuls les
+  liens Facebook et Instagram le sont.
 - Les cases cochées sont gardées par le navigateur, pas par la base.
 
 ## Tests

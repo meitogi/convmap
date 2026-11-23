@@ -13,10 +13,13 @@
    "city": "Halluin",
    "zip": "59250",
    "geo_lat": 50.7800702,
-   "geo_lng": 3.1276321
+   "geo_lng": 3.1276321,
+   "country": "France"
   },
   "organizer": [],
-  "categories": []
+  "categories": [],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 63711,
@@ -32,10 +35,13 @@
    "city": "Portet-sur-Garonne",
    "zip": "31120",
    "geo_lat": 43.5207958,
-   "geo_lng": 1.3992488
+   "geo_lng": 1.3992488,
+   "country": "France"
   },
   "organizer": [],
-  "categories": []
+  "categories": [],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 63403,
@@ -51,7 +57,8 @@
    "city": "Landerneau",
    "zip": "29800",
    "geo_lat": 48.453109,
-   "geo_lng": -4.253665
+   "geo_lng": -4.253665,
+   "country": "France"
   },
   "organizer": [
    {
@@ -60,7 +67,9 @@
     "email": "contact63407@example.org"
    }
   ],
-  "categories": []
+  "categories": [],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 65568,
@@ -76,15 +85,19 @@
    "city": "Bruz",
    "zip": "35170",
    "geo_lat": 48.057678,
-   "geo_lng": -1.733661
+   "geo_lng": -1.733661,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 14243,
-    "organizer": "GL Events"
+    "organizer": "GL Events",
+    "website": "http://www.gl-events.com/"
    }
   ],
-  "categories": []
+  "categories": [],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 64069,
@@ -100,7 +113,8 @@
    "city": "Rennes",
    "zip": "35700",
    "geo_lat": 48.1178725,
-   "geo_lng": -1.6686651
+   "geo_lng": -1.6686651,
+   "country": "France"
   },
   "organizer": [
    {
@@ -109,7 +123,9 @@
     "email": "contact64067@example.org"
    }
   ],
-  "categories": []
+  "categories": [],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 63250,
@@ -125,10 +141,13 @@
    "city": "Crolles",
    "zip": "38920",
    "geo_lat": 45.2802612,
-   "geo_lng": 5.8840366
+   "geo_lng": 5.8840366,
+   "country": "France"
   },
   "organizer": [],
-  "categories": []
+  "categories": [],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 66609,
@@ -144,15 +163,24 @@
    "city": "Pierrelatte",
    "zip": "26700",
    "geo_lat": 44.3766061,
-   "geo_lng": 4.6934149
+   "geo_lng": 4.6934149,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 34935,
-    "organizer": "Troll de jeux (association)"
+    "organizer": "Troll de jeux (association)",
+    "website": "https://www.facebook.com/trolldejeux/"
    }
   ],
-  "categories": []
+  "categories": [],
+  "custom_fields": {
+   "_ecp_custom_7": {
+    "label": "Un petit mot pour l'équipe de L'Agenda Geek ?",
+    "value": "someone@example.org"
+   }
+  },
+  "description": ""
  },
  {
   "id": 63715,
@@ -168,15 +196,19 @@
    "city": "Portet-sur-Garonne",
    "zip": "31120",
    "geo_lat": 43.5207958,
-   "geo_lng": 1.3992488
+   "geo_lng": 1.3992488,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 63717,
-    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)"
+    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)",
+    "website": "https://www.facebook.com/Imaginarium.asso"
    }
   ],
-  "categories": []
+  "categories": [],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 71398,
@@ -192,7 +224,8 @@
    "city": "Montferrier-sur-Lez",
    "zip": "34980",
    "geo_lat": 43.6735095,
-   "geo_lng": 3.8589756
+   "geo_lng": 3.8589756,
+   "country": "France"
   },
   "organizer": [
    {
@@ -201,7 +234,9 @@
     "email": "contact71399@example.org"
    }
   ],
-  "categories": []
+  "categories": [],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 63666,
@@ -217,7 +252,8 @@
    "city": "Epinal",
    "zip": "88000",
    "geo_lat": 48.1859653,
-   "geo_lng": 6.4710522
+   "geo_lng": 6.4710522,
+   "country": "France"
   },
   "organizer": [
    {
@@ -225,7 +261,9 @@
     "organizer": "La ville d&rsquo;Epinal"
    }
   ],
-  "categories": []
+  "categories": [],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 72679,
@@ -241,17 +279,30 @@
    "city": "Orbeil",
    "zip": "63500",
    "geo_lat": 45.562559,
-   "geo_lng": 3.288252
+   "geo_lng": 3.288252,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 72682,
     "organizer": "Imaginaire Arverne",
     "email": "contact72682@example.org",
-    "phone": "01 23 45 67 89"
+    "phone": "01 23 45 67 89",
+    "website": "https://www.imaginaire-arverne.fr"
    }
   ],
-  "categories": []
+  "categories": [],
+  "custom_fields": {
+   "_ecp_custom_4": {
+    "label": "Saisir votre email pour être informé de la mise en ligne de votre événement",
+    "value": "https://www.facebook.com/events/1082080876237566"
+   },
+   "_ecp_custom_7": {
+    "label": "Un petit mot pour l'équipe de L'Agenda Geek ?",
+    "value": "someone@example.org"
+   }
+  },
+  "description": ""
  },
  {
   "id": 63126,
@@ -267,15 +318,19 @@
    "city": "Tours",
    "zip": "37000",
    "geo_lat": 47.3801139,
-   "geo_lng": 0.7264525
+   "geo_lng": 0.7264525,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 14254,
-    "organizer": "Tours Evénements"
+    "organizer": "Tours Evénements",
+    "website": "www.tours-evenements.com"
    }
   ],
-  "categories": []
+  "categories": [],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 64808,
@@ -291,19 +346,32 @@
    "city": "Chivres-Val",
    "zip": "02880",
    "geo_lat": 49.3949922,
-   "geo_lng": 3.4366935
+   "geo_lng": 3.4366935,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 64810,
-    "organizer": "Picardia Steam"
+    "organizer": "Picardia Steam",
+    "website": "https://www.facebook.com/picardia.lechat"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "02 - Aisne"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Hauts-de-France"
+   }
+  },
+  "description": ""
  },
  {
   "id": 69820,
@@ -319,7 +387,8 @@
    "city": "Évreux",
    "zip": "27000",
    "geo_lat": 49.013013,
-   "geo_lng": 1.1188547
+   "geo_lng": 1.1188547,
+   "country": "France"
   },
   "organizer": [
    {
@@ -331,7 +400,18 @@
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "27 - Eure"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Normandie"
+   }
+  },
+  "description": ""
  },
  {
   "id": 79540,
@@ -347,21 +427,46 @@
    "city": "Gétigné",
    "zip": "44190",
    "geo_lat": 47.0795838,
-   "geo_lng": -1.2485137
+   "geo_lng": -1.2485137,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 79544,
     "organizer": "WEARENOVEMBER",
     "email": "contact79544@example.org",
-    "phone": "01 23 45 67 89"
+    "phone": "01 23 45 67 89",
+    "website": "Instagram:@asobi_evenement"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "44 - Loire-atlantique"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Pays de la Loire"
+   },
+   "_ecp_custom_4": {
+    "label": "Saisir votre email pour être informé de la mise en ligne de votre événement",
+    "value": "someone@example.org"
+   },
+   "_ecp_custom_6": {
+    "label": "Compte Instagram officiel",
+    "value": "https://www.instagram.com/asobi_evenement?igsh=MXdqdWQ5cmFsdmRweQ=="
+   },
+   "_ecp_custom_7": {
+    "label": "Un petit mot pour l'équipe de L'Agenda Geek ?",
+    "value": "Merci de votre partage !"
+   }
+  },
+  "description": ""
  },
  {
   "id": 74087,
@@ -377,14 +482,26 @@
    "city": "Halluin",
    "zip": "59250",
    "geo_lat": 50.7800702,
-   "geo_lng": 3.1276321
+   "geo_lng": 3.1276321,
+   "country": "France"
   },
   "organizer": [],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "59 - Nord"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Hauts-de-France"
+   }
+  },
+  "description": ""
  },
  {
   "id": 67499,
@@ -400,7 +517,8 @@
    "city": "Puylaurens",
    "zip": "81700",
    "geo_lat": 43.5716507,
-   "geo_lng": 2.013144
+   "geo_lng": 2.013144,
+   "country": "France"
   },
   "organizer": [
    {
@@ -412,7 +530,18 @@
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "81 - Tarn"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Occitanie"
+   }
+  },
+  "description": ""
  },
  {
   "id": 79944,
@@ -428,19 +557,32 @@
    "city": "Bruz",
    "zip": "35170",
    "geo_lat": 48.057678,
-   "geo_lng": -1.733661
+   "geo_lng": -1.733661,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 14243,
-    "organizer": "GL Events"
+    "organizer": "GL Events",
+    "website": "http://www.gl-events.com/"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "35 - Ille-et-vilaine"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Bretagne"
+   }
+  },
+  "description": ""
  },
  {
   "id": 79213,
@@ -456,19 +598,32 @@
    "city": "Tours",
    "zip": "37000",
    "geo_lat": 47.390921,
-   "geo_lng": 0.69277080000006
+   "geo_lng": 0.69277080000006,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 14254,
-    "organizer": "Tours Evénements"
+    "organizer": "Tours Evénements",
+    "website": "www.tours-evenements.com"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "37 - Indre-et-loire"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Centre-Val de Loire"
+   }
+  },
+  "description": ""
  },
  {
   "id": 84501,
@@ -484,7 +639,8 @@
    "city": "Rennes",
    "zip": "35700",
    "geo_lat": 48.1178725,
-   "geo_lng": -1.6686651
+   "geo_lng": -1.6686651,
+   "country": "France"
   },
   "organizer": [
    {
@@ -497,7 +653,18 @@
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "35 - Ille-et-vilaine"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Bretagne"
+   }
+  },
+  "description": ""
  },
  {
   "id": 77393,
@@ -513,19 +680,32 @@
    "city": "Portet-sur-Garonne",
    "zip": "31120",
    "geo_lat": 43.5207958,
-   "geo_lng": 1.3992488
+   "geo_lng": 1.3992488,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 63717,
-    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)"
+    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)",
+    "website": "https://www.facebook.com/Imaginarium.asso"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "31 - Haute-garonne"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Occitanie"
+   }
+  },
+  "description": ""
  },
  {
   "id": 86221,
@@ -541,20 +721,49 @@
    "city": "Villeurbanne",
    "zip": "69100",
    "geo_lat": 45.7837039,
-   "geo_lng": 4.87722
+   "geo_lng": 4.87722,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 33571,
     "organizer": "Cluji INSA Lyon",
-    "email": "contact33571@example.org"
+    "email": "contact33571@example.org",
+    "website": "https://cluji.fr/"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "69 - Rhône"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Auvergne-Rhône-Alpes"
+   },
+   "_ecp_custom_4": {
+    "label": "Saisir votre email pour être informé de la mise en ligne de votre événement",
+    "value": "someone@example.org"
+   },
+   "_ecp_custom_5": {
+    "label": "Evènement Facebook officiel",
+    "value": "https://www.facebook.com/events/1533785428030896"
+   },
+   "_ecp_custom_6": {
+    "label": "Compte Instagram officiel",
+    "value": "https://www.instagram.com/cluji_insa/"
+   },
+   "_ecp_custom_7": {
+    "label": "Un petit mot pour l'équipe de L'Agenda Geek ?",
+    "value": "Vous pouvez venir nous passer un coucou également ;)"
+   }
+  },
+  "description": ""
  },
  {
   "id": 79567,
@@ -570,7 +779,8 @@
    "city": "Epinal",
    "zip": "88000",
    "geo_lat": 48.1859653,
-   "geo_lng": 6.4710522
+   "geo_lng": 6.4710522,
+   "country": "France"
   },
   "organizer": [
    {
@@ -582,7 +792,18 @@
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "88 - Vosges"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Grand Est"
+   }
+  },
+  "description": ""
  },
  {
   "id": 85073,
@@ -598,20 +819,24 @@
    "city": "Nantes",
    "zip": "44000",
    "geo_lat": 47.2131393,
-   "geo_lng": -1.5441359
+   "geo_lng": -1.5441359,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 68130,
     "organizer": "Grandes Scenes by Musicalta",
-    "phone": "01 23 45 67 89"
+    "phone": "01 23 45 67 89",
+    "website": "https://www.grandes-scenes.com"
    }
   ],
   "categories": [
    {
     "name": "Soirée / concert / spectacle"
    }
-  ]
+  ],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 85081,
@@ -627,20 +852,24 @@
    "city": "Nantes",
    "zip": "44000",
    "geo_lat": 47.2131393,
-   "geo_lng": -1.5441359
+   "geo_lng": -1.5441359,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 68130,
     "organizer": "Grandes Scenes by Musicalta",
-    "phone": "01 23 45 67 89"
+    "phone": "01 23 45 67 89",
+    "website": "https://www.grandes-scenes.com"
    }
   ],
   "categories": [
    {
     "name": "Soirée / concert / spectacle"
    }
-  ]
+  ],
+  "custom_fields": {},
+  "description": ""
  },
  {
   "id": 78256,
@@ -656,19 +885,32 @@
    "city": "Tours",
    "zip": "37000",
    "geo_lat": 47.3801139,
-   "geo_lng": 0.7264525
+   "geo_lng": 0.7264525,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 14254,
-    "organizer": "Tours Evénements"
+    "organizer": "Tours Evénements",
+    "website": "www.tours-evenements.com"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "37 - Indre-et-loire"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Centre-Val de Loire"
+   }
+  },
+  "description": ""
  },
  {
   "id": 92551,
@@ -684,7 +926,8 @@
    "city": "Gémenos",
    "zip": "13420",
    "geo_lat": 43.2952098,
-   "geo_lng": 5.6279057
+   "geo_lng": 5.6279057,
+   "country": "France"
   },
   "organizer": [
    {
@@ -696,7 +939,18 @@
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "13 - Bouches-du-Rhône"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Provence-Alpes-Côte d_Azur"
+   }
+  },
+  "description": ""
  },
  {
   "id": 91568,
@@ -712,21 +966,50 @@
    "city": "Saint-Cannat",
    "zip": "13760",
    "geo_lat": 43.622022,
-   "geo_lng": 5.29861
+   "geo_lng": 5.29861,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 91571,
     "organizer": "Mairie de Saint-Cannat / Métropole Aix-Marseille-Provence",
     "email": "contact91571@example.org",
-    "phone": "01 23 45 67 89"
+    "phone": "01 23 45 67 89",
+    "website": "https://saint-cannat.fr/festimageek/"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "13 - Bouches-du-Rhône"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Provence-Alpes-Côte d_Azur"
+   },
+   "_ecp_custom_4": {
+    "label": "Saisir votre email pour être informé de la mise en ligne de votre événement",
+    "value": "someone@example.org"
+   },
+   "_ecp_custom_5": {
+    "label": "Evènement Facebook officiel",
+    "value": "https://www.facebook.com/Festimageek/"
+   },
+   "_ecp_custom_6": {
+    "label": "Compte Instagram officiel",
+    "value": "https://www.instagram.com/festimageek/"
+   },
+   "_ecp_custom_7": {
+    "label": "Un petit mot pour l'équipe de L'Agenda Geek ?",
+    "value": "un grand merci pour votre super travail pas mal de gens sont venus sur Notre événement qrace a votre site.\r\n"
+   }
+  },
+  "description": ""
  },
  {
   "id": 81182,
@@ -742,19 +1025,32 @@
    "city": "Eppe-Sauvage",
    "zip": "59132",
    "geo_lat": 50.1193416,
-   "geo_lng": 4.1780246
+   "geo_lng": 4.1780246,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 64810,
-    "organizer": "Picardia Steam"
+    "organizer": "Picardia Steam",
+    "website": "https://www.facebook.com/picardia.lechat"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "59 - Nord"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Hauts-de-France"
+   }
+  },
+  "description": ""
  },
  {
   "id": 113629,
@@ -770,7 +1066,8 @@
    "city": "Puylaurens",
    "zip": "81700",
    "geo_lat": 43.5716507,
-   "geo_lng": 2.013144
+   "geo_lng": 2.013144,
+   "country": "France"
   },
   "organizer": [
    {
@@ -782,7 +1079,18 @@
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "81 - Tarn"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Occitanie"
+   }
+  },
+  "description": ""
  },
  {
   "id": 116093,
@@ -798,19 +1106,32 @@
    "city": "Bruz",
    "zip": "35170",
    "geo_lat": 48.057678,
-   "geo_lng": -1.733661
+   "geo_lng": -1.733661,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 14243,
-    "organizer": "GL Events"
+    "organizer": "GL Events",
+    "website": "http://www.gl-events.com/"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "35 - Ille-et-vilaine"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Bretagne"
+   }
+  },
+  "description": ""
  },
  {
   "id": 92766,
@@ -826,19 +1147,32 @@
    "city": "Tours",
    "zip": "37000",
    "geo_lat": 47.390921,
-   "geo_lng": 0.69277080000006
+   "geo_lng": 0.69277080000006,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 14254,
-    "organizer": "Tours Evénements"
+    "organizer": "Tours Evénements",
+    "website": "www.tours-evenements.com"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "37 - Indre-et-loire"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Centre-Val de Loire"
+   }
+  },
+  "description": ""
  },
  {
   "id": 95166,
@@ -854,14 +1188,26 @@
    "city": "Crolles",
    "zip": "38920",
    "geo_lat": 45.2802612,
-   "geo_lng": 5.8840366
+   "geo_lng": 5.8840366,
+   "country": "France"
   },
   "organizer": [],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "38 - Isère"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Auvergne-Rhône-Alpes"
+   }
+  },
+  "description": ""
  },
  {
   "id": 115074,
@@ -877,19 +1223,32 @@
    "city": "Portet-sur-Garonne",
    "zip": "31120",
    "geo_lat": 43.5207958,
-   "geo_lng": 1.3992488
+   "geo_lng": 1.3992488,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 63717,
-    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)"
+    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)",
+    "website": "https://www.facebook.com/Imaginarium.asso"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "31 - Haute-garonne"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Occitanie"
+   }
+  },
+  "description": ""
  },
  {
   "id": 119576,
@@ -905,21 +1264,50 @@
    "city": "Gétigné",
    "zip": "44190",
    "geo_lat": 47.0795838,
-   "geo_lng": -1.2485137
+   "geo_lng": -1.2485137,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 79544,
     "organizer": "WEARENOVEMBER",
     "email": "contact79544@example.org",
-    "phone": "01 23 45 67 89"
+    "phone": "01 23 45 67 89",
+    "website": "Instagram:@asobi_evenement"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "44 - Loire-atlantique"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Pays de la Loire"
+   },
+   "_ecp_custom_4": {
+    "label": "Saisir votre email pour être informé de la mise en ligne de votre événement",
+    "value": "someone@example.org"
+   },
+   "_ecp_custom_5": {
+    "label": "Evènement Facebook officiel",
+    "value": "https://www.facebook.com/profile.php?id=100090873729078"
+   },
+   "_ecp_custom_6": {
+    "label": "Compte Instagram officiel",
+    "value": "https://www.instagram.com/asobi_evenement/"
+   },
+   "_ecp_custom_7": {
+    "label": "Un petit mot pour l'équipe de L'Agenda Geek ?",
+    "value": "Merci pour votre travail !"
+   }
+  },
+  "description": ""
  },
  {
   "id": 119359,
@@ -933,14 +1321,34 @@
    {
     "id": 33571,
     "organizer": "Cluji INSA Lyon",
-    "email": "contact33571@example.org"
+    "email": "contact33571@example.org",
+    "website": "https://cluji.fr/"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "69 - Rhône"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Auvergne-Rhône-Alpes"
+   },
+   "_ecp_custom_5": {
+    "label": "Evènement Facebook officiel",
+    "value": "https://www.facebook.com/events/879180981663720"
+   },
+   "_ecp_custom_6": {
+    "label": "Compte Instagram officiel",
+    "value": "https://www.instagram.com/cluji_insa/"
+   }
+  },
+  "description": "<a href=\"https://www.facebook.com/events/879180981663720\">lien</a> <a href=\"https://www.instagram.com/cluji_insa/\">lien</a>"
  },
  {
   "id": 115079,
@@ -956,7 +1364,8 @@
    "city": "Epinal",
    "zip": "88000",
    "geo_lat": 48.1859653,
-   "geo_lng": 6.4710522
+   "geo_lng": 6.4710522,
+   "country": "France"
   },
   "organizer": [
    {
@@ -968,7 +1377,18 @@
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "88 - Vosges"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Grand Est"
+   }
+  },
+  "description": ""
  },
  {
   "id": 95144,
@@ -984,19 +1404,32 @@
    "city": "Tours",
    "zip": "37000",
    "geo_lat": 47.3801139,
-   "geo_lng": 0.7264525
+   "geo_lng": 0.7264525,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 14254,
-    "organizer": "Tours Evénements"
+    "organizer": "Tours Evénements",
+    "website": "www.tours-evenements.com"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "37 - Indre-et-loire"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Centre-Val de Loire"
+   }
+  },
+  "description": ""
  },
  {
   "id": 116983,
@@ -1012,19 +1445,32 @@
    "city": "Chivres-Val",
    "zip": "02880",
    "geo_lat": 49.3949922,
-   "geo_lng": 3.4366935
+   "geo_lng": 3.4366935,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 64810,
-    "organizer": "Picardia Steam"
+    "organizer": "Picardia Steam",
+    "website": "https://www.facebook.com/picardia.lechat"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "02 - Aisne"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Hauts-de-France"
+   }
+  },
+  "description": ""
  },
  {
   "id": 129344,
@@ -1040,14 +1486,42 @@
    "city": "Cesson-Sévigné",
    "zip": "35510",
    "geo_lat": 48.13200156229,
-   "geo_lng": -1.6216712603301
+   "geo_lng": -1.6216712603301,
+   "country": "France"
   },
   "organizer": [],
   "categories": [
    {
     "name": "Soirée / concert / spectacle"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "35 - Ille-et-vilaine"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Bretagne"
+   },
+   "_ecp_custom_4": {
+    "label": "Saisir votre email pour être informé de la mise en ligne de votre événement",
+    "value": "someone@example.org"
+   },
+   "_ecp_custom_5": {
+    "label": "Evènement Facebook officiel",
+    "value": "https://www.facebook.com/events/1623250863146184"
+   },
+   "_ecp_custom_6": {
+    "label": "Compte Instagram officiel",
+    "value": "https://www.instagram.com/bravolesrolistes/"
+   },
+   "_ecp_custom_7": {
+    "label": "Un petit mot pour l'équipe de L'Agenda Geek ?",
+    "value": "Bonjour, merci beaucoup pour ce site !"
+   }
+  },
+  "description": ""
  },
  {
   "id": 130048,
@@ -1063,7 +1537,8 @@
    "city": "Cesson-Sévigné",
    "zip": "35510",
    "geo_lat": 48.13200156229,
-   "geo_lng": -1.6216712603301
+   "geo_lng": -1.6216712603301,
+   "country": "France"
   },
   "organizer": [
    {
@@ -1077,7 +1552,30 @@
    {
     "name": "Soirée / concert / spectacle"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "35 - Ille-et-vilaine"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Bretagne"
+   },
+   "_ecp_custom_4": {
+    "label": "Saisir votre email pour être informé de la mise en ligne de votre événement",
+    "value": "someone@example.org"
+   },
+   "_ecp_custom_6": {
+    "label": "Compte Instagram officiel",
+    "value": "https://www.instagram.com/bravolesrolistes/"
+   },
+   "_ecp_custom_7": {
+    "label": "Un petit mot pour l'équipe de L'Agenda Geek ?",
+    "value": "Bonjour, merci beaucoup pour votre site et bon courage ! "
+   }
+  },
+  "description": ""
  },
  {
   "id": 123898,
@@ -1093,14 +1591,26 @@
    "city": "Halluin",
    "zip": "59250",
    "geo_lat": 50.7800702,
-   "geo_lng": 3.1276321
+   "geo_lng": 3.1276321,
+   "country": "France"
   },
   "organizer": [],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "59 - Nord"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Hauts-de-France"
+   }
+  },
+  "description": ""
  },
  {
   "id": 131240,
@@ -1116,7 +1626,8 @@
    "city": "Puylaurens",
    "zip": "81700",
    "geo_lat": 43.5716507,
-   "geo_lng": 2.013144
+   "geo_lng": 2.013144,
+   "country": "France"
   },
   "organizer": [
    {
@@ -1128,7 +1639,18 @@
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "81 - Tarn"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Occitanie"
+   }
+  },
+  "description": ""
  },
  {
   "id": 129850,
@@ -1144,19 +1666,32 @@
    "city": "Tours",
    "zip": "37000",
    "geo_lat": 47.390921,
-   "geo_lng": 0.69277080000006
+   "geo_lng": 0.69277080000006,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 14254,
-    "organizer": "Tours Evénements"
+    "organizer": "Tours Evénements",
+    "website": "www.tours-evenements.com"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "37 - Indre-et-loire"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Centre-Val de Loire"
+   }
+  },
+  "description": ""
  },
  {
   "id": 127899,
@@ -1172,19 +1707,32 @@
    "city": "Portet-sur-Garonne",
    "zip": "31120",
    "geo_lat": 43.5207958,
-   "geo_lng": 1.3992488
+   "geo_lng": 1.3992488,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 63717,
-    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)"
+    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)",
+    "website": "https://www.facebook.com/Imaginarium.asso"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "31 - Haute-garonne"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Occitanie"
+   }
+  },
+  "description": ""
  },
  {
   "id": 129699,
@@ -1200,7 +1748,8 @@
    "city": "Epinal",
    "zip": "88000",
    "geo_lat": 48.1859653,
-   "geo_lng": 6.4710522
+   "geo_lng": 6.4710522,
+   "country": "France"
   },
   "organizer": [
    {
@@ -1212,7 +1761,18 @@
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "88 - Vosges"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Grand Est"
+   }
+  },
+  "description": ""
  },
  {
   "id": 130131,
@@ -1228,14 +1788,26 @@
    "city": "Orgon",
    "zip": "13660",
    "geo_lat": 43.792321833368,
-   "geo_lng": 5.0296515846564
+   "geo_lng": 5.0296515846564,
+   "country": "France"
   },
   "organizer": [],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "13 - Bouches-du-Rhône"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Provence-Alpes-Côte d_Azur"
+   }
+  },
+  "description": ""
  },
  {
   "id": 130904,
@@ -1251,18 +1823,31 @@
    "city": "Tours",
    "zip": "37000",
    "geo_lat": 47.3801139,
-   "geo_lng": 0.7264525
+   "geo_lng": 0.7264525,
+   "country": "France"
   },
   "organizer": [
    {
     "id": 14254,
-    "organizer": "Tours Evénements"
+    "organizer": "Tours Evénements",
+    "website": "www.tours-evenements.com"
    }
   ],
   "categories": [
    {
     "name": "Salon / convention / brocante"
    }
-  ]
+  ],
+  "custom_fields": {
+   "_ecp_custom_2": {
+    "label": "Département",
+    "value": "37 - Indre-et-loire"
+   },
+   "_ecp_custom_3": {
+    "label": "Région",
+    "value": "Centre-Val de Loire"
+   }
+  },
+  "description": ""
  }
 ]

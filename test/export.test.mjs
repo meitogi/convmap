@@ -48,6 +48,7 @@ Bravo les Rôlistes : Aventures en Eternium — Cesson-Sévigné, à 4 km
 Pas de prochaine édition annoncée
 Déjà eu lieu en octobre 2026 et novembre 2026
 ${BRAVO_SITE}
+Instagram : https://www.instagram.com/bravolesrolistes/
 `,
   );
 });
@@ -62,6 +63,7 @@ Bravo les Rôlistes : Aventures en Eternium — Cesson-Sévigné
 Pas de prochaine édition annoncée
 Déjà eu lieu en octobre 2026 et novembre 2026
 ${BRAVO_SITE}
+Instagram : https://www.instagram.com/bravolesrolistes/
 Contact : Bravo les Rôlistes — contact130051@example.org — 01 23 45 67 89
 `,
   );
@@ -71,10 +73,10 @@ test('tab-separated text fills a spreadsheet', () => {
   assert.equal(
     toTsv(items.slice(0, 3), options),
     [
-      'Évènement\tVille\tDistance km\tProchaine édition\tAnnoncée\tÉditions passées\tTag\tSite',
-      'Geek Days Rennes\tBruz\t12\tfévrier 2027\tprobable\t02/2024, 02/2025, 02/2026\trégulier\thttps://www.geek-days.com/rennes/',
-      'Japan Tours Festival\tTours\t204\t02/07/2027\toui\t06/2024, 06/2025, 07/2026\trégulier\thttp://www.japantoursfestival.com/',
-      'Roazhon Japan\tRennes\t1\t\t\t03/2024, 03/2025\ten pause ?\thttps://roazhonjapan.fr/',
+      'Évènement\tVille\tDistance km\tProchaine édition\tAnnoncée\tÉditions passées\tTag\tSite\tFacebook\tInstagram',
+      'Geek Days Rennes\tBruz\t12\tfévrier 2027\tprobable\t02/2024, 02/2025, 02/2026\trégulier\thttps://www.geek-days.com/rennes/\t\t',
+      'Japan Tours Festival\tTours\t204\t02/07/2027\toui\t06/2024, 06/2025, 07/2026\trégulier\thttp://www.japantoursfestival.com/\t\t',
+      'Roazhon Japan\tRennes\t1\t\t\t03/2024, 03/2025\ten pause ?\thttps://roazhonjapan.fr/\t\t',
       '',
     ].join('\n'),
   );
@@ -85,8 +87,8 @@ test('contacts are extra columns, only on request', () => {
   assert.ok(!without.includes('example.org') && !without.includes('ACECFJM'));
   assert.equal(
     toTsv([items[2]], { ...options, contacts: true }),
-    'Évènement\tVille\tDistance km\tProchaine édition\tAnnoncée\tÉditions passées\tTag\tSite\tOrganisateur\tEmail\tTéléphone\n' +
-      `Roazhon Japan\tRennes\t1\t\t\t03/2024, 03/2025\ten pause ?\thttps://roazhonjapan.fr/\t${ROAZHON_ORGANIZER}\tcontact64067@example.org\t\n`,
+    'Évènement\tVille\tDistance km\tProchaine édition\tAnnoncée\tÉditions passées\tTag\tSite\tFacebook\tInstagram\tOrganisateur\tEmail\tTéléphone\n' +
+      `Roazhon Japan\tRennes\t1\t\t\t03/2024, 03/2025\ten pause ?\thttps://roazhonjapan.fr/\t\t\t${ROAZHON_ORGANIZER}\tcontact64067@example.org\t\n`,
   );
 });
 
@@ -94,10 +96,10 @@ test('csv : BOM, semicolons, CRLF, quoting', () => {
   const tricky = { series: { ...items[0].series, name: 'Salon "A" ; B', city: 'Bruz\tx' }, km: 11.6 };
   assert.equal(
     toCsv([tricky], options),
-    '\uFEFFÉvènement;Ville;Distance km;Prochaine édition;Annoncée;Éditions passées;Tag;Site\r\n' +
-      '"Salon ""A"" ; B";Bruz\tx;12;février 2027;probable;02/2024, 02/2025, 02/2026;régulier;https://www.geek-days.com/rennes/\r\n',
+    '\uFEFFÉvènement;Ville;Distance km;Prochaine édition;Annoncée;Éditions passées;Tag;Site;Facebook;Instagram\r\n' +
+      '"Salon ""A"" ; B";Bruz\tx;12;février 2027;probable;02/2024, 02/2025, 02/2026;régulier;https://www.geek-days.com/rennes/;;\r\n',
   );
-  assert.equal(toTsv([tricky], options).split('\n')[1].split('\t').length, 8);
+  assert.equal(toTsv([tricky], options).split('\n')[1].split('\t').length, 10);
 });
 
 test('markdown table', () => {
@@ -106,9 +108,27 @@ test('markdown table', () => {
     toMarkdown([tricky], { today: TODAY }),
     `# Évènements
 
-| Évènement | Ville | Distance km | Prochaine édition | Annoncée | Éditions passées | Tag | Site |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| A \\| B | Tours |  | 02/07/2027 | oui | 06/2024, 06/2025, 07/2026 | régulier | http://www.japantoursfestival.com/ |
+| Évènement | Ville | Distance km | Prochaine édition | Annoncée | Éditions passées | Tag | Site | Facebook | Instagram |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| A \\| B | Tours |  | 02/07/2027 | oui | 06/2024, 06/2025, 07/2026 | régulier | http://www.japantoursfestival.com/ |  |  |
 `,
   );
+});
+
+test('social links : their own lines, and no repeat of a website that is one', () => {
+  const ludigeek = series.find((s) => s.name === 'Ludigeek Festival');
+  assert.equal(
+    toText([{ series: ludigeek, km: null }], { today: TODAY, areas: ['Hauts-de-France', 'Nord (59)'] }),
+    `Évènements — Hauts-de-France, Nord (59)
+
+Ludigeek Festival — Halluin
+Prochaine édition : pas encore annoncée, probablement novembre 2027
+Déjà eu lieu en novembre 2022, 2024 et 2026
+Facebook : https://www.facebook.com/Ludigeek
+`,
+  );
+  const asobi = series.find((s) => s.name === 'ASOBI');
+  const text = toText([{ series: asobi, km: null }], { today: TODAY });
+  assert.ok(text.includes('\nhttps://maps.app.goo.gl/K7HzN79gM5WcBDA56\nFacebook : https://www.facebook.com/profile.php?id=100090873729078\nInstagram : https://www.instagram.com/asobi_evenement/\n'), text);
+  assert.ok(toTsv([{ series: asobi, km: null }], { today: TODAY }).endsWith('\thttps://www.facebook.com/profile.php?id=100090873729078\thttps://www.instagram.com/asobi_evenement/\n'));
 });

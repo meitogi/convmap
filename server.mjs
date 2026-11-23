@@ -9,7 +9,7 @@ const PORT = Number(process.env.PORT) || 4180;
 const HOST = process.env.HOST || '127.0.0.1';
 const ROOT = fileURLToPath(new URL('.', import.meta.url));
 
-// Everything the page may load : its own files, and the three modules it
+// Everything the page may load : its own files, and the modules it
 // shares with the server.
 const FILES = {
   '/': 'public/index.html',
@@ -18,6 +18,7 @@ const FILES = {
   '/vendor/leaflet/leaflet.js': 'public/vendor/leaflet/leaflet.js',
   '/vendor/leaflet/leaflet.css': 'public/vendor/leaflet/leaflet.css',
   '/lib/geo.mjs': 'lib/geo.mjs',
+  '/lib/area.mjs': 'lib/area.mjs',
   '/lib/series.mjs': 'lib/series.mjs',
   '/lib/export.mjs': 'lib/export.mjs',
 };

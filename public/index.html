@@ -56,6 +56,12 @@
       <label>Catégorie
         <select id="category"><option value="">Toutes</option></select>
       </label>
+      <div class="field">Régions / pays
+        <details class="multi" id="regions"><summary></summary><div class="options"></div></details>
+      </div>
+      <div class="field">Départements
+        <details class="multi" id="departments"><summary></summary><div class="options"></div></details>
+      </div>
       <label class="wide">Recherche
         <input id="search" type="search" placeholder="Nom, ville, organisateur">
       </label>
@@ -111,6 +117,7 @@
       <label>Lieu <input name="venue"></label>
       <label>Ville <input name="city" list="cities" autocomplete="off"></label>
       <label>Code postal <input name="zip"></label>
+      <label>Pays <input name="country"></label>
       <label>Catégorie <input name="category"></label>
       <label>Latitude <input name="lat" inputmode="decimal"></label>
       <label>Longitude <input name="lng" inputmode="decimal"></label>
@@ -118,6 +125,8 @@
       <label>Organisateur <input name="organizer"></label>
       <label>Email <input name="email" type="email"></label>
       <label>Téléphone <input name="phone"></label>
+      <label>Facebook <input name="facebook" type="url"></label>
+      <label>Instagram <input name="instagram" type="url"></label>
       <label class="wide">Note <textarea name="note" rows="2"></textarea></label>
     </div>
     <p id="edit-error" class="error" hidden></p>

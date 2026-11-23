@@ -1,3 +1,4 @@
+import { areaOf, DEPARTMENTS, REGIONS } from '/lib/area.mjs';
 import { monthLabel, rangeLabel, TAG_LABELS, toCsv, toMarkdown, toText, toTsv } from '/lib/export.mjs';
 import { distanceKm } from '/lib/geo.mjs';
 import { buildSeries } from '/lib/series.mjs';
@@ -32,6 +33,8 @@ const state = {
   radius: saved.radius || 100,
   period: saved.period || 'all',
   from: saved.from || '',
+  regions: saved.regions || [],
+  departments: saved.departments || [],
   checked: saved.checked || {},
 };
 function save() {
@@ -168,13 +171,32 @@ async function load() {
     if (city && lat != null) cities[fold(city)] ??= { name: city, lat, lng: event.lng };
     if (category && !categories.includes(category)) categories.push(category);
   }
+  const regionCounts = {};
+  const departmentCounts = {};
   for (const s of series) {
+    const area = areaOf(s.zip, s.country);
+    if (area) {
+      const { region, department } = area;
+      regionCounts[region] = (regionCounts[region] || 0) + 1;
+      if (department) departmentCounts[department] = (departmentCounts[department] || 0) + 1;
+    }
     extras[s.id] = {
+      area,
       haystack: fold(`${s.name} ${s.city} ${s.organizer}`),
       sort: sortKey(s),
       last: s.editions[s.editions.length - 1].start_date,
     };
   }
+
+  // French regions first, then the countries the agenda also covers.
+  const regionOptions = [];
+  for (const region in regionCounts) regionOptions.push({ value: region, label: region, count: regionCounts[region] });
+  regionOptions.sort((a, b) => !!REGIONS[b.value] - !!REGIONS[a.value] || a.label.localeCompare(b.label, 'fr'));
+  fillMulti('regions', regionOptions);
+  const departmentOptions = [];
+  for (const code in departmentCounts) departmentOptions.push({ value: code, label: `${code} — ${DEPARTMENTS[code].name}`, count: departmentCounts[code] });
+  departmentOptions.sort((a, b) => (a.value < b.value ? -1 : 1));
+  fillMulti('departments', departmentOptions);
 
   const names = [];
   for (const key in cities) names.push(cities[key].name);
@@ -208,7 +230,8 @@ function activeFrom() {
 }
 
 function compute() {
-  const { anchor, radius, period } = state;
+  const { anchor, radius, period, regions, departments } = state;
+  const inArea = regions.length + departments.length > 0;
   const from = activeFrom();
   const tag = $('tag').value;
   const category = $('category').value;
@@ -223,7 +246,12 @@ function compute() {
     if (period === 'announced' && !(upcoming && upcoming.announced)) continue;
     if (period === 'past' && upcoming) continue;
     if (from && upcoming.month < from) continue;
-    if (words && !extras[s.id].haystack.includes(words)) continue;
+    const extra = extras[s.id];
+    if (words && !extra.haystack.includes(words)) continue;
+    if (inArea) {
+      const area = extra.area;
+      if (!area || !(regions.includes(area.region) || departments.includes(area.department))) continue;
+    }
     if (!anchor) {
       visible.push({ series: s, km: null });
     } else if (s.lat == null) {
@@ -260,6 +288,7 @@ function editionLine(edition) {
 
 function row({ series: s, km }) {
   const { id, upcoming, editions, website, email } = s;
+  const area = extras[id].area;
   const box = el('input', { type: 'checkbox', checked: !!state.checked[id], title: 'Cocher pour exporter' });
   box.dataset.series = id;
 
@@ -269,10 +298,14 @@ function row({ series: s, km }) {
   else next = el('div', { className: 'line next probable' }, `Probable : ${monthLabel(upcoming.month)} (non annoncé)`);
 
   const contact = [];
-  if (website) contact.push(link(website, website.replace(/^https?:\/\/(www\.)?/i, '').replace(/\/.*$/, '')));
+  // A website that is itself a social link is shown once, as that link.
+  const social = (s.facebook || s.instagram) && /facebook\.com|fb\.me|instagram\.com/i.test(website);
+  if (website && !social) contact.push(link(website, website.replace(/^https?:\/\/(www\.)?/i, '').replace(/\/.*$/, '')));
   if (s.organizer) contact.push(s.organizer);
   if (email) contact.push(el('a', { href: `mailto:${email}` }, email));
   if (s.phone) contact.push(s.phone);
+  if (s.facebook) contact.push(link(s.facebook, 'Facebook'));
+  if (s.instagram) contact.push(link(s.instagram, 'Instagram'));
   const contactLine = el('div', { className: 'line' });
   contact.forEach((part, index) => contactLine.append(index ? ' · ' : '', part));
 
@@ -291,7 +324,7 @@ function row({ series: s, km }) {
       'div',
       { className: 'body' },
       el('div', { className: 'name' }, s.name, el('span', { className: `tag ${s.tag}` }, TAG_LABELS[s.tag])),
-      el('div', { className: 'line' }, [s.city, km == null ? '' : `${Math.round(km)} km`, s.category].filter(Boolean).join(' · ')),
+      el('div', { className: 'line' }, [area && area.department ? `${s.city} (${area.department})` : s.city, km == null ? '' : `${Math.round(km)} km`, s.category].filter(Boolean).join(' · ')),
       next,
       contact.length ? contactLine : '',
       el('details', null, el('summary', null, `${count} édition${count > 1 ? 's' : ''} : ${years.join(', ')}`), el('ul', null, ...editions.map(editionLine))),
@@ -352,6 +385,74 @@ $('check-all').addEventListener('click', () => checkVisible(true));
 $('check-none').addEventListener('click', () => checkVisible(false));
 
 // ─── Filters ────────────────────────────────────────────────────────────
+
+const MULTI_EMPTY = { regions: 'Toutes', departments: 'Tous' };
+
+// The names of the selected regions and departments, for a title.
+function areaLabels() {
+  return state.regions.concat(state.departments.map((code) => (DEPARTMENTS[code] ? `${DEPARTMENTS[code].name} (${code})` : code)));
+}
+
+function multiSummary(id) {
+  const selected = state[id];
+  const count = selected.length;
+  let text = MULTI_EMPTY[id];
+  if (count > 2) text = `${count} sélectionnés`;
+  else if (count) text = (id === 'regions' ? selected : areaLabels().slice(state.regions.length)).join(', ');
+  $(id).firstElementChild.textContent = text;
+}
+
+// options : [{ value, label, count }] — count is the number of series there.
+function fillMulti(id, options) {
+  const selected = state[id];
+  const clear = el('button', { type: 'button' }, 'Tout décocher');
+  clear.dataset.clear = id;
+  $(id).lastElementChild.replaceChildren(
+    clear,
+    ...options.map(({ value, label, count }) => el('label', null, el('input', { type: 'checkbox', value, checked: selected.includes(value) }), label, el('span', null, String(count)))),
+  );
+  multiSummary(id);
+}
+
+function syncMulti(id) {
+  const selected = state[id];
+  for (const box of $(id).querySelectorAll('input')) box.checked = selected.includes(box.value);
+  multiSummary(id);
+}
+
+// With no anchor, the map follows what the list shows.
+function fitVisible() {
+  if (state.anchor) return;
+  const points = [];
+  for (const { series: s } of visible) if (s.lat != null) points.push([s.lat, s.lng]);
+  if (points.length) map.fitBounds(points, { padding: [20, 20], maxZoom: 11 });
+}
+
+function areaChanged(id) {
+  save();
+  multiSummary(id);
+  render();
+  fitVisible();
+}
+
+for (const id of ['regions', 'departments']) {
+  $(id).addEventListener('change', () => {
+    const values = [];
+    for (const box of $(id).querySelectorAll('input:checked')) values.push(box.value);
+    state[id] = values;
+    areaChanged(id);
+  });
+  $(id).addEventListener('click', (event) => {
+    if (event.target.dataset.clear !== id) return;
+    state[id] = [];
+    syncMulti(id);
+    areaChanged(id);
+  });
+}
+// A click anywhere else closes an open list.
+document.addEventListener('click', (event) => {
+  for (const multi of document.querySelectorAll('.multi[open]')) if (!multi.contains(event.target)) multi.open = false;
+});
 
 function syncFilters() {
   const radius = state.radius;
@@ -425,6 +526,10 @@ $('searches').addEventListener('change', (event) => {
   state.radius = params.radius || 100;
   state.period = params.period || 'all';
   state.from = params.from || '';
+  state.regions = params.regions || [];
+  state.departments = params.departments || [];
+  syncMulti('regions');
+  syncMulti('departments');
   $('tag').value = params.tag || '';
   $('category').value = params.category || '';
   $('search').value = params.search || '';
@@ -434,6 +539,7 @@ $('searches').addEventListener('change', (event) => {
   showStatus('');
   drawZone();
   render();
+  fitVisible();
 });
 
 $('search-save').addEventListener('click', async () => {
@@ -444,6 +550,8 @@ $('search-save').addEventListener('click', async () => {
     radius: state.radius,
     period: state.period,
     from: state.from,
+    regions: state.regions,
+    departments: state.departments,
     tag: $('tag').value,
     category: $('category').value,
     search: $('search').value,
@@ -474,6 +582,7 @@ function exportOutput() {
     today,
     place: anchor ? anchor.label : '',
     radiusKm: state.radius,
+    areas: areaLabels(),
     fromMonth: activeFrom(),
     contacts: $('export-contacts').checked,
   });
