@@ -1,0 +1,1268 @@
+[
+ {
+  "id": 63734,
+  "title": "LUDIGEEK FESTIVAL 5 EDITION",
+  "start_date": "2022-11-12 10:00:00",
+  "end_date": "2022-11-13 19:00:00",
+  "url": "https://lagendageek.com/tevent/ludigeek-festival-5-edition/",
+  "website": "https://www.facebook.com/events/511024644239589",
+  "venue": {
+   "id": 63733,
+   "venue": "Halluin (59) &#8211; Salle du Manège",
+   "address": "Place Jacquard",
+   "city": "Halluin",
+   "zip": "59250",
+   "geo_lat": 50.7800702,
+   "geo_lng": 3.1276321
+  },
+  "organizer": [],
+  "categories": []
+ },
+ {
+  "id": 63711,
+  "title": "L&rsquo;Imagina&rsquo;Livres 8ème édition",
+  "start_date": "2023-04-15 10:00:00",
+  "end_date": "2023-04-16 18:00:00",
+  "url": "https://lagendageek.com/tevent/limaginalivres-8eme-edition/",
+  "website": "https://www.facebook.com/events/1580063359087255",
+  "venue": {
+   "id": 63710,
+   "venue": "Portet-sur-Garonne (31) &#8211; Salle du Confluent",
+   "address": "rue de l'Hôtel de Ville",
+   "city": "Portet-sur-Garonne",
+   "zip": "31120",
+   "geo_lat": 43.5207958,
+   "geo_lng": 1.3992488
+  },
+  "organizer": [],
+  "categories": []
+ },
+ {
+  "id": 63403,
+  "title": "SUR LES TRACES DE TOLKIEN",
+  "start_date": "2023-06-25 00:00:00",
+  "end_date": "2024-01-28 23:59:59",
+  "url": "https://lagendageek.com/tevent/sur-les-traces-de-tolkien/",
+  "website": "https://www.fonds-culturel-leclerc.fr/-venir-sur-les-traces-de-tolkien-et-de-l-imaginaire-mdival-646-25-0-0.html",
+  "venue": {
+   "id": 63406,
+   "venue": "Landernau (29) &#8211; Fonds Hélène &#038; Édouard Leclerc pour la Culture",
+   "address": "71 Rue de la Fontaine Blanche, Rue des Capucins",
+   "city": "Landerneau",
+   "zip": "29800",
+   "geo_lat": 48.453109,
+   "geo_lng": -4.253665
+  },
+  "organizer": [
+   {
+    "id": 63407,
+    "organizer": "Fonds Hélène&#038;Édouard Leclerc pour la Culture",
+    "email": "contact63407@example.org"
+   }
+  ],
+  "categories": []
+ },
+ {
+  "id": 65568,
+  "title": "Geek Days Rennes 2024",
+  "start_date": "2024-02-17 00:00:00",
+  "end_date": "2024-02-18 23:59:59",
+  "url": "https://lagendageek.com/tevent/geek-days-rennes-2024/",
+  "website": "https://www.geek-days.com/rennes/",
+  "venue": {
+   "id": 13471,
+   "venue": "Bruz (35) – Parc Expo Rennes Aéroport",
+   "address": "La Haie Gautrais",
+   "city": "Bruz",
+   "zip": "35170",
+   "geo_lat": 48.057678,
+   "geo_lng": -1.733661
+  },
+  "organizer": [
+   {
+    "id": 14243,
+    "organizer": "GL Events"
+   }
+  ],
+  "categories": []
+ },
+ {
+  "id": 64069,
+  "title": "Roazhon Japan",
+  "start_date": "2024-03-16 00:00:00",
+  "end_date": "2024-03-16 23:59:59",
+  "url": "https://lagendageek.com/tevent/roazhon-japan/",
+  "website": "https://roazhonjapan.fr/",
+  "venue": {
+   "id": 13928,
+   "venue": "Rennes (35) – IGR-IAE",
+   "address": "11 Rue Jean Macé",
+   "city": "Rennes",
+   "zip": "35700",
+   "geo_lat": 48.1178725,
+   "geo_lng": -1.6686651
+  },
+  "organizer": [
+   {
+    "id": 64067,
+    "organizer": "Association Culturelle des Étudiants du Centre Franco-Japonais de Management (ACECFJM)",
+    "email": "contact64067@example.org"
+   }
+  ],
+  "categories": []
+ },
+ {
+  "id": 63250,
+  "title": "Gresimaginaire 2024",
+  "start_date": "2024-04-06 00:00:00",
+  "end_date": "2024-04-07 23:59:59",
+  "url": "https://lagendageek.com/tevent/gresimaginaire-2024/",
+  "website": "https://www.facebook.com/Gresimaginaire.salondulivre/",
+  "venue": {
+   "id": 33655,
+   "venue": "Crolles (38) &#8211; Gymnase La Marelles",
+   "address": "Rue Leo Lagrange",
+   "city": "Crolles",
+   "zip": "38920",
+   "geo_lat": 45.2802612,
+   "geo_lng": 5.8840366
+  },
+  "organizer": [],
+  "categories": []
+ },
+ {
+  "id": 66609,
+  "title": "Salon du Geek et de l&rsquo;Imaginaire fantastique 2024",
+  "start_date": "2024-04-26 00:00:00",
+  "end_date": "2024-04-28 23:59:59",
+  "url": "https://lagendageek.com/tevent/salon-du-geek-et-de-limaginaire-fantastique-2024/",
+  "website": "https://www.facebook.com/trolldejeux/",
+  "venue": {
+   "id": 34897,
+   "venue": "Pierrelatte (26) &#8211; Salle des fêtes",
+   "address": "7 Avenue Maréchal Juin",
+   "city": "Pierrelatte",
+   "zip": "26700",
+   "geo_lat": 44.3766061,
+   "geo_lng": 4.6934149
+  },
+  "organizer": [
+   {
+    "id": 34935,
+    "organizer": "Troll de jeux (association)"
+   }
+  ],
+  "categories": []
+ },
+ {
+  "id": 63715,
+  "title": "L&rsquo;Imagina&rsquo;Livres 2024",
+  "start_date": "2024-04-27 00:00:00",
+  "end_date": "2024-04-28 23:59:59",
+  "url": "https://lagendageek.com/tevent/limaginalivres-2024/",
+  "website": "https://limagin-arium.com/limaginalivres/9eme-edition/",
+  "venue": {
+   "id": 63710,
+   "venue": "Portet-sur-Garonne (31) &#8211; Salle du Confluent",
+   "address": "rue de l'Hôtel de Ville",
+   "city": "Portet-sur-Garonne",
+   "zip": "31120",
+   "geo_lat": 43.5207958,
+   "geo_lng": 1.3992488
+  },
+  "organizer": [
+   {
+    "id": 63717,
+    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)"
+   }
+  ],
+  "categories": []
+ },
+ {
+  "id": 71398,
+  "title": "Salon Imaginaire et Fantastique",
+  "start_date": "2024-05-11 00:00:00",
+  "end_date": "2024-05-12 23:59:59",
+  "url": "https://lagendageek.com/tevent/salon-imaginaire-et-fantastique/",
+  "website": "https://www.facebook.com/profile.php?id=61554422140484",
+  "venue": {
+   "id": 71395,
+   "venue": "Montferrier-sur-Lez (34) &#8211; Salle du Dévézou",
+   "address": "Le Devézou, Chem. des Tennis",
+   "city": "Montferrier-sur-Lez",
+   "zip": "34980",
+   "geo_lat": 43.6735095,
+   "geo_lng": 3.8589756
+  },
+  "organizer": [
+   {
+    "id": 71399,
+    "organizer": "association imaginaire et fantastique",
+    "email": "contact71399@example.org"
+   }
+  ],
+  "categories": []
+ },
+ {
+  "id": 63666,
+  "title": "Les Imaginales 2024",
+  "start_date": "2024-05-23 00:00:00",
+  "end_date": "2024-05-26 23:59:59",
+  "url": "https://lagendageek.com/tevent/les-imaginales-2024/",
+  "website": "https://www.imaginales.fr/",
+  "venue": {
+   "id": 13536,
+   "venue": "Epinal (88) – Centre des congrès",
+   "address": "7 Avenue St Dié",
+   "city": "Epinal",
+   "zip": "88000",
+   "geo_lat": 48.1859653,
+   "geo_lng": 6.4710522
+  },
+  "organizer": [
+   {
+    "id": 17058,
+    "organizer": "La ville d&rsquo;Epinal"
+   }
+  ],
+  "categories": []
+ },
+ {
+  "id": 72679,
+  "title": "Assemblée Ludique Imaginaire Arverne 2024",
+  "start_date": "2024-06-22 12:00:00",
+  "end_date": "2024-06-23 18:00:00",
+  "url": "https://lagendageek.com/tevent/assemblee-ludique-imaginaire-arverne-2024/",
+  "website": "https://www.imaginaire-arverne.fr/alia-n3/",
+  "venue": {
+   "id": 72681,
+   "venue": "Orbeil (63) &#8211; Salle des Fêtes",
+   "address": "Chemin d'Ybois",
+   "city": "Orbeil",
+   "zip": "63500",
+   "geo_lat": 45.562559,
+   "geo_lng": 3.288252
+  },
+  "organizer": [
+   {
+    "id": 72682,
+    "organizer": "Imaginaire Arverne",
+    "email": "contact72682@example.org",
+    "phone": "01 23 45 67 89"
+   }
+  ],
+  "categories": []
+ },
+ {
+  "id": 63126,
+  "title": "Japan Tours Festival 2024",
+  "start_date": "2024-06-28 10:00:00",
+  "end_date": "2024-06-30 18:00:00",
+  "url": "https://lagendageek.com/tevent/japan-tours-festival-2024/",
+  "website": "http://www.japantoursfestival.com/",
+  "venue": {
+   "id": 63125,
+   "venue": "Tours (37) – Parc des Expositions de Tours",
+   "address": "Avenue Jacques Duclos",
+   "city": "Tours",
+   "zip": "37000",
+   "geo_lat": 47.3801139,
+   "geo_lng": 0.7264525
+  },
+  "organizer": [
+   {
+    "id": 14254,
+    "organizer": "Tours Evénements"
+   }
+  ],
+  "categories": []
+ },
+ {
+  "id": 64808,
+  "title": "Voyag&rsquo;imaginaire 2024",
+  "start_date": "2024-09-07 00:00:00",
+  "end_date": "2024-09-08 23:59:59",
+  "url": "https://lagendageek.com/tevent/voyagimaginaire-2024/",
+  "website": "https://www.facebook.com/picardia.lechat",
+  "venue": {
+   "id": 64809,
+   "venue": "Chivres-Val (02) &#8211; Fort de Condé",
+   "address": "3 Rue du Capitaine Pestel",
+   "city": "Chivres-Val",
+   "zip": "02880",
+   "geo_lat": 49.3949922,
+   "geo_lng": 3.4366935
+  },
+  "organizer": [
+   {
+    "id": 64810,
+    "organizer": "Picardia Steam"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 69820,
+  "title": "Salon de l&rsquo;Imaginaire d&rsquo;Evreux",
+  "start_date": "2024-09-21 00:00:00",
+  "end_date": "2024-09-22 23:59:59",
+  "url": "https://lagendageek.com/tevent/salon-de-limaginaire-devreux/",
+  "website": "https://www.imagin-con.org/salon-imaginaire",
+  "venue": {
+   "id": 69818,
+   "venue": "Evreux (27) &#8211; Aux Jardins de Joséphine",
+   "address": "3 Rue du domaine",
+   "city": "Évreux",
+   "zip": "27000",
+   "geo_lat": 49.013013,
+   "geo_lng": 1.1188547
+  },
+  "organizer": [
+   {
+    "id": 19958,
+    "organizer": "Imagin&rsquo; Con (association)"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 79540,
+  "title": "ASOBI",
+  "start_date": "2024-10-25 18:00:00",
+  "end_date": "2024-10-26 22:00:00",
+  "url": "https://lagendageek.com/tevent/asobi/",
+  "website": "https://www.facebook.com/profile.php?id=100090873729078",
+  "venue": {
+   "id": 79543,
+   "venue": "Gétigné (44) &#8211; Espace Bellevue",
+   "address": "Rue du Pont Jean Vay 30",
+   "city": "Gétigné",
+   "zip": "44190",
+   "geo_lat": 47.0795838,
+   "geo_lng": -1.2485137
+  },
+  "organizer": [
+   {
+    "id": 79544,
+    "organizer": "WEARENOVEMBER",
+    "email": "contact79544@example.org",
+    "phone": "01 23 45 67 89"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 74087,
+  "title": "Ludigeek Festival 2024",
+  "start_date": "2024-11-09 00:00:00",
+  "end_date": "2024-11-10 23:59:59",
+  "url": "https://lagendageek.com/tevent/2024/",
+  "website": "https://www.facebook.com/Ludigeek",
+  "venue": {
+   "id": 63733,
+   "venue": "Halluin (59) &#8211; Salle du Manège",
+   "address": "Place Jacquard",
+   "city": "Halluin",
+   "zip": "59250",
+   "geo_lat": 50.7800702,
+   "geo_lng": 3.1276321
+  },
+  "organizer": [],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 67499,
+  "title": "Festival de l&rsquo;Imaginaire de Puylaurens 2024",
+  "start_date": "2024-12-07 00:00:00",
+  "end_date": "2024-12-08 23:59:59",
+  "url": "https://lagendageek.com/tevent/festival-de-limaginaire-de-puylaurens-2024/",
+  "website": "https://www.facebook.com/Festival-de-lImaginaire-de-Puylaurens-FIP-107954185281192/",
+  "venue": {
+   "id": 67503,
+   "venue": "Puylaurens (81) &#8211; Halle aux Grains",
+   "address": "1-5 Av. de Toulouse",
+   "city": "Puylaurens",
+   "zip": "81700",
+   "geo_lat": 43.5716507,
+   "geo_lng": 2.013144
+  },
+  "organizer": [
+   {
+    "id": 26480,
+    "organizer": "Chitra"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 79944,
+  "title": "Geek Days Rennes 2025",
+  "start_date": "2025-02-08 00:00:00",
+  "end_date": "2025-02-09 23:59:59",
+  "url": "https://lagendageek.com/tevent/geek-days-rennes-2025/",
+  "website": "https://www.geek-days.com/rennes/",
+  "venue": {
+   "id": 13471,
+   "venue": "Bruz (35) – Parc Expo Rennes Aéroport",
+   "address": "La Haie Gautrais",
+   "city": "Bruz",
+   "zip": "35170",
+   "geo_lat": 48.057678,
+   "geo_lng": -1.733661
+  },
+  "organizer": [
+   {
+    "id": 14243,
+    "organizer": "GL Events"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 79213,
+  "title": "Korean Tours Festival 2025",
+  "start_date": "2025-02-22 00:00:00",
+  "end_date": "2025-02-23 23:59:59",
+  "url": "https://lagendageek.com/tevent/korean-tours-festival-2025/",
+  "website": "https://www.facebook.com/profile.php?id=61558607384284",
+  "venue": {
+   "id": 14024,
+   "venue": "Tours (37) – Centre international de congrès",
+   "address": "26-28 Boulevard Heurteloup",
+   "city": "Tours",
+   "zip": "37000",
+   "geo_lat": 47.390921,
+   "geo_lng": 0.69277080000006
+  },
+  "organizer": [
+   {
+    "id": 14254,
+    "organizer": "Tours Evénements"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 84501,
+  "title": "Roazhon Japan 2025",
+  "start_date": "2025-03-08 00:00:00",
+  "end_date": "2025-03-08 23:59:59",
+  "url": "https://lagendageek.com/tevent/roazhon-japan-2025/",
+  "website": "https://roazhonjapan.fr/",
+  "venue": {
+   "id": 13928,
+   "venue": "Rennes (35) – IGR-IAE",
+   "address": "11 Rue Jean Macé",
+   "city": "Rennes",
+   "zip": "35700",
+   "geo_lat": 48.1178725,
+   "geo_lng": -1.6686651
+  },
+  "organizer": [
+   {
+    "id": 64067,
+    "organizer": "Association Culturelle des Étudiants du Centre Franco-Japonais de Management (ACECFJM)",
+    "email": "contact64067@example.org"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 77393,
+  "title": "L&rsquo;Imagina&rsquo;Livres 2025",
+  "start_date": "2025-04-05 00:00:00",
+  "end_date": "2025-04-06 23:59:59",
+  "url": "https://lagendageek.com/tevent/limaginalivres-2025/",
+  "website": "https://limagin-arium.com/limaginalivres/",
+  "venue": {
+   "id": 63710,
+   "venue": "Portet-sur-Garonne (31) &#8211; Salle du Confluent",
+   "address": "rue de l'Hôtel de Ville",
+   "city": "Portet-sur-Garonne",
+   "zip": "31120",
+   "geo_lat": 43.5207958,
+   "geo_lng": 1.3992488
+  },
+  "organizer": [
+   {
+    "id": 63717,
+    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 86221,
+  "title": "Convention de l&rsquo;Imaginaire de l&rsquo;INSA Lyon (CIIL) 2025",
+  "start_date": "2025-04-11 20:00:00",
+  "end_date": "2025-04-13 18:00:00",
+  "url": "https://lagendageek.com/tevent/convention-de-limaginaire-de-linsa-lyon-ciil-2025/",
+  "website": "https://www.facebook.com/events/1533785428030896",
+  "venue": {
+   "id": 14049,
+   "venue": "Villeurbanne (69) – INSA de Lyon",
+   "address": "20 avenue Albert Einstein",
+   "city": "Villeurbanne",
+   "zip": "69100",
+   "geo_lat": 45.7837039,
+   "geo_lng": 4.87722
+  },
+  "organizer": [
+   {
+    "id": 33571,
+    "organizer": "Cluji INSA Lyon",
+    "email": "contact33571@example.org"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 79567,
+  "title": "Les Imaginales 2025",
+  "start_date": "2025-05-22 00:00:00",
+  "end_date": "2025-05-25 23:59:59",
+  "url": "https://lagendageek.com/tevent/les-imaginales-2025/",
+  "website": "https://www.imaginales.fr/",
+  "venue": {
+   "id": 13536,
+   "venue": "Epinal (88) – Centre des congrès",
+   "address": "7 Avenue St Dié",
+   "city": "Epinal",
+   "zip": "88000",
+   "geo_lat": 48.1859653,
+   "geo_lng": 6.4710522
+  },
+  "organizer": [
+   {
+    "id": 17058,
+    "organizer": "La ville d&rsquo;Epinal"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 85073,
+  "title": "Les Plus Belles Musiques des Films de Miyazaki",
+  "start_date": "2025-06-14 20:30:00",
+  "end_date": "2025-06-14 21:45:00",
+  "url": "https://lagendageek.com/tevent/les-plus-belles-musiques-des-films-de-miyazaki-6/",
+  "website": "https://grandes-scenes-billetterie.tickandlive.com/reserver/les-plus-belles-musiques-des-films-de-miyazaki-2/80553",
+  "venue": {
+   "id": 85070,
+   "venue": "Cité des Congrès",
+   "address": "5 Rue de Valmy",
+   "city": "Nantes",
+   "zip": "44000",
+   "geo_lat": 47.2131393,
+   "geo_lng": -1.5441359
+  },
+  "organizer": [
+   {
+    "id": 68130,
+    "organizer": "Grandes Scenes by Musicalta",
+    "phone": "01 23 45 67 89"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Soirée / concert / spectacle"
+   }
+  ]
+ },
+ {
+  "id": 85081,
+  "title": "Les Plus Belles Musiques des Films de Miyazaki",
+  "start_date": "2025-06-15 17:00:00",
+  "end_date": "2025-06-15 18:15:00",
+  "url": "https://lagendageek.com/tevent/les-plus-belles-musiques-des-films-de-miyazaki-7/",
+  "website": "https://grandes-scenes-billetterie.tickandlive.com/reserver/les-plus-belles-musiques-des-films-de-miyazaki-2/80554",
+  "venue": {
+   "id": 85070,
+   "venue": "Cité des Congrès",
+   "address": "5 Rue de Valmy",
+   "city": "Nantes",
+   "zip": "44000",
+   "geo_lat": 47.2131393,
+   "geo_lng": -1.5441359
+  },
+  "organizer": [
+   {
+    "id": 68130,
+    "organizer": "Grandes Scenes by Musicalta",
+    "phone": "01 23 45 67 89"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Soirée / concert / spectacle"
+   }
+  ]
+ },
+ {
+  "id": 78256,
+  "title": "Japan Tours Festival 2025",
+  "start_date": "2025-06-27 00:00:00",
+  "end_date": "2025-06-29 23:59:59",
+  "url": "https://lagendageek.com/tevent/japan-tours-festival-2025/",
+  "website": "http://www.japantoursfestival.com/",
+  "venue": {
+   "id": 63125,
+   "venue": "Tours (37) – Parc des Expositions de Tours",
+   "address": "Avenue Jacques Duclos",
+   "city": "Tours",
+   "zip": "37000",
+   "geo_lat": 47.3801139,
+   "geo_lng": 0.7264525
+  },
+  "organizer": [
+   {
+    "id": 14254,
+    "organizer": "Tours Evénements"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 92551,
+  "title": "Salon du jeu de Rôle, du Rêve et de l&rsquo;Imaginaire 2025",
+  "start_date": "2025-08-30 10:00:00",
+  "end_date": "2025-08-31 18:00:00",
+  "url": "https://lagendageek.com/tevent/salon-du-jeu-de-role-du-reve-et-de-limaginaire-2025/",
+  "website": "https://www.google.com/maps/place/Salle+Jean+Jaur%C3%A8s/@43.2950366,5.6263704,17.5z/data=!4m6!3m5!1s0x12c9a38d665f7a11:0x24e590a3e1e3657d!8m2!3d43.2952098!4d5.6279057!16s%2Fg%2F11vbf70p61?entry=ttu&amp;g_ep=EgoyMDI1MDcwOS4wIKXMDSoASAFQAw%3D%3D",
+  "venue": {
+   "id": 92562,
+   "venue": "Gémenos (13) &#8211; Salle Jean Jaurès",
+   "address": "salle Jean Jaurès",
+   "city": "Gémenos",
+   "zip": "13420",
+   "geo_lat": 43.2952098,
+   "geo_lng": 5.6279057
+  },
+  "organizer": [
+   {
+    "id": 92563,
+    "organizer": "RollN&rsquo;Troll"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 91568,
+  "title": "Festival de l’Imaginaire  Geek Family &amp; Autres Mondes",
+  "start_date": "2025-10-11 00:00:00",
+  "end_date": "2025-10-11 23:59:59",
+  "url": "https://lagendageek.com/tevent/festival-de-limaginaire-geek-family-autres-mondes/",
+  "website": "https://saint-cannat.fr/festimageek/",
+  "venue": {
+   "id": 75967,
+   "venue": "Saint-Cannat (13) &#8211; Salle du 4 septembre",
+   "address": "Avenue Jules Guesde",
+   "city": "Saint-Cannat",
+   "zip": "13760",
+   "geo_lat": 43.622022,
+   "geo_lng": 5.29861
+  },
+  "organizer": [
+   {
+    "id": 91571,
+    "organizer": "Mairie de Saint-Cannat / Métropole Aix-Marseille-Provence",
+    "email": "contact91571@example.org",
+    "phone": "01 23 45 67 89"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 81182,
+  "title": "Voyag&rsquo;imaginaire 2025",
+  "start_date": "2025-10-25 00:00:00",
+  "end_date": "2025-10-26 23:59:59",
+  "url": "https://lagendageek.com/tevent/voyagimaginaire-2025/",
+  "website": "https://www.facebook.com/Valjolymaginaire",
+  "venue": {
+   "id": 112950,
+   "venue": "Eppe-Sauvage (59) &#8211; Maison du Val Joly",
+   "address": "1 Rue de Verdun",
+   "city": "Eppe-Sauvage",
+   "zip": "59132",
+   "geo_lat": 50.1193416,
+   "geo_lng": 4.1780246
+  },
+  "organizer": [
+   {
+    "id": 64810,
+    "organizer": "Picardia Steam"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 113629,
+  "title": "Festival de l&rsquo;Imaginaire de Puylaurens 2025",
+  "start_date": "2025-12-13 00:00:00",
+  "end_date": "2025-12-14 23:59:59",
+  "url": "https://lagendageek.com/tevent/festival-de-limaginaire-de-puylaurens-2025/",
+  "website": "https://www.facebook.com/events/s/fip-v-festival-de-limaginaire-/1116071673373113/",
+  "venue": {
+   "id": 67503,
+   "venue": "Puylaurens (81) &#8211; Halle aux Grains",
+   "address": "1-5 Av. de Toulouse",
+   "city": "Puylaurens",
+   "zip": "81700",
+   "geo_lat": 43.5716507,
+   "geo_lng": 2.013144
+  },
+  "organizer": [
+   {
+    "id": 26480,
+    "organizer": "Chitra"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 116093,
+  "title": "Geek Days Rennes 2026",
+  "start_date": "2026-02-07 00:00:00",
+  "end_date": "2026-02-08 23:59:59",
+  "url": "https://lagendageek.com/tevent/geek-days-rennes-2026/",
+  "website": "https://www.geek-days.com/rennes/",
+  "venue": {
+   "id": 13471,
+   "venue": "Bruz (35) – Parc Expo Rennes Aéroport",
+   "address": "La Haie Gautrais",
+   "city": "Bruz",
+   "zip": "35170",
+   "geo_lat": 48.057678,
+   "geo_lng": -1.733661
+  },
+  "organizer": [
+   {
+    "id": 14243,
+    "organizer": "GL Events"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 92766,
+  "title": "Korean Tours Festival 2026",
+  "start_date": "2026-02-27 00:00:00",
+  "end_date": "2026-03-01 23:59:59",
+  "url": "https://lagendageek.com/tevent/korean-tours-festival-2026/",
+  "website": "https://www.koreantoursfestival.com/",
+  "venue": {
+   "id": 14024,
+   "venue": "Tours (37) – Centre international de congrès",
+   "address": "26-28 Boulevard Heurteloup",
+   "city": "Tours",
+   "zip": "37000",
+   "geo_lat": 47.390921,
+   "geo_lng": 0.69277080000006
+  },
+  "organizer": [
+   {
+    "id": 14254,
+    "organizer": "Tours Evénements"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 95166,
+  "title": "Gresimaginaire 2026",
+  "start_date": "2026-03-28 00:00:00",
+  "end_date": "2026-03-29 23:59:59",
+  "url": "https://lagendageek.com/tevent/gresimaginaire-2026/",
+  "website": "https://www.facebook.com/Gresimaginaire.salondulivre/",
+  "venue": {
+   "id": 33655,
+   "venue": "Crolles (38) &#8211; Gymnase La Marelles",
+   "address": "Rue Leo Lagrange",
+   "city": "Crolles",
+   "zip": "38920",
+   "geo_lat": 45.2802612,
+   "geo_lng": 5.8840366
+  },
+  "organizer": [],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 115074,
+  "title": "L&rsquo;Imagina&rsquo;Livres 2026",
+  "start_date": "2026-04-11 00:00:00",
+  "end_date": "2026-04-12 23:59:59",
+  "url": "https://lagendageek.com/tevent/limaginalivres-2026/",
+  "website": "https://limagin-arium.com/limaginalivres/",
+  "venue": {
+   "id": 63710,
+   "venue": "Portet-sur-Garonne (31) &#8211; Salle du Confluent",
+   "address": "rue de l'Hôtel de Ville",
+   "city": "Portet-sur-Garonne",
+   "zip": "31120",
+   "geo_lat": 43.5207958,
+   "geo_lng": 1.3992488
+  },
+  "organizer": [
+   {
+    "id": 63717,
+    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 119576,
+  "title": "ASOBI",
+  "start_date": "2026-04-17 14:00:00",
+  "end_date": "2026-04-18 22:00:00",
+  "url": "https://lagendageek.com/tevent/asobi-2/",
+  "website": "https://maps.app.goo.gl/K7HzN79gM5WcBDA56",
+  "venue": {
+   "id": 79543,
+   "venue": "Gétigné (44) &#8211; Espace Bellevue",
+   "address": "Rue du Pont Jean Vay 30",
+   "city": "Gétigné",
+   "zip": "44190",
+   "geo_lat": 47.0795838,
+   "geo_lng": -1.2485137
+  },
+  "organizer": [
+   {
+    "id": 79544,
+    "organizer": "WEARENOVEMBER",
+    "email": "contact79544@example.org",
+    "phone": "01 23 45 67 89"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 119359,
+  "title": "CIILberpunk, Convention de l&rsquo;Imaginaire de l&rsquo;INSA Lyon",
+  "start_date": "2026-05-09 08:00:00",
+  "end_date": "2026-05-10 17:00:00",
+  "url": "https://lagendageek.com/tevent/ciilberpunk-convention-de-limaginaire-de-linsa-lyon/",
+  "website": "https://www.facebook.com/events/879180981663720",
+  "venue": [],
+  "organizer": [
+   {
+    "id": 33571,
+    "organizer": "Cluji INSA Lyon",
+    "email": "contact33571@example.org"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 115079,
+  "title": "Les Imaginales 2026",
+  "start_date": "2026-05-28 00:00:00",
+  "end_date": "2026-05-31 23:59:59",
+  "url": "https://lagendageek.com/tevent/les-imaginales-2026/",
+  "website": "https://www.imaginales.fr/",
+  "venue": {
+   "id": 13536,
+   "venue": "Epinal (88) – Centre des congrès",
+   "address": "7 Avenue St Dié",
+   "city": "Epinal",
+   "zip": "88000",
+   "geo_lat": 48.1859653,
+   "geo_lng": 6.4710522
+  },
+  "organizer": [
+   {
+    "id": 17058,
+    "organizer": "La ville d&rsquo;Epinal"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 95144,
+  "title": "Japan Tours Festival 2026",
+  "start_date": "2026-07-03 00:00:00",
+  "end_date": "2026-07-05 23:59:59",
+  "url": "https://lagendageek.com/tevent/japan-tours-festival-2026/",
+  "website": "http://www.japantoursfestival.com/",
+  "venue": {
+   "id": 63125,
+   "venue": "Tours (37) – Parc des Expositions de Tours",
+   "address": "Avenue Jacques Duclos",
+   "city": "Tours",
+   "zip": "37000",
+   "geo_lat": 47.3801139,
+   "geo_lng": 0.7264525
+  },
+  "organizer": [
+   {
+    "id": 14254,
+    "organizer": "Tours Evénements"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 116983,
+  "title": "Voyag&rsquo;imaginaire 2026",
+  "start_date": "2026-09-12 00:00:00",
+  "end_date": "2026-09-13 23:59:59",
+  "url": "https://lagendageek.com/tevent/voyagimaginaire-2026/",
+  "website": "https://www.facebook.com/picardia.lechat",
+  "venue": {
+   "id": 64809,
+   "venue": "Chivres-Val (02) &#8211; Fort de Condé",
+   "address": "3 Rue du Capitaine Pestel",
+   "city": "Chivres-Val",
+   "zip": "02880",
+   "geo_lat": 49.3949922,
+   "geo_lng": 3.4366935
+  },
+  "organizer": [
+   {
+    "id": 64810,
+    "organizer": "Picardia Steam"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 129344,
+  "title": "Bravo les Rôlistes : Aventures en Eternium #1",
+  "start_date": "2026-10-04 15:00:00",
+  "end_date": "2026-10-04 23:00:00",
+  "url": "https://lagendageek.com/tevent/bravo-les-rolistes-aventures-en-eternium-1/",
+  "website": "https://www.helloasso.com/associations/bravo-les-rolistes/evenements/bravo-les-rolistes-actualplay-sur-scene",
+  "venue": {
+   "id": 129334,
+   "venue": "Cesson-Sévigné (35) &#8211; Creative Seeds",
+   "address": "3679 Boulevard des Alliés",
+   "city": "Cesson-Sévigné",
+   "zip": "35510",
+   "geo_lat": 48.13200156229,
+   "geo_lng": -1.6216712603301
+  },
+  "organizer": [],
+  "categories": [
+   {
+    "name": "Soirée / concert / spectacle"
+   }
+  ]
+ },
+ {
+  "id": 130048,
+  "title": "Bravo les Rôlistes : Aventures en Eternium #2",
+  "start_date": "2026-11-01 15:00:00",
+  "end_date": "2026-11-01 23:00:00",
+  "url": "https://lagendageek.com/tevent/bravo-les-rolistes-aventures-en-eternium-2/",
+  "website": "https://www.helloasso.com/associations/bravo-les-rolistes/evenements/bravo-les-rolistes-actualplay-sur-scene-1er-novembre-2026",
+  "venue": {
+   "id": 129334,
+   "venue": "Cesson-Sévigné (35) &#8211; Creative Seeds",
+   "address": "3679 Boulevard des Alliés",
+   "city": "Cesson-Sévigné",
+   "zip": "35510",
+   "geo_lat": 48.13200156229,
+   "geo_lng": -1.6216712603301
+  },
+  "organizer": [
+   {
+    "id": 130051,
+    "organizer": "Bravo les Rôlistes",
+    "email": "contact130051@example.org",
+    "phone": "01 23 45 67 89"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Soirée / concert / spectacle"
+   }
+  ]
+ },
+ {
+  "id": 123898,
+  "title": "Ludigeek Festival 2026",
+  "start_date": "2026-11-14 00:00:00",
+  "end_date": "2026-11-15 23:59:59",
+  "url": "https://lagendageek.com/tevent/ludigeek-festival-2026/",
+  "website": "https://www.facebook.com/Ludigeek",
+  "venue": {
+   "id": 63733,
+   "venue": "Halluin (59) &#8211; Salle du Manège",
+   "address": "Place Jacquard",
+   "city": "Halluin",
+   "zip": "59250",
+   "geo_lat": 50.7800702,
+   "geo_lng": 3.1276321
+  },
+  "organizer": [],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 131240,
+  "title": "Festival de l’Imaginaire et de la Bande Dessinée de Puylaurens 2026",
+  "start_date": "2026-12-05 00:00:00",
+  "end_date": "2026-12-06 23:59:59",
+  "url": "https://lagendageek.com/tevent/festival-de-limaginaire-de-puylaurens/",
+  "website": "https://www.facebook.com/Festival.Imaginaire.Puylaurens",
+  "venue": {
+   "id": 67503,
+   "venue": "Puylaurens (81) &#8211; Halle aux Grains",
+   "address": "1-5 Av. de Toulouse",
+   "city": "Puylaurens",
+   "zip": "81700",
+   "geo_lat": 43.5716507,
+   "geo_lng": 2.013144
+  },
+  "organizer": [
+   {
+    "id": 26480,
+    "organizer": "Chitra"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 129850,
+  "title": "Korean Tours Festival",
+  "start_date": "2027-02-26 00:00:00",
+  "end_date": "2027-02-28 23:59:59",
+  "url": "https://lagendageek.com/tevent/korean-tours-festival/",
+  "website": "https://www.koreantoursfestival.com/",
+  "venue": {
+   "id": 14024,
+   "venue": "Tours (37) – Centre international de congrès",
+   "address": "26-28 Boulevard Heurteloup",
+   "city": "Tours",
+   "zip": "37000",
+   "geo_lat": 47.390921,
+   "geo_lng": 0.69277080000006
+  },
+  "organizer": [
+   {
+    "id": 14254,
+    "organizer": "Tours Evénements"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 127899,
+  "title": "L&rsquo;Imagina&rsquo;Livres",
+  "start_date": "2027-03-27 00:00:00",
+  "end_date": "2027-03-28 23:59:59",
+  "url": "https://lagendageek.com/tevent/limaginalivres/",
+  "website": "https://limagin-arium.com/limaginalivres/",
+  "venue": {
+   "id": 63710,
+   "venue": "Portet-sur-Garonne (31) &#8211; Salle du Confluent",
+   "address": "rue de l'Hôtel de Ville",
+   "city": "Portet-sur-Garonne",
+   "zip": "31120",
+   "geo_lat": 43.5207958,
+   "geo_lng": 1.3992488
+  },
+  "organizer": [
+   {
+    "id": 63717,
+    "organizer": "L&rsquo;Imagin&rsquo;arium (Association)"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 129699,
+  "title": "Les Imaginales",
+  "start_date": "2027-05-27 00:00:00",
+  "end_date": "2027-05-30 23:59:59",
+  "url": "https://lagendageek.com/tevent/les-imaginales/",
+  "website": "https://www.imaginales.fr/",
+  "venue": {
+   "id": 13536,
+   "venue": "Epinal (88) – Centre des congrès",
+   "address": "7 Avenue St Dié",
+   "city": "Epinal",
+   "zip": "88000",
+   "geo_lat": 48.1859653,
+   "geo_lng": 6.4710522
+  },
+  "organizer": [
+   {
+    "id": 17058,
+    "organizer": "La ville d&rsquo;Epinal"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 130131,
+  "title": "Imaginarys",
+  "start_date": "2027-06-05 00:00:00",
+  "end_date": "2027-06-06 23:59:59",
+  "url": "https://lagendageek.com/tevent/imaginarys/",
+  "website": "https://www.imaginarys.fr/",
+  "venue": {
+   "id": 130129,
+   "venue": "Orgon (13) &#8211; Espace Culturel Renaissance",
+   "address": "2 Av. de la Victoire",
+   "city": "Orgon",
+   "zip": "13660",
+   "geo_lat": 43.792321833368,
+   "geo_lng": 5.0296515846564
+  },
+  "organizer": [],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ },
+ {
+  "id": 130904,
+  "title": "Japan Tours Festival 2027",
+  "start_date": "2027-07-02 00:00:00",
+  "end_date": "2027-07-04 23:59:59",
+  "url": "https://lagendageek.com/tevent/japan-tours-festival/",
+  "website": "http://www.japantoursfestival.com/",
+  "venue": {
+   "id": 63125,
+   "venue": "Tours (37) – Parc des Expositions de Tours",
+   "address": "Avenue Jacques Duclos",
+   "city": "Tours",
+   "zip": "37000",
+   "geo_lat": 47.3801139,
+   "geo_lng": 0.7264525
+  },
+  "organizer": [
+   {
+    "id": 14254,
+    "organizer": "Tours Evénements"
+   }
+  ],
+  "categories": [
+   {
+    "name": "Salon / convention / brocante"
+   }
+  ]
+ }
+]
