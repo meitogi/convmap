@@ -8,6 +8,11 @@ Le ton : court, et pas trop sérieux. La page sert aussi bien à des invités
 qu'à des visiteurs ou des organisateurs : les blagues ne visent personne en
 particulier.
 
+## 1.1.0 — 2026-11-23
+
+- Une base partagée, tenue à la main, ajoute ce que l'agenda a raté : on part enfin en mission hors de la carte du monde de départ.
+- Une édition peut porter ses propres liens, évènement Facebook ou billetterie, juste à côté de sa date. Plus besoin de fouiller le grimoire.
+
 ## 1.0.0 — 2026-11-23
 
 - Premier épisode. Pas de filler, promis.

@@ -10,6 +10,7 @@ import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } fr
 import { fileURLToPath } from 'node:url';
 import { readAccess, wrapDataKey } from '../lib/access.mjs';
 import { generateKey, open, seal } from '../lib/crypto.mjs';
+import { withManual } from '../lib/manual.mjs';
 import { masterKey } from './master-key.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -19,7 +20,16 @@ const master = masterKey();
 const accessFile = `${root}snapshot/access.bin`;
 const list = await readAccess(existsSync(accessFile) ? new Uint8Array(readFileSync(accessFile)) : null, master);
 const dataKey = generateKey();
-const data = await seal(await open(new Uint8Array(readFileSync(`${root}snapshot/events.bin`)), master), dataKey);
+// The agenda's events, with the shared manual base laid over them when
+// there is one. updatedAt moves with either, so that browsers re-merge
+// after a change of the base alone.
+const agenda = JSON.parse(await open(new Uint8Array(readFileSync(`${root}snapshot/events.bin`)), master));
+const manualFile = `${root}snapshot/manual.bin`;
+const manual = existsSync(manualFile) ? JSON.parse(await open(new Uint8Array(readFileSync(manualFile)), master)) : null;
+const feed = manual
+  ? { fetchedAt: agenda.fetchedAt, updatedAt: manual.updatedAt > agenda.fetchedAt ? manual.updatedAt : agenda.fetchedAt, events: withManual(agenda.events, manual) }
+  : agenda;
+const data = await seal(JSON.stringify(feed), dataKey);
 
 rmSync(site, { recursive: true, force: true });
 cpSync(`${root}public`, site, { recursive: true, filter: (source) => !/store-(api|browser)\.js$/.test(source) });
@@ -30,4 +40,4 @@ cpSync(`${root}CHANGELOG.md`, `${site}/CHANGELOG.md`);
 mkdirSync(`${site}/data`);
 writeFileSync(`${site}/data/events.bin`, data);
 writeFileSync(`${site}/data/keys.json`, JSON.stringify(await wrapDataKey(list, master, dataKey)));
-console.log(`site built in ${site} — ${list.length} personal link(s) besides the master key`);
+console.log(`site built in ${site} — ${list.length} personal link(s) besides the master key${manual ? `, ${feed.events.length - agenda.events.length} shared edition(s)` : ''}`);

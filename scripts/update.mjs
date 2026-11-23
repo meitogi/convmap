@@ -38,8 +38,11 @@ events.sort((a, b) => a.source_id - b.source_id);
 
 if (!ci) {
   const { openDb, upsertAgenda } = await import('../lib/db.mjs');
+  const { readManual } = await import('./manual-store.mjs');
+  const { withManual } = await import('../lib/manual.mjs');
   mkdirSync(`${root}data`, { recursive: true });
-  const stats = upsertAgenda(openDb(process.env.AGENDA_DB || `${root}data/agenda.db`), events, new Date().toISOString());
+  // The shared manual base rides along : the local page shows it too.
+  const stats = upsertAgenda(openDb(process.env.AGENDA_DB || `${root}data/agenda.db`), withManual(events, await readManual()), new Date().toISOString());
   console.log(`Local base : ${stats.total} events — ${stats.added} new, ${stats.changed} changed, ${stats.gone} gone. Reload the page to see them.`);
 }
 

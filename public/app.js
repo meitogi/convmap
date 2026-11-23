@@ -429,9 +429,18 @@ function tagBadge(tag) {
   return el('details', { className: 'pop tag-pop' }, el('summary', { className: `tag ${tag}`, title: help }, TAG_LABELS[tag]), el('div', { className: 'pop-panel' }, help));
 }
 
+// An edition's own link, named after its site : "facebook", "974.agendaculturel.fr"…
+function linkLabel(url) {
+  const host = url.replace(/^https?:\/\/(www\.|m\.)?/i, '').replace(/[/?#].*$/, '').toLowerCase();
+  if (/(^|\.)(facebook\.com|fb\.me)$/.test(host)) return 'facebook';
+  if (/(^|\.)instagram\.com$/.test(host)) return 'instagram';
+  return host;
+}
+
 function editionLine(edition) {
   const flags = [];
   if (edition.source === 'manual') flags.push('ajouté à la main');
+  else if (edition.origin === 'shared') flags.push('base partagée');
   else if (edition.overridden.length) flags.push('corrigé');
   if (edition.gone_at) flags.push("retiré de l'agenda");
   const button = el('button', { type: 'button' }, 'Modifier');
@@ -442,6 +451,7 @@ function editionLine(edition) {
     rangeLabel(edition.start_date, edition.end_date).replace(/^(le|du) /, ''),
     edition.url ? ' · ' : '',
     edition.url ? link(edition.url, 'fiche agenda geek') : '',
+    ...(edition.links ? edition.links.split('\n') : []).flatMap((url) => [' · ', link(url, linkLabel(url))]),
     flags.length ? el('span', { className: 'flag' }, flags.join(', ')) : '',
     button,
     edition.note ? el('div', { className: 'muted' }, edition.note) : '',
@@ -924,7 +934,7 @@ function openEdit(event) {
   $('edit-title').textContent = event ? 'Modifier un évènement' : 'Ajouter un évènement';
   $('edit-hint').textContent = manual
     ? "Un évènement ajouté à la main n'est jamais touché par une mise à jour de l'agenda."
-    : "Cet évènement vient de l'agenda : ce que tu changes ici reste prioritaire sur les prochaines mises à jour.";
+    : `Cet évènement vient ${event.origin === 'shared' ? 'de la base partagée' : "de l'agenda"} : ce que tu changes ici reste prioritaire sur les prochaines mises à jour.`;
   $('edit-delete').hidden = !(event && manual);
   $('edit-error').hidden = true;
   form.reset();

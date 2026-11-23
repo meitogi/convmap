@@ -32,6 +32,9 @@ recense et les tient à jour.
 - **Retrouver ses recherches** — lieu, rayon et filtres enregistrés sous un nom.
 - **Compléter** — ajouter un évènement ou corriger une information, sans que
   la mise à jour suivante ne l'écrase.
+- **Ce que l'agenda n'a pas** — une base partagée, tenue à la main, ajoute
+  des évènements absents de l'agenda et des liens à n'importe quelle édition
+  (évènement Facebook, page d'un agenda local…).
 
 Le tout sur ordinateur comme sur téléphone, en thème clair ou sombre.
 

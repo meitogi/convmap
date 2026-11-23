@@ -67,7 +67,10 @@ async function readSnapshot() {
   }
 }
 
-// { rows, fetchedAt } — fetchedAt : when the snapshot the rows come from was made.
+// { rows, fetchedAt, updatedAt } — fetchedAt : when the agenda the rows come
+// from was read ; updatedAt : when that feed was published, which a change
+// of the shared base alone moves too.
+const published = (snapshot) => snapshot.updatedAt || snapshot.fetchedAt;
 let state = null;
 let access = 'ok';
 
@@ -81,10 +84,12 @@ async function load() {
     // The copy kept here goes with the access ; what the visitor added stays.
     stored.rows = stored.rows.filter((row) => row.source === 'manual');
     stored.fetchedAt = null;
+    stored.updatedAt = null;
     await write('events', stored);
-  } else if (snapshot && (!stored.fetchedAt || snapshot.fetchedAt > stored.fetchedAt)) {
-    stored.rows = mergeAgenda(stored.rows, snapshot.events, snapshot.fetchedAt).rows;
+  } else if (snapshot && (!stored.updatedAt || published(snapshot) > stored.updatedAt)) {
+    stored.rows = mergeAgenda(stored.rows, snapshot.events, published(snapshot)).rows;
     stored.fetchedAt = snapshot.fetchedAt;
+    stored.updatedAt = published(snapshot);
     await write('events', stored);
   }
   state = stored;
@@ -107,8 +112,9 @@ export async function listEvents() {
 export async function createEvent(input) {
   const current = await load();
   const rows = current.rows;
+  // Over this visitor's own rows only : shared editions have ids above 2e9.
   let id = FIRST_MANUAL_ID;
-  for (const row of rows) if (row.id >= id) id = row.id + 1;
+  for (const row of rows) if (row.source === 'manual' && row.id >= id) id = row.id + 1;
   rows.push({ id, source: 'manual', source_id: null, overrides: null, gone_at: null, fetched_at: null, ...manualValues(input) });
   await write('events', current);
 }

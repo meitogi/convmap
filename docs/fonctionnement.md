@@ -84,6 +84,8 @@ sur `main`.
 - **Un lien par personne.** La page `admin.html` liste les liens, en crée un
   pour un nom, en révoque un ; elle lance aussi la mise à jour des données. Un lien révoqué cesse de fonctionner à la
   publication suivante, une à deux minutes plus tard.
+- **La base manuelle partagée part avec eux**, mêlée à l'agenda (voir
+  plus bas).
 - **Ce que chacun ajoute reste chez lui.** Évènements ajoutés, corrections,
   notes et recherches enregistrées vivent dans le navigateur du visiteur
   (IndexedDB), pas dans le dépôt.
@@ -151,13 +153,68 @@ d'agenda, et une mise à jour :
 - ne change rien du tout si une page de l'agenda échoue après trois essais ;
 - ne produit pas de nouvelle copie si l'agenda n'a pas changé.
 
+## Base manuelle partagée
+
+Les évènements que L'Agenda Geek n'a pas (l'outre-mer, des oublis locaux),
+et des liens ajoutés à n'importe quelle édition : un évènement Facebook, la
+page d'un agenda local, une billetterie. Contrairement à « Ajouter » sur la
+page, qui reste dans le navigateur de chacun, cette base est publiée avec le
+site pour tous les liens d'accès.
+
+- **Chiffrée comme l'agenda** : `snapshot/manual.bin`, scellé avec la clé
+  maître. Elle n'existe en clair que le temps d'une commande.
+- **Remplie en ligne de commande** : `wtf convmap manual <commande>`, ou
+  `node scripts/manual.mjs <commande>` hors de ce workspace.
+
+  | Commande | Ce qu'elle fait |
+  |---|---|
+  | `add` | ajoute une édition, et son évènement s'il est nouveau (lieu, code postal, coordonnées, contacts) ; prévient si L'Agenda Geek l'a déjà |
+  | `link` | ajoute des liens à une édition, de l'agenda ou de la base |
+  | `list [texte]` | liste la base |
+  | `edit` | ouvre la base en JSON dans VS Code (`CONVMAP_EDITOR` pour un autre éditeur), la re-scelle à la fermeture |
+  | `open` / `seal` | la même chose en deux temps, via `.tmp/manual.json` (hors git) |
+
+  Chaque changement est validé, scellé, reporté dans la base locale et
+  commité (`snapshot/manual.bin` seul ; `--no-commit` pour s'en passer). Un
+  push publie.
+- **Sur la page**, une édition de la base est marquée « base partagée », et
+  les liens d'une édition s'affichent à côté de sa date, nommés par leur site.
+  Corrections et notes personnelles marchent dessus comme sur l'agenda.
+- **Retirer une édition** de la base la retire de la page ; elle n'est pas
+  marquée « retiré de l'agenda ». Corriger sa date ou son titre en fait une
+  autre édition : une correction personnelle faite sur l'ancienne est perdue.
+- Le champ `note` d'une édition est un mémo pour la base (où la date a été
+  trouvée…) ; il n'est pas publié.
+
+Format, une fois ouvert :
+
+```json
+{
+  "series": [
+    {
+      "title": "Otaku City Festival", "city": "Saint-Denis", "zip": "97400",
+      "country": "France", "lat": -20.8823, "lng": 55.4504, "venue": "Cité des Arts",
+      "facebook": "https://www.facebook.com/…",
+      "editions": [
+        { "start_date": "2026-05-16", "end_date": "2026-05-17",
+          "links": ["https://974.agendaculturel.fr/…"], "note": "…" }
+      ]
+    }
+  ],
+  "agenda_links": { "<id de l'agenda>": ["https://www.facebook.com/events/…"] }
+}
+```
+
+Une édition peut redéfinir n'importe quel champ de son évènement (titre,
+lieu…), pour elle seule.
+
 ## Données
 
 Version locale : `data/agenda.db` (SQLite, hors git — il contient des contacts d'organisateurs).
 
 | Table | Contenu |
 |---|---|
-| `events` | un évènement daté, venu de l'agenda (`source_id`) ou ajouté à la main ; `overrides` porte les champs corrigés, `gone_at` la date de disparition |
+| `events` | un évènement daté, venu de l'agenda (`source_id`), de la base partagée (`origin` = `shared`) ou ajouté à la main ; `links` porte les liens de l'édition, `overrides` les champs corrigés, `gone_at` la date de disparition |
 | `searches` | les recherches enregistrées |
 | `meta` | date de la dernière lecture de l'agenda |
 
