@@ -28,6 +28,10 @@ Pour publier le site : [mise-en-ligne.md](mise-en-ligne.md).
 - **Tri** — par prochaine date, ou par proximité dès qu'un lieu est choisi.
 - **Thème** — clair ou sombre, par l'icône en haut à droite ; celui du système
   au premier lancement.
+- **Version et nouveautés** — le numéro de version est en bas de la liste ; un
+  clic affiche les nouveautés, lues dans `CHANGELOG.md`. Pour publier une
+  version : ajouter son titre et ses lignes en haut de ce fichier, et mettre
+  le même numéro dans `package.json` (un test vérifie qu'ils concordent).
 - **Sur téléphone** — le lieu et les filtres se replient derrière un bouton
   et valent pour les deux vues ; juste en dessous, une bascule choisit entre
   la liste et la carte ; les

@@ -1,6 +1,7 @@
 import { areaOf, DEPARTMENTS, REGIONS } from './lib/area.mjs';
 import { monthLabel, rangeLabel, TAG_LABELS, toCsv, toMarkdown, toText, toTsv } from './lib/export.mjs';
 import { distanceKm } from './lib/geo.mjs';
+import { parseReleases } from './lib/releases.mjs';
 import { buildSeries } from './lib/series.mjs';
 import { copyWith } from './copy.js';
 import * as store from './store.js';
@@ -895,6 +896,33 @@ form.addEventListener('submit', (event) => {
 $('edit-delete').addEventListener('click', () => {
   if (confirm(`Supprimer « ${editing.title} » ?`)) sendEdit(store.deleteEvent(editing.id));
 });
+
+// ─── Version and release notes ──────────────────────────────────────────
+
+// The footer shows the latest version of CHANGELOG.md ; a click lists them all.
+fetch('CHANGELOG.md')
+  .then((response) => (response.ok ? response.text() : ''))
+  .then((text) => {
+    const releases = parseReleases(text);
+    if (!releases.length) return;
+    const button = $('version');
+    button.textContent = `v${releases[0].version}`;
+    button.hidden = false;
+    $('releases').replaceChildren(
+      ...releases.map(({ version, date, items }) =>
+        el(
+          'section',
+          null,
+          el('h3', null, `Version ${version}`, date ? el('span', { className: 'muted' }, ` — ${rangeLabel(date, date).replace(/^le /, '')}`) : ''),
+          el('ul', null, ...items.map((item) => el('li', null, item))),
+        ),
+      ),
+    );
+    button.addEventListener('click', () => $('releases-dialog').showModal());
+  })
+  .catch(() => {
+    // No release notes : the footer simply shows no version.
+  });
 
 // ─── Re-fetch ───────────────────────────────────────────────────────────
 

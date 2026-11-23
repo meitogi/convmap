@@ -105,7 +105,7 @@
       <summary></summary>
       <div id="unlocated-list"></div>
     </details>
-    <footer class="credits">Conv'Map — développé par <a href="https://github.com/meitogi" target="_blank" rel="noopener">meitogi</a> · données : <a href="https://lagendageek.com" target="_blank" rel="noopener">L'Agenda Geek</a> · carte © les contributeurs d'<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></footer>
+    <footer class="credits">Conv'Map <button id="version" type="button" class="link" title="Voir les nouveautés" hidden></button> — développé par <a href="https://github.com/meitogi" target="_blank" rel="noopener">meitogi</a> · données : <a href="https://lagendageek.com" target="_blank" rel="noopener">L'Agenda Geek</a> · carte © les contributeurs d'<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></footer>
     </div>
   </section>
   <div id="map"></div>
@@ -129,6 +129,14 @@
       <button id="export-download" type="button">Télécharger le fichier</button>
       <button value="close">Fermer</button>
     </div>
+  </form>
+</dialog>
+
+<dialog id="releases-dialog">
+  <form method="dialog">
+    <h2>Nouveautés</h2>
+    <div id="releases"></div>
+    <div class="actions"><button value="close">Fermer</button></div>
   </form>
 </dialog>
 

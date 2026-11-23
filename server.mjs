@@ -22,11 +22,13 @@ const FILES = {
   '/vendor/leaflet/leaflet.js': 'public/vendor/leaflet/leaflet.js',
   '/vendor/leaflet/leaflet.css': 'public/vendor/leaflet/leaflet.css',
   '/lib/geo.mjs': 'lib/geo.mjs',
+  '/lib/releases.mjs': 'lib/releases.mjs',
+  '/CHANGELOG.md': 'CHANGELOG.md',
   '/lib/area.mjs': 'lib/area.mjs',
   '/lib/series.mjs': 'lib/series.mjs',
   '/lib/export.mjs': 'lib/export.mjs',
 };
-const TYPES = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript', css: 'text/css', svg: 'image/svg+xml', png: 'image/png' };
+const TYPES = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript', css: 'text/css', svg: 'image/svg+xml', png: 'image/png', md: 'text/markdown' };
 
 mkdirSync(`${ROOT}data`, { recursive: true });
 // AGENDA_DB : another base than the default one — the demo's, for instance.

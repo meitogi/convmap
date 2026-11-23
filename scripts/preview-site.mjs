@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 const PORT = Number(process.env.PORT) || 4181;
 const site = fileURLToPath(new URL('../_site', import.meta.url));
-const TYPES = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript', css: 'text/css', json: 'application/json', bin: 'application/octet-stream', svg: 'image/svg+xml', png: 'image/png' };
+const TYPES = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript', css: 'text/css', json: 'application/json', bin: 'application/octet-stream', svg: 'image/svg+xml', png: 'image/png', md: 'text/markdown' };
 
 if (!existsSync(site)) {
   console.error('No _site/ yet : run node scripts/build-site.mjs first.');
