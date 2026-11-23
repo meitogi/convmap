@@ -416,10 +416,10 @@ function contactMenu(name, label, value, href, action) {
 
 // What each tag means, said to whoever hovers it or touches it.
 const TAG_HELP = {
-  regular: "Régulier : des éditions sur au moins deux années. Il revient.",
+  regular: "Régulier : des éditions sur au moins deux années, et la dernière a moins de 18 mois ou la suivante est annoncée.",
   new: "Nouveau : une seule année connue, à venir ou datant de moins d'un an.",
-  paused: "En pause ? Il revenait régulièrement, mais plus rien depuis 18 mois et rien d'annoncé.",
-  oneoff: "Ponctuel : une seule année connue, il y a plus d'un an. Sans suite pour l'instant.",
+  paused: "En pause ? Des éditions sur au moins deux années, mais plus rien depuis 18 mois et rien d'annoncé.",
+  oneoff: "Ponctuel : une seule année connue, il y a plus d'un an, et rien d'annoncé depuis.",
 };
 
 // The tag of a row. Hovering shows its meaning ; so does a click or a touch,
