@@ -1,4 +1,4 @@
-# Conv'Map
+# <img src="public/favicon.svg" alt="" width="40" align="top"> Conv'Map
 
 **Les conventions geek autour d'un lieu — passées, annoncées et probables.**
 

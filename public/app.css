@@ -41,6 +41,10 @@ html, body { height: 100%; }
 body { margin: 0; font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink); background: var(--ground); display: flex; flex-direction: column; }
 h1, h2 { margin: 0; font-size: 17px; }
 h1 span { font-weight: 400; color: var(--muted); }
+h1 { display: flex; align-items: center; gap: 8px; }
+h1 span { margin-left: -2px; }
+/* The icon is pixel art : it must scale without blur. */
+.logo { image-rendering: pixelated; border-radius: 6px; flex: none; }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { border: 1px solid var(--line); background: var(--card); border-radius: 6px; padding: 5px 10px; cursor: pointer; }
 button:hover { border-color: var(--line-strong); }
@@ -186,7 +190,8 @@ button.primary.copied { background: var(--regular); border-color: var(--regular)
   .top { padding: 8px 12px; gap: 8px; }
   .top h1 { font-size: 16px; margin-right: 0; }
   .top h1 span, #fetched, .long { display: none; }
-  .views { display: grid; grid-template-columns: 1fr 1fr; flex: 1 1 150px; min-width: 150px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  /* Wide enough a basis that the two actions always go to the second line. */
+  .views { display: grid; grid-template-columns: 1fr 1fr; flex: 1 1 60%; min-width: 150px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
   .views button { border: 0; border-radius: 0; min-height: 36px; font-size: 15px; font-weight: 600; }
   /* Second line of the header : the two actions, side by side. */
   .top > button { font-size: 14px; padding: 4px 10px; min-height: 34px; order: 2; flex: 1 1 40%; white-space: nowrap; }
