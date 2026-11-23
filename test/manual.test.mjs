@@ -156,3 +156,24 @@ test('a shared edition joins the agenda series of the same event', () => {
   const series = buildSeries(rows, TODAY).find((s) => s.editions.some((edition) => edition.origin === 'shared'));
   assert.ok(series.editions.length > 1);
 });
+
+test('contacts correct every edition of an event, the agenda\'s included, and can clear a dead site', () => {
+  const events = agenda();
+  const target = japanTours(events);
+  const base = { ...doc(), contacts: { 'japan tours festival': { website: '', instagram: 'https://www.instagram.com/jtf/' }, 'otaku city festival': { email: 'contact@example.org' } } };
+  const feed = withManual(events, base);
+  const tours = feed.filter((event) => event.title.startsWith('Japan Tours Festival'));
+  assert.ok(tours.length > 1);
+  for (const edition of tours) {
+    assert.equal(edition.website, '');
+    assert.equal(edition.instagram, 'https://www.instagram.com/jtf/');
+  }
+  assert.equal(japanTours(events).website, target.website);
+  assert.ok(feed.filter((event) => event.origin === 'shared').every((event) => event.email === 'contact@example.org'));
+  assert.deepEqual(validate(base), []);
+  assert.deepEqual(validate({ ...doc(), contacts: { x: { website: 'japandco.com', email: 'nope', fax: '1' } } }), [
+    'contacts[x].website : lien invalide « japandco.com »',
+    'contacts[x].email : e-mail invalide « nope »',
+    'contacts[x].fax : champ inconnu',
+  ]);
+});

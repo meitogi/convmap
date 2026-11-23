@@ -170,6 +170,7 @@ site pour tous les liens d'accès.
   |---|---|
   | `add` | ajoute une édition, et son évènement s'il est nouveau (lieu, code postal, coordonnées, contacts) ; prévient si L'Agenda Geek l'a déjà |
   | `link` | ajoute des liens à une édition, de l'agenda ou de la base |
+  | `contact` | corrige le site, Facebook, Instagram, e-mail, téléphone ou organisateur d'un évènement, de l'agenda ou de la base ; « - » efface (un site mort) |
   | `list [texte]` | liste la base |
   | `edit` | ouvre la base en JSON dans VS Code (`CONVMAP_EDITOR` pour un autre éditeur), la re-scelle à la fermeture |
   | `open` / `seal [message]` | la même chose en deux temps, via `.tmp/manual.json` (hors git) ; le message sert au commit |
@@ -201,12 +202,16 @@ Format, une fois ouvert :
       ]
     }
   ],
-  "agenda_links": { "<id de l'agenda>": ["https://www.facebook.com/events/…"] }
+  "agenda_links": { "<id de l'agenda>": ["https://www.facebook.com/events/…"] },
+  "contacts": { "jap and co": { "website": "", "facebook": "https://www.facebook.com/…" } }
 }
 ```
 
 Une édition peut redéfinir n'importe quel champ de son évènement (titre,
-lieu…), pour elle seule.
+lieu…), pour elle seule. `contacts` corrige les contacts d'un évènement par
+son titre normalisé (sans année ni numéro d'édition) : toutes ses éditions
+les prennent, celles de l'agenda et celles qu'il publiera ensuite comprises ;
+une valeur vide efface le champ.
 
 ## Données
 

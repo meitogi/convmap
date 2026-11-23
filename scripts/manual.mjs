@@ -5,7 +5,7 @@
 import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { createInterface } from 'node:readline/promises';
-import { manualRows, validate } from '../lib/manual.mjs';
+import { CONTACT_FIELDS, manualRows, validate, withManual } from '../lib/manual.mjs';
 import { normalizeTitle } from '../lib/series.mjs';
 import { commitManual, readAgenda, readManual, root, writeManual } from './manual-store.mjs';
 
@@ -17,6 +17,8 @@ agenda local…). Elle est publiée avec le site pour tous les liens d'accès.
 
   add           ajouter une édition (et son évènement s'il est nouveau)
   link          ajouter des liens à une édition, de l'agenda ou de la base
+  contact       corriger le site, Facebook, Instagram, e-mail… d'un évènement,
+                de l'agenda ou de la base
   list [texte]  lister la base, ou ce qui contient « texte »
   edit          ouvrir la base en JSON dans l'éditeur, puis la re-sceller
   open          écrire la base en clair dans .tmp/manual.json
@@ -258,6 +260,40 @@ ils s'affichent à côté de sa date.
   await save(doc, `Add links to ${row.title} ${row.start_date.slice(0, 4)} in the manual base`);
 }
 
+const CONTACT_LABELS = { website: 'Site', facebook: 'Page Facebook', instagram: 'Instagram', email: 'E-mail', phone: 'Téléphone', organizer: 'Organisateur' };
+
+async function contact() {
+  console.log(`Corriger les contacts d'un évènement, de L'Agenda Geek ou de la base
+partagée : toutes ses éditions les prennent, celles à venir aussi. Entrée garde
+la valeur, « - » l'efface (un site mort).
+`);
+  const [agenda, doc] = await Promise.all([readAgenda(), readManual()]);
+  const query = fold(await ask('Rechercher (nom ou ville) :'));
+  if (!query) return;
+  // One line per event : its latest edition, contacts already corrected.
+  const latest = {};
+  for (const row of withManual(agenda.events, doc)) {
+    const key = normalizeTitle(row.title);
+    if (!fold(`${row.title} ${row.city}`).includes(query)) continue;
+    if (!latest[key] || row.start_date > latest[key].start_date) latest[key] = row;
+  }
+  const found = Object.entries(latest).slice(0, 20);
+  if (!found.length) return console.log('Aucun évènement ne correspond.');
+  found.forEach(([, row], i) => console.log(`  ${String(i + 1).padStart(2)}. ${row.title} — ${row.city || '?'}`));
+  const picked = found[Number(await ask('Lequel ? (numéro)')) - 1];
+  if (!picked) return console.log('Rien changé.');
+  const [key, row] = picked;
+  const fields = { ...(doc.contacts[key] || {}) };
+  for (const field of CONTACT_FIELDS) {
+    const answer = await ask(`${CONTACT_LABELS[field]} :`, row[field] || '');
+    if (answer === '-') fields[field] = '';
+    else if (answer !== (row[field] || '')) fields[field] = answer;
+  }
+  if (!Object.keys(fields).length) return console.log('Rien changé.');
+  doc.contacts[key] = fields;
+  await save(doc, `Correct the contacts of ${row.title} in the manual base`);
+}
+
 async function list(filter) {
   const doc = await readManual();
   const query = fold(filter);
@@ -280,6 +316,12 @@ async function list(filter) {
     if (query && !fold(name).includes(query)) continue;
     shown++;
     console.log(`[agenda] ${name}${doc.agenda_links[id].map((l) => `\n      ${l}`).join('')}`);
+  }
+  for (const key in doc.contacts) {
+    if (query && !fold(key).includes(query)) continue;
+    shown++;
+    const fields = doc.contacts[key];
+    console.log(`[contacts] ${key}${Object.keys(fields).map((f) => `\n      ${f} : ${fields[f] || '(effacé)'}`).join('')}`);
   }
   if (!shown) console.log(query ? 'Rien ne correspond.' : 'La base est vide. wtf convmap manual add pour commencer.');
 }
@@ -325,7 +367,7 @@ async function edit() {
   await sealClear();
 }
 
-const COMMANDS = { add, link, list: () => list(rest.join(' ')), edit, open: openClear, seal: sealClear };
+const COMMANDS = { add, link, contact, list: () => list(rest.join(' ')), edit, open: openClear, seal: sealClear };
 
 if (!COMMANDS[command]) {
   console.log(USAGE);
