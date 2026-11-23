@@ -5,8 +5,13 @@
 // re-seals it with a new data key and publishes that data key wrapped for
 // every key on the access list : someone removed from the list cannot open
 // the next build, whatever they kept.
+//
+// Every file of the page is asked for under the build's id (app.js?v=…), so
+// that a browser never mixes a new page with files kept from the previous
+// one ; public/fresh.js reloads a page older than version.json.
 
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { readAccess, wrapDataKey } from '../lib/access.mjs';
 import { generateKey, open, seal } from '../lib/crypto.mjs';
@@ -37,7 +42,32 @@ cpSync(`${root}public/store-browser.js`, `${site}/store.js`);
 mkdirSync(`${site}/lib`);
 for (const name of ['access', 'area', 'crypto', 'events', 'export', 'geo', 'releases', 'series', 'share']) cpSync(`${root}lib/${name}.mjs`, `${site}/lib/${name}.mjs`);
 cpSync(`${root}CHANGELOG.md`, `${site}/CHANGELOG.md`);
+
+// The build's id : a hash of every file of the page, so that it changes
+// exactly when the page does.
+const pageFiles = readdirSync(site, { recursive: true }).filter((name) => !name.startsWith('vendor') || /\.(js|css)$/.test(name)).sort();
+const hash = createHash('sha256');
+for (const name of pageFiles) {
+  if (!/\.[a-z]+$/.test(name)) continue;
+  hash.update(name);
+  hash.update(readFileSync(`${site}/${name}`));
+}
+const build = hash.digest('hex').slice(0, 12);
+// Local references only : './lib/geo.mjs' in a module, href="app.css" in a page.
+const IMPORTED = /(\bfrom\s*|\bimport\s*\(\s*)(['"])(\.\/[^'"]+\.m?js)\2/g;
+const LINKED = /(\s(?:src|href)=")((?!https?:|\/\/)[^"#?]+\.(?:m?js|css|svg|png))"/g;
+for (const name of pageFiles) {
+  const file = `${site}/${name}`;
+  if (/\.m?js$/.test(name) && !name.startsWith('vendor')) {
+    writeFileSync(file, readFileSync(file, 'utf8').replace(IMPORTED, `$1$2$3?v=${build}$2`));
+  } else if (name.endsWith('.html')) {
+    const page = readFileSync(file, 'utf8').replace(LINKED, `$1$2?v=${build}"`);
+    writeFileSync(file, page.replace('<meta charset="utf-8">', `<meta charset="utf-8">\n<meta name="convmap-build" content="${build}">`));
+  }
+}
+writeFileSync(`${site}/version.json`, JSON.stringify({ build }));
+
 mkdirSync(`${site}/data`);
 writeFileSync(`${site}/data/events.bin`, data);
 writeFileSync(`${site}/data/keys.json`, JSON.stringify(await wrapDataKey(list, master, dataKey)));
-console.log(`site built in ${site} — ${list.length} personal link(s) besides the master key${manual ? `, ${feed.events.length - agenda.events.length} shared edition(s)` : ''}`);
+console.log(`site built in ${site} (build ${build}) — ${list.length} personal link(s) besides the master key${manual ? `, ${feed.events.length - agenda.events.length} shared edition(s)` : ''}`);

@@ -15,6 +15,7 @@ const FILES = {
   '/app.js': 'public/app.js',
   '/store.js': 'public/store-api.js',
   '/copy.js': 'public/copy.js',
+  '/fresh.js': 'public/fresh.js',
   '/favicon.svg': 'public/favicon.svg',
   '/apple-touch-icon.png': 'public/apple-touch-icon.png',
   '/app.css': 'public/app.css',

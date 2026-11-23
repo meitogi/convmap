@@ -1004,7 +1004,7 @@ $('releases-dialog').addEventListener('click', (event) => {
 });
 
 // The footer shows the latest version of CHANGELOG.md ; a click lists them all.
-fetch('CHANGELOG.md')
+fetch('CHANGELOG.md', { cache: 'no-cache' })
   .then((response) => (response.ok ? response.text() : ''))
   .then((text) => {
     const releases = parseReleases(text);

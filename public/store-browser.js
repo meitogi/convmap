@@ -57,7 +57,7 @@ async function readSnapshot() {
   const key = accessKey();
   if (!key) return { status: 'nokey' };
   try {
-    const [keys, data] = await Promise.all([fetch(KEYS), fetch(SNAPSHOT)]);
+    const [keys, data] = await Promise.all([fetch(KEYS, { cache: 'no-cache' }), fetch(SNAPSHOT, { cache: 'no-cache' })]);
     if (!keys.ok || !data.ok) return { status: 'offline' };
     const dataKey = await unwrapDataKey(await keys.json(), key);
     if (!dataKey) return { status: 'revoked' };
