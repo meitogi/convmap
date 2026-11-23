@@ -49,6 +49,20 @@ async function githubCall(method, path, body) {
   return response.status === 204 ? null : response.json();
 }
 
+// Who signs the commits this page makes : the token's account, under its
+// GitHub no-reply address. Left to itself GitHub signs them with the
+// account's own e-mail, which a public repository would then show.
+let signature = null;
+
+async function signer() {
+  if (signature) return signature;
+  const response = await fetch(`${API}/user`, { headers: { authorization: `Bearer ${settings.token.value.trim()}`, accept: 'application/vnd.github+json' } });
+  if (!response.ok) throw new Error('GitHub refuse le jeton : impossible de lire le compte auquel il appartient.');
+  const { id, login } = await response.json();
+  signature = { name: login, email: `${id}+${login}@users.noreply.github.com` };
+  return signature;
+}
+
 // The access list's file.
 const github = (method, body) => githubCall(method, `contents/${FILE}`, body);
 
@@ -101,7 +115,8 @@ async function saveList(next, message, done) {
     const sealed = await sealAccess(next, settings.key.value.trim());
     // GitHub wants standard base64, with its padding.
     const content = toBase64Url(sealed).replace(/-/g, '+').replace(/_/g, '/');
-    const body = { message, content: content + '='.repeat((4 - (content.length % 4)) % 4) };
+    const who = await signer();
+    const body = { message, content: content + '='.repeat((4 - (content.length % 4)) % 4), author: who, committer: who };
     if (sha) body.sha = sha;
     const result = await github('PUT', body);
     sha = result.content.sha;
@@ -115,6 +130,8 @@ async function saveList(next, message, done) {
 
 $('settings').addEventListener('submit', (event) => {
   event.preventDefault();
+  // Another token may belong to another account.
+  signature = null;
   try {
     localStorage.setItem(SETTINGS, JSON.stringify({ repo: settings.repo.value.trim(), token: settings.token.value.trim() }));
     localStorage.setItem(KEY_STORE, settings.key.value.trim());
