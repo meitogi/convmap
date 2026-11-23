@@ -85,8 +85,20 @@ function showStatus(text) {
 
 // ─── Theme ──────────────────────────────────────────────────────────────
 
+// The button shows where a click leads : a moon in the light theme, a sun
+// in the dark one.
+const THEME_ICONS = {
+  moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+  sun: '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>',
+};
+
 function showTheme() {
-  $('theme').textContent = document.documentElement.dataset.theme === 'dark' ? 'Thème clair' : 'Thème sombre';
+  const dark = document.documentElement.dataset.theme === 'dark';
+  const button = $('theme');
+  const label = dark ? 'Passer au thème clair' : 'Passer au thème sombre';
+  button.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${THEME_ICONS[dark ? 'sun' : 'moon']}</svg>`;
+  button.title = label;
+  button.ariaLabel = label;
 }
 $('theme').addEventListener('click', () => {
   const root = document.documentElement;
@@ -100,6 +112,31 @@ $('theme').addEventListener('click', () => {
   showTheme();
 });
 showTheme();
+
+// ─── Small screens : the list or the map, one at a time ─────────────────
+
+const SMALL = matchMedia('(max-width: 860px)');
+
+function setView(view) {
+  document.body.dataset.view = view;
+  for (const button of document.querySelectorAll('.views button')) button.ariaPressed = String(button.dataset.view === view);
+  if (view !== 'map') return;
+  // The map was hidden : it has to measure itself again before it can frame
+  // the search.
+  map.invalidateSize();
+  if (state.anchor) drawZone();
+  else fitVisible();
+}
+
+document.querySelector('.views').addEventListener('click', (event) => {
+  const view = event.target.dataset.view;
+  if (view) setView(view);
+});
+
+$('filters-toggle').addEventListener('click', () => {
+  const open = document.body.classList.toggle('filters-open');
+  $('filters-toggle').ariaExpanded = String(open);
+});
 
 // ─── Map ────────────────────────────────────────────────────────────────
 
@@ -128,15 +165,33 @@ function drawMarkers() {
       .bindTooltip(`${s.name} — ${s.city}`)
       .on('click', (event) => {
         L.DomEvent.stopPropagation(event);
-        focusRow(id);
+        if (SMALL.matches) showMapCard(id);
+        else focusRow(id);
       })
       .addTo(markers);
   }
 }
 
+// On a small screen the list is not beside the map : the event that was
+// touched shows in a card over the map, with everything its row has.
+function showMapCard(id) {
+  const item = visible.find((candidate) => candidate.series.id === id);
+  const card = $('map-card');
+  card.hidden = !item;
+  if (!item) return;
+  const entry = row(item);
+  entry.removeAttribute('id');
+  const inList = el('button', { type: 'button' }, 'Voir dans la liste');
+  inList.dataset.focus = id;
+  const close = el('button', { type: 'button' }, 'Fermer');
+  close.dataset.close = 'card';
+  card.replaceChildren(entry, el('div', { className: 'actions' }, inList, close));
+}
+
 function focusRow(id) {
   const node = $(`row-${id}`);
   if (!node) return;
+  setView('list');
   node.scrollIntoView({ block: 'center', behavior: 'smooth' });
   node.classList.add('flash');
   setTimeout(() => node.classList.remove('flash'), 1800);
@@ -177,6 +232,9 @@ function setPicking(on) {
   button.textContent = on ? 'Annuler' : 'Sur la carte';
   showStatus(on ? 'Clique un point sur la carte pour en faire le lieu de la recherche (Échap pour annuler).' : '');
   $('map').classList.toggle('picking', on);
+  // On a small screen the map is its own view : go there to pick, come back
+  // to the list once done.
+  if (SMALL.matches) setView(on ? 'map' : 'list');
 }
 
 $('pick-place').addEventListener('click', () => setPicking(!picking));
@@ -185,6 +243,7 @@ document.addEventListener('keydown', (event) => {
 });
 
 map.on('click', (event) => {
+  $('map-card').hidden = true;
   if (!picking) return;
   setPicking(false);
   const { lat, lng } = event.latlng;
@@ -435,6 +494,16 @@ function updateCount() {
   $('count').textContent = `${total} série${total > 1 ? 's' : ''}${count ? ` · ${count} cochée${count > 1 ? 's' : ''}` : ''}`;
 }
 
+// The small-screen button that unfolds the filters says how many are set.
+function updateFiltersToggle() {
+  const { anchor, period, regions, departments } = state;
+  let active = 0;
+  for (const set of [anchor, period !== 'all', activeFrom(), regions.length, departments.length, $('tag').value, $('category').value, $('search').value.trim()]) {
+    if (set) active++;
+  }
+  $('filters-toggle').textContent = active ? `Lieu et filtres (${active})` : 'Lieu et filtres';
+}
+
 function render() {
   compute();
   $('list').replaceChildren(...visible.map(row));
@@ -446,24 +515,34 @@ function render() {
     $('unlocated-list').replaceChildren(...unlocated.map(row));
   }
   updateCount();
+  updateFiltersToggle();
   drawMarkers();
+  $('map-card').hidden = true;
 }
 
-$('list').parentElement.addEventListener('change', (event) => {
+// Rows live in the list and, on a small screen, in the card over the map.
+const mainArea = document.querySelector('main');
+
+mainArea.addEventListener('change', (event) => {
   const id = event.target.dataset.series;
   if (!id) return;
-  if (event.target.checked) state.checked[id] = true;
+  const checked = event.target.checked;
+  if (checked) state.checked[id] = true;
   else delete state.checked[id];
+  // The same series may be shown twice : keep both boxes in step.
+  for (const box of mainArea.querySelectorAll('input[data-series]')) if (box.dataset.series === id) box.checked = checked;
   save();
   updateCount();
 });
 
-$('list').parentElement.addEventListener('click', (event) => {
+mainArea.addEventListener('click', (event) => {
   const button = event.target.closest('button');
   if (!button) return;
-  const { event: id, copy } = button.dataset;
+  const { event: id, copy, focus, close } = button.dataset;
   if (id) openEdit(events.find((e) => e.id === Number(id)));
   else if (copy) copyWith(button, copy);
+  else if (focus) focusRow(focus);
+  if (focus || close) $('map-card').hidden = true;
 });
 
 function checkVisible(value) {

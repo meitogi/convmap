@@ -46,7 +46,12 @@ l'agenda** (2 à 3 minutes, une cinquantaine de requêtes espacées).
 - **Période** — « à venir : annoncé ou probable » avec « à partir de » répond
   à la question « qu'est-ce qu'il y aura dans le coin après telle date ? ».
 - **Tri** — par prochaine date, ou par proximité dès qu'un lieu est choisi.
-- **Thème** — clair ou sombre ; celui du système au premier lancement.
+- **Thème** — clair ou sombre, par l'icône en haut à droite ; celui du système
+  au premier lancement.
+- **Sur téléphone** — la liste et la carte sont deux vues, basculées depuis
+  l'en-tête ; le lieu et les filtres se replient derrière un bouton ; les
+  menus s'ouvrent en bas de l'écran ; toucher un point de la carte affiche
+  l'évènement dans une fiche par-dessus la carte.
 - **Contacts** — une icône par moyen de contact. E-mail et téléphone ouvrent
   un petit menu : la valeur, « Envoyer un mail » ou « Appeler », et « Copier »,
   dont le bouton confirme lui-même la copie.
