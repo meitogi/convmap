@@ -414,6 +414,21 @@ function contactMenu(name, label, value, href, action) {
   );
 }
 
+// What each tag means, said to whoever hovers it or touches it.
+const TAG_HELP = {
+  regular: "Régulier : des éditions sur au moins deux années. Il revient.",
+  new: "Nouveau : une seule année connue, à venir ou datant de moins d'un an.",
+  paused: "En pause ? Il revenait régulièrement, mais plus rien depuis 18 mois et rien d'annoncé.",
+  oneoff: "Ponctuel : une seule année connue, il y a plus d'un an. Sans suite pour l'instant.",
+};
+
+// The tag of a row. Hovering shows its meaning ; so does a click or a touch,
+// since a phone has no hover.
+function tagBadge(tag) {
+  const help = TAG_HELP[tag];
+  return el('details', { className: 'pop tag-pop' }, el('summary', { className: `tag ${tag}`, title: help }, TAG_LABELS[tag]), el('div', { className: 'pop-panel' }, help));
+}
+
 function editionLine(edition) {
   const flags = [];
   if (edition.source === 'manual') flags.push('ajouté à la main');
@@ -481,7 +496,7 @@ function row({ series: s, km }) {
     el(
       'div',
       { className: 'body' },
-      el('div', { className: 'name' }, s.name, el('span', { className: `tag ${s.tag}` }, TAG_LABELS[s.tag])),
+      el('div', { className: 'name' }, s.name, tagBadge(s.tag)),
       el('div', { className: 'line' }, [area && area.department ? `${s.city} (${area.department})` : s.city, km == null ? '' : `${Math.round(km)} km`, s.category].filter(Boolean).join(' · ')),
       next,
       contact.length ? contactLine : '',
@@ -500,7 +515,7 @@ function checkedCount(items) {
 function updateCount() {
   const total = visible.length;
   const count = checkedCount(visible) + checkedCount(unlocated);
-  $('count').textContent = `${total} série${total > 1 ? 's' : ''}${count ? ` · ${count} cochée${count > 1 ? 's' : ''}` : ''}`;
+  $('count').textContent = `${total} évènement${total > 1 ? 's' : ''}${count ? ` · ${count} coché${count > 1 ? 's' : ''}` : ''}`;
 }
 
 // The small-screen button that unfolds the filters says how many are set.
@@ -520,7 +535,7 @@ function render() {
   const lost = unlocated.length;
   block.hidden = !lost;
   if (lost) {
-    block.firstElementChild.textContent = `${lost} série${lost > 1 ? 's' : ''} sans coordonnées (hors rayon, à corriger via « Modifier »)`;
+    block.firstElementChild.textContent = `${lost} évènement${lost > 1 ? 's' : ''} sans coordonnées (hors rayon, à corriger via « Modifier »)`;
     $('unlocated-list').replaceChildren(...unlocated.map(row));
   }
   updateCount();
@@ -666,8 +681,7 @@ function syncFilters() {
   $('radius').value = radius;
   $('radius-km').value = radius;
   $('period').value = state.period;
-  $('from').value = state.from;
-  $('from').disabled = state.period !== 'upcoming' && state.period !== 'announced';
+  showFrom();
   $('place').value = state.anchor ? state.anchor.label : '';
   syncSort();
 }
@@ -698,15 +712,38 @@ function setRadius(event) {
 }
 $('radius').addEventListener('input', setRadius);
 $('radius-km').addEventListener('change', setRadius);
+// "À partir de" is a list of months rather than a month field : browsers do
+// not agree on what a month field looks like, and some show a bare text box.
+const FROM_MONTHS = 24;
+
+function showFrom() {
+  const from = state.from;
+  const months = [];
+  for (let i = 0; i < FROM_MONTHS; i++) {
+    const total = now.getFullYear() * 12 + now.getMonth() + i;
+    months.push(`${Math.floor(total / 12)}-${pad((total % 12) + 1)}`);
+  }
+  // A month from a saved search or a link may lie outside the list.
+  if (from && !months.includes(from)) months.unshift(from);
+  $('from').replaceChildren(el('option', { value: '' }, 'Peu importe'), ...months.map((month) => el('option', { value: month }, monthLabel(month))));
+  $('from').value = from;
+}
+
 $('period').addEventListener('change', (event) => {
-  state.period = event.target.value;
+  const period = event.target.value;
+  state.period = period;
+  // "From" only means something for what is to come.
+  if (period !== 'upcoming' && period !== 'announced') state.from = '';
   save();
   syncFilters();
   render();
 });
 $('from').addEventListener('change', (event) => {
   state.from = event.target.value;
+  // Choosing a month is asking for what is to come : the period follows.
+  if (state.from && state.period !== 'upcoming' && state.period !== 'announced') state.period = 'upcoming';
   save();
+  syncFilters();
   render();
 });
 for (const id of ['tag', 'category', 'search']) $(id).addEventListener('input', render);
@@ -858,7 +895,7 @@ function refreshExport() {
 $('export').addEventListener('click', () => {
   const picked = checkedCount(visible) + checkedCount(unlocated);
   const total = visible.length;
-  $('export-count').textContent = picked ? `— ${picked} cochée${picked > 1 ? 's' : ''}` : `— rien de coché : les ${total} affichées`;
+  $('export-count').textContent = picked ? `— ${picked} coché${picked > 1 ? 's' : ''}` : `— rien de coché : les ${total} affichés`;
   refreshExport();
   $('export-dialog').showModal();
 });

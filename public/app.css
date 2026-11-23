@@ -267,3 +267,16 @@ button.link { border: 0; background: none; padding: 0; min-height: 0; font: inhe
 #releases h3 { margin: 10px 0 4px; font-size: 15px; }
 #releases ul { margin: 0; padding-left: 20px; }
 #releases li { margin-bottom: 3px; }
+
+/* A row's tag opens its own explanation. */
+.row details.tag-pop { display: inline-block; margin: 0 0 0 6px; vertical-align: 1px; }
+.row .tag-pop > summary.tag { display: inline-block; margin: 0; color: var(--on-accent); cursor: help; list-style: none; vertical-align: 0; }
+.tag-pop > summary::-webkit-details-marker { display: none; }
+.tag-pop .pop-panel { font-weight: 400; font-size: 13px; color: var(--ink); }
+/* Beside the tag on a wide screen ; on a phone it is a full-width sheet. */
+@media (min-width: 861px) {
+  .tag-pop .pop-panel { max-width: 280px; }
+}
+@media (max-width: 860px) {
+  .tag-pop .pop-panel { font-size: 15px; }
+}

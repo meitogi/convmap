@@ -25,6 +25,10 @@ Pour publier le site : [mise-en-ligne.md](mise-en-ligne.md).
   C'est une extrapolation : elle est toujours libellée « non annoncé ».
 - **Période** — « à venir : annoncé ou probable » avec « à partir de » répond
   à la question « qu'est-ce qu'il y aura dans le coin après telle date ? ».
+  Choisir un mois dans « à partir de » bascule tout seul la période sur « à
+  venir ».
+- **Signification des tags** — survoler un tag, ou le toucher sur téléphone,
+  affiche ce qu'il veut dire.
 - **Tri** — par prochaine date, ou par proximité dès qu'un lieu est choisi.
 - **Thème** — clair ou sombre, par l'icône en haut à droite ; celui du système
   au premier lancement.
@@ -157,7 +161,7 @@ Version locale : `data/agenda.db` (SQLite, hors git — il contient des contacts
 | `searches` | les recherches enregistrées |
 | `meta` | date de la dernière lecture de l'agenda |
 
-Les séries ne sont pas stockées : elles sont recalculées à partir de `events`
+Les regroupements d'éditions ne sont pas stockés : ils sont recalculés à partir de `events`
 (même titre une fois l'année et le numéro d'édition retirés, lieux à moins de
 50 km). `events.id` est stable : c'est la clé à laquelle un futur suivi de
 demandes pourra se rattacher.
@@ -166,7 +170,7 @@ demandes pourra se rattacher.
 
 - L'agenda ne remonte pas avant novembre 2022.
 - Deux éditions d'un même évènement à plus de 50 km l'une de l'autre sont
-  comptées comme deux séries.
+  comptées comme deux évènements distincts.
 - Un évènement sans coordonnées est listé à part, hors rayon, jusqu'à ce qu'on
   lui donne une latitude et une longitude via « Modifier ».
 - Un évènement sans code postal exploitable n'apparaît dans aucune région ni
