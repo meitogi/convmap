@@ -3,6 +3,7 @@
 // master key ; saving it is a commit, which republishes the site.
 
 import { accessLink, addPerson, readAccess, removePerson, sealAccess } from './lib/access.mjs';
+import { copyWith } from './copy.js';
 import { fromBase64Url, toBase64Url } from './lib/crypto.mjs';
 
 const API = 'https://api.github.com';
@@ -144,8 +145,7 @@ $('add').addEventListener('submit', (event) => {
 $('people').addEventListener('click', async (event) => {
   const { copy, revoke } = event.target.dataset;
   if (copy) {
-    await navigator.clipboard.writeText(copy);
-    showStatus('Lien copié.');
+    copyWith(event.target, copy);
   } else if (revoke && confirm(`Révoquer le lien de ${revoke} ?`)) {
     saveList(removePerson(list, revoke), 'Revoke an access link', `Lien de ${revoke} révoqué.`);
   }

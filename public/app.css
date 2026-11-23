@@ -144,3 +144,23 @@ body.admin { display: block; }
 .card td:nth-child(3) { width: 100%; }
 .card td input { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
 .card td .danger { margin-right: 0; }
+
+/* Contact icons on a row, and the small menu under mail and phone. */
+.row .contact { display: flex; flex-wrap: wrap; align-items: center; column-gap: 4px; }
+.icons { display: inline-flex; align-items: center; gap: 4px; margin-left: 4px; }
+.icon { display: inline-flex; }
+.icon-button { display: inline-flex; align-items: center; gap: 1px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--ink); cursor: pointer; list-style: none; }
+.icon-button::-webkit-details-marker { display: none; }
+.icon-button:hover, .pop[open] > .icon-button { border-color: var(--accent); color: var(--accent); }
+.pop { position: relative; display: inline-block; margin: 0; font-size: 13px; }
+.pop-panel { position: absolute; z-index: 1000; top: calc(100% + 4px); left: 0; width: max-content; max-width: 300px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px; box-shadow: 0 6px 20px var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+.pop-panel .value { color: var(--ink); font-weight: 600; user-select: all; overflow-wrap: anywhere; }
+.pop-actions { display: flex; gap: 6px; }
+a.button { display: inline-block; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 6px; padding: 5px 10px; text-decoration: none; }
+a.button:hover { border-color: var(--line-strong); }
+
+/* "Copié" : the button itself confirms, in place of a toast. */
+button.copied { background: var(--regular); border-color: var(--regular); color: var(--on-accent); display: inline-flex; align-items: center; justify-content: center; gap: 5px; animation: copied 0.35s ease-out; }
+button.primary.copied { background: var(--regular); border-color: var(--regular); }
+@keyframes copied { 0% { transform: scale(0.92); } 55% { transform: scale(1.08); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { button.copied { animation: none; } }

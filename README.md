@@ -17,6 +17,9 @@ npm start
 Puis ouvrir http://localhost:4180. Node 24 ou plus récent, aucune dépendance à
 installer. `PORT=8093 npm start` pour un autre port.
 
+Dans un devcontainer qui ne relaie aucun port de lui-même, relayer le port à
+la main : panneau « Ports » de VS Code > « Forward a Port » > 4180.
+
 Au premier lancement la base est vide : cliquer **Mettre à jour depuis
 l'agenda** (2 à 3 minutes, une cinquantaine de requêtes espacées).
 
@@ -43,6 +46,9 @@ l'agenda** (2 à 3 minutes, une cinquantaine de requêtes espacées).
   à la question « qu'est-ce qu'il y aura dans le coin après telle date ? ».
 - **Tri** — par prochaine date, ou par proximité dès qu'un lieu est choisi.
 - **Thème** — clair ou sombre ; celui du système au premier lancement.
+- **Contacts** — une icône par moyen de contact. E-mail et téléphone ouvrent
+  un petit menu : la valeur, « Envoyer un mail » ou « Appeler », et « Copier »,
+  dont le bouton confirme lui-même la copie.
 - **Facebook et Instagram** — lus dans ce que l'agenda publie pour chaque
   évènement (site, site de l'organisateur, champs libres, description en
   dernier recours). Une page Facebook est préférée à un lien d'évènement.
@@ -166,4 +172,5 @@ npm test
 ## Licences
 
 Carte : [Leaflet](https://leafletjs.com) 1.9.4 (BSD-2-Clause, dans
-`public/vendor/leaflet/`), fond de carte © les contributeurs d'OpenStreetMap.
+`public/vendor/leaflet/`), fond de carte © les contributeurs d'OpenStreetMap. Icônes : tracés de
+[Feather](https://feathericons.com) (MIT).

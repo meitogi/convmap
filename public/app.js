@@ -2,6 +2,7 @@ import { areaOf, DEPARTMENTS, REGIONS } from './lib/area.mjs';
 import { monthLabel, rangeLabel, TAG_LABELS, toCsv, toMarkdown, toText, toTsv } from './lib/export.mjs';
 import { distanceKm } from './lib/geo.mjs';
 import { buildSeries } from './lib/series.mjs';
+import { copyWith } from './copy.js';
 import * as store from './store.js';
 
 const L = window.L;
@@ -292,6 +293,39 @@ function compute() {
 
 // ─── List ───────────────────────────────────────────────────────────────
 
+// Monochrome line icons (Feather, MIT), drawn in the text colour.
+const ICONS = {
+  mail: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+  phone:
+    '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  facebook: '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
+  instagram: '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>',
+  caret: '<polyline points="6 9 12 15 18 9"/>',
+};
+
+function icon(name, size) {
+  const holder = el('span', { className: 'icon' });
+  holder.innerHTML = `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name]}</svg>`;
+  return holder;
+}
+
+function iconLink(name, label, url) {
+  return el('a', { className: 'icon-button', href: url, target: '_blank', rel: 'noopener', title: label, ariaLabel: label }, icon(name, 16));
+}
+
+// An icon with a small arrow : it opens the value itself, a link that acts
+// on it (send a mail, call) and a button that copies it.
+function contactMenu(name, label, value, href, action) {
+  const copy = el('button', { type: 'button' }, 'Copier');
+  copy.dataset.copy = value;
+  return el(
+    'details',
+    { className: 'pop contact-menu' },
+    el('summary', { className: 'icon-button', title: label, ariaLabel: label }, icon(name, 16), icon('caret', 11)),
+    el('div', { className: 'pop-panel' }, el('div', { className: 'value' }, value), el('div', { className: 'pop-actions' }, el('a', { className: 'button', href }, action), copy)),
+  );
+}
+
 function editionLine(edition) {
   const flags = [];
   if (edition.source === 'manual') flags.push('ajouté à la main');
@@ -327,12 +361,17 @@ function row({ series: s, km }) {
   const social = (s.facebook || s.instagram) && /facebook\.com|fb\.me|instagram\.com/i.test(website);
   if (website && !social) contact.push(link(website, website.replace(/^https?:\/\/(www\.)?/i, '').replace(/\/.*$/, '')));
   if (s.organizer) contact.push(s.organizer);
-  if (email) contact.push(el('a', { href: `mailto:${email}` }, email));
-  if (s.phone) contact.push(s.phone);
-  if (s.facebook) contact.push(link(s.facebook, 'Facebook'));
-  if (s.instagram) contact.push(link(s.instagram, 'Instagram'));
-  const contactLine = el('div', { className: 'line' });
+  const contactLine = el('div', { className: 'line contact' });
   contact.forEach((part, index) => contactLine.append(index ? ' · ' : '', part));
+  const icons = el('span', { className: 'icons' });
+  if (email) icons.append(contactMenu('mail', 'E-mail', email, `mailto:${email}`, 'Envoyer un mail'));
+  if (s.phone) icons.append(contactMenu('phone', 'Téléphone', s.phone, `tel:${s.phone.replace(/[^\d+]/g, '')}`, 'Appeler'));
+  if (/^https?:\/\//i.test(s.facebook)) icons.append(iconLink('facebook', 'Facebook', s.facebook));
+  if (/^https?:\/\//i.test(s.instagram)) icons.append(iconLink('instagram', 'Instagram', s.instagram));
+  if (icons.childElementCount) {
+    contact.push(icons);
+    contactLine.append(icons);
+  }
 
   const count = editions.length;
   const years = [];
@@ -394,8 +433,11 @@ $('list').parentElement.addEventListener('change', (event) => {
 });
 
 $('list').parentElement.addEventListener('click', (event) => {
-  const id = event.target.dataset.event;
+  const button = event.target.closest('button');
+  if (!button) return;
+  const { event: id, copy } = button.dataset;
   if (id) openEdit(events.find((e) => e.id === Number(id)));
+  else if (copy) copyWith(button, copy);
 });
 
 function checkVisible(value) {
@@ -476,7 +518,7 @@ for (const id of ['regions', 'departments']) {
 }
 // A click anywhere else closes an open list.
 document.addEventListener('click', (event) => {
-  for (const multi of document.querySelectorAll('.multi[open]')) if (!multi.contains(event.target)) multi.open = false;
+  for (const open of document.querySelectorAll('.multi[open], .pop[open]')) if (!open.contains(event.target)) open.open = false;
 });
 
 function syncFilters() {
@@ -633,7 +675,6 @@ function refreshExport() {
   // The BOM is for the downloaded file only.
   $('export-text').value = output.replace(/^\uFEFF/, '');
   $('export-hint').textContent = format.hint;
-  $('export-done').textContent = '';
 }
 
 $('export').addEventListener('click', () => {
@@ -645,16 +686,7 @@ $('export').addEventListener('click', () => {
 });
 $('export-dialog').addEventListener('change', refreshExport);
 
-$('export-copy').addEventListener('click', async () => {
-  const area = $('export-text');
-  try {
-    await navigator.clipboard.writeText(area.value);
-  } catch {
-    area.select();
-    document.execCommand('copy');
-  }
-  $('export-done').textContent = 'Copié.';
-});
+$('export-copy').addEventListener('click', (event) => copyWith(event.currentTarget, $('export-text').value));
 
 $('export-download').addEventListener('click', () => {
   const { format, output } = exportOutput();

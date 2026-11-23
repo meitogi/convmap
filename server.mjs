@@ -15,6 +15,7 @@ const FILES = {
   '/': 'public/index.html',
   '/app.js': 'public/app.js',
   '/store.js': 'public/store-api.js',
+  '/copy.js': 'public/copy.js',
   '/app.css': 'public/app.css',
   '/vendor/leaflet/leaflet.js': 'public/vendor/leaflet/leaflet.js',
   '/vendor/leaflet/leaflet.css': 'public/vendor/leaflet/leaflet.css',
