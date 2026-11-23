@@ -65,6 +65,9 @@ main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(380p
 .filters label, .filters .field, .grid label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); }
 .filters .wide { grid-column: span 2; }
 .inline { display: flex; gap: 6px; }
+.inline button { white-space: nowrap; }
+button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+#map.picking, #map.picking .leaflet-interactive { cursor: crosshair; }
 .filters input[type=range] { height: 31px; margin: 0; }
 .km { display: flex; align-items: center; gap: 6px; }
 .km input { width: 76px; }

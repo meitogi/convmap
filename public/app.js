@@ -166,7 +166,27 @@ function setAnchor(anchor) {
   render();
 }
 
+// A click on the map sets the place only after "Sur la carte" : the
+// map can then be dragged and clicked without moving the search.
+let picking = false;
+
+function setPicking(on) {
+  picking = on;
+  const button = $('pick-place');
+  button.ariaPressed = String(on);
+  button.textContent = on ? 'Annuler' : 'Sur la carte';
+  showStatus(on ? 'Clique un point sur la carte pour en faire le lieu de la recherche (Échap pour annuler).' : '');
+  $('map').classList.toggle('picking', on);
+}
+
+$('pick-place').addEventListener('click', () => setPicking(!picking));
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && picking) setPicking(false);
+});
+
 map.on('click', (event) => {
+  if (!picking) return;
+  setPicking(false);
   const { lat, lng } = event.latlng;
   setAnchor({ lat, lng, label: nearestCity(lat, lng) || 'ce point' });
 });
@@ -600,7 +620,7 @@ $('place').addEventListener('change', (event) => {
   const text = event.target.value;
   if (!text.trim()) return setAnchor(null);
   const city = cities[fold(text)];
-  if (!city) return showStatus(`« ${text} » n'est pas une ville connue de l'agenda. Choisis-en une dans la liste, ou clique sur la carte.`);
+  if (!city) return showStatus(`« ${text} » n'est pas une ville connue de l'agenda. Choisis-en une dans la liste, ou utilise « Sur la carte ».`);
   setAnchor({ lat: city.lat, lng: city.lng, label: city.name });
 });
 $('clear-place').addEventListener('click', () => setAnchor(null));

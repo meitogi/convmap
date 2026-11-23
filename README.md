@@ -25,7 +25,8 @@ l'agenda** (2 à 3 minutes, une cinquantaine de requêtes espacées).
 
 ## Ce que fait la page
 
-- **Lieu + rayon** — taper une ville ou cliquer sur la carte, régler le rayon.
+- **Lieu + rayon** — taper une ville, ou « Sur la carte » puis cliquer
+  un point ; régler le rayon.
 - **Régions et départements** — sélection multiple, seule ou combinée au
   rayon. Le département vient du code postal du lieu ; hors de France, le pays
   tient lieu de région.
