@@ -59,6 +59,10 @@ Puis ouvrir http://localhost:4180 et cliquer **Mettre à jour depuis l'agenda**
 un fichier SQLite et ne demande aucun lien d'accès. `PORT=8093 npm start` pour
 un autre port.
 
+Pour l'essayer sans rien télécharger de l'agenda, `npm run demo` lance la page
+sur le port 4182 avec une vingtaine d'évènements inventés autour de Rennes —
+c'est avec eux que les captures de cette page sont faites.
+
 Dans un devcontainer qui ne relaie aucun port de lui-même, relayer le port à
 la main : panneau « Ports » de VS Code > « Forward a Port » > 4180.
 

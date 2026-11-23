@@ -29,7 +29,8 @@ const FILES = {
 const TYPES = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript', css: 'text/css', svg: 'image/svg+xml', png: 'image/png' };
 
 mkdirSync(`${ROOT}data`, { recursive: true });
-const db = openDb(`${ROOT}data/agenda.db`);
+// AGENDA_DB : another base than the default one — the demo's, for instance.
+const db = openDb(process.env.AGENDA_DB || `${ROOT}data/agenda.db`);
 let refetching = null;
 
 function send(response, status, body) {

@@ -10,6 +10,7 @@
   },
   "scripts": {
     "start": "node server.mjs",
+    "demo": "node scripts/demo.mjs && AGENDA_DB=data/demo.db PORT=4182 node server.mjs",
     "site": "node scripts/build-site.mjs",
     "preview": "node scripts/build-site.mjs && node scripts/preview-site.mjs",
     "test": "node --test test/*.test.mjs"
