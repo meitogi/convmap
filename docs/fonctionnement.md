@@ -43,6 +43,12 @@ Pour publier le site : [mise-en-ligne.md](mise-en-ligne.md).
 - **Facebook et Instagram** — lus dans ce que l'agenda publie pour chaque
   évènement (site, site de l'organisateur, champs libres, description en
   dernier recours). Une page Facebook est préférée à un lien d'évènement.
+- **Recherches partageables** — l'adresse de la page suit les filtres
+  (`?lieu=Rennes&rayon=150&periode=upcoming…`). La copier, ou cliquer « Copier
+  le lien », donne un lien qui rouvre la même recherche. Ce lien ne contient
+  jamais de clé d'accès : dans la version en ligne, son destinataire doit
+  avoir son propre accès. Pour envoyer quelqu'un directement sur une
+  recherche avec son accès, placer la partie `?…` avant le `#k=` de son lien.
 - **Recherches enregistrées** — lieu, rayon, régions et filtres sous un nom, à rappeler
   d'un clic.
 - **Ajouter / Modifier** — un évènement ajouté à la main, ou un champ corrigé
@@ -69,8 +75,8 @@ sur `main`.
 - **Les données sont chiffrées** (AES-256-GCM). Le dépôt et la page sont
   publics, les données ne se lisent qu'avec un lien d'accès :
   `https://convmap.suuuper.app/#k=<clé>`. Ce qui suit le `#` reste dans
-  le navigateur, il n'est jamais envoyé à GitHub. Une fois le lien ouvert, le
-  navigateur retient la clé.
+  le navigateur, il n'est jamais envoyé à GitHub. À l'ouverture du lien, le
+  navigateur retient la clé et la retire aussitôt de la barre d'adresse.
 - **Un lien par personne.** La page `admin.html` liste les liens, en crée un
   pour un nom, en révoque un. Un lien révoqué cesse de fonctionner à la
   publication suivante, une à deux minutes plus tard.

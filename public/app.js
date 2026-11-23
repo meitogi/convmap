@@ -3,6 +3,7 @@ import { monthLabel, rangeLabel, TAG_LABELS, toCsv, toMarkdown, toText, toTsv } 
 import { distanceKm } from './lib/geo.mjs';
 import { parseReleases } from './lib/releases.mjs';
 import { buildSeries } from './lib/series.mjs';
+import { fromQuery, toQuery } from './lib/share.mjs';
 import { copyWith } from './copy.js';
 import * as store from './store.js';
 
@@ -321,7 +322,8 @@ async function load() {
   if (body.locked === 'revoked') showStatus("Ce lien d'accès n'est plus valide. Demande un nouveau lien à la personne qui te l'a partagé.");
   else if (body.locked) showStatus("Cette page s'ouvre avec son lien d'accès, qui contient la clé des données. Demande-le à la personne qui te l'a partagé.");
   else if (!events.length) showStatus("Aucun évènement en base. Clique « Mettre à jour depuis l'agenda » pour les récupérer (2 à 3 minutes).");
-  render();
+  if (shared) applyShared();
+  else render();
 }
 
 // By next edition : announced or probable first, then the most recent past.
@@ -523,6 +525,7 @@ function render() {
   }
   updateCount();
   updateFiltersToggle();
+  syncUrl();
   drawMarkers();
   $('map-card').hidden = true;
 }
@@ -717,6 +720,73 @@ $('place').addEventListener('change', (event) => {
 });
 $('clear-place').addEventListener('click', () => setAnchor(null));
 
+// ─── A search as one object : saved, or shared as a link ───────────────
+
+function currentParams() {
+  return {
+    anchor: state.anchor,
+    radius: state.radius,
+    period: state.period,
+    from: state.from,
+    sort: state.sort,
+    regions: state.regions,
+    departments: state.departments,
+    tag: $('tag').value,
+    category: $('category').value,
+    search: $('search').value,
+  };
+}
+
+function applyParams(params) {
+  state.anchor = params.anchor || null;
+  state.radius = params.radius || 100;
+  state.period = params.period || 'all';
+  state.from = params.from || '';
+  state.sort = params.sort || 'date';
+  state.regions = params.regions || [];
+  state.departments = params.departments || [];
+  syncMulti('regions');
+  syncMulti('departments');
+  $('tag').value = params.tag || '';
+  $('category').value = params.category || '';
+  $('search').value = params.search || '';
+  save();
+  syncFilters();
+  drawZone();
+  render();
+  fitVisible();
+}
+
+// The search the address carried when the page opened, applied once the
+// events are there ; then the address follows the filters, so that it can be
+// copied at any time.
+let shared = fromQuery(location.search);
+
+function applyShared() {
+  const params = shared;
+  shared = null;
+  const anchor = params.anchor;
+  if (anchor && anchor.lat == null) {
+    // The link names a town without its position.
+    const city = cities[fold(anchor.label)];
+    params.anchor = city ? { lat: city.lat, lng: city.lng, label: city.name } : null;
+    if (!city) showStatus(`Le lien cite « ${anchor.label} », qui n'est pas une ville connue de l'agenda : la recherche est faite sans lieu.`);
+  }
+  applyParams(params);
+}
+
+function shareLink() {
+  const query = toQuery(currentParams());
+  return `${location.origin}${location.pathname}${query ? `?${query}` : ''}`;
+}
+
+function syncUrl() {
+  if (shared) return;
+  history.replaceState(null, '', `${shareLink()}${location.hash}`);
+}
+
+$('share').addEventListener('click', (event) => copyWith(event.currentTarget, shareLink()));
+
 // ─── Saved searches ─────────────────────────────────────────────────────
 
 let searches = [];
@@ -737,44 +807,15 @@ $('searches').addEventListener('change', (event) => {
   const found = searches.find((search) => search.name === name);
   $('search-delete').disabled = !found;
   if (!found) return;
-  const params = found.params;
-  state.anchor = params.anchor || null;
-  state.radius = params.radius || 100;
-  state.period = params.period || 'all';
-  state.from = params.from || '';
-  state.sort = params.sort || 'date';
-  state.regions = params.regions || [];
-  state.departments = params.departments || [];
-  syncMulti('regions');
-  syncMulti('departments');
-  $('tag').value = params.tag || '';
-  $('category').value = params.category || '';
-  $('search').value = params.search || '';
   $('search-name').value = name;
-  save();
-  syncFilters();
   showStatus('');
-  drawZone();
-  render();
-  fitVisible();
+  applyParams(found.params);
 });
 
 $('search-save').addEventListener('click', async () => {
   const name = $('search-name').value.trim();
   if (!name) return showStatus('Donne un nom à la recherche avant de l\'enregistrer.');
-  const params = {
-    anchor: state.anchor,
-    radius: state.radius,
-    period: state.period,
-    from: state.from,
-    sort: state.sort,
-    regions: state.regions,
-    departments: state.departments,
-    tag: $('tag').value,
-    category: $('category').value,
-    search: $('search').value,
-  };
-  showSearches(await store.saveSearch(name, params), name);
+  showSearches(await store.saveSearch(name, currentParams()), name);
   showStatus(`Recherche « ${name} » enregistrée.`);
 });
 

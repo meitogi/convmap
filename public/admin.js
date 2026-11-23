@@ -156,7 +156,14 @@ $('people').addEventListener('click', async (event) => {
 let kept = {};
 try {
   kept = JSON.parse(localStorage.getItem(SETTINGS)) || {};
-  settings.key.value = (/[#&]k=([\w-]+)/.exec(location.hash) || [])[1] || localStorage.getItem(KEY_STORE) || '';
+  // As on the main page : a key that came with the link is kept and taken out
+  // of the address bar.
+  const fromLink = (/[#&]k=([\w-]+)/.exec(location.hash) || [])[1];
+  if (fromLink) {
+    localStorage.setItem(KEY_STORE, fromLink);
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+  settings.key.value = fromLink || localStorage.getItem(KEY_STORE) || '';
 } catch {
   // Private window.
 }

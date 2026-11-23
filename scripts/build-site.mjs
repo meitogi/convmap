@@ -29,7 +29,7 @@ rmSync(site, { recursive: true, force: true });
 cpSync(`${root}public`, site, { recursive: true, filter: (source) => !/store-(api|browser)\.js$/.test(source) });
 cpSync(`${root}public/store-browser.js`, `${site}/store.js`);
 mkdirSync(`${site}/lib`);
-for (const name of ['access', 'agenda', 'area', 'crypto', 'events', 'export', 'geo', 'releases', 'series']) cpSync(`${root}lib/${name}.mjs`, `${site}/lib/${name}.mjs`);
+for (const name of ['access', 'agenda', 'area', 'crypto', 'events', 'export', 'geo', 'releases', 'series', 'share']) cpSync(`${root}lib/${name}.mjs`, `${site}/lib/${name}.mjs`);
 cpSync(`${root}CHANGELOG.md`, `${site}/CHANGELOG.md`);
 mkdirSync(`${site}/data`);
 writeFileSync(`${site}/data/events.bin`, data);

@@ -23,6 +23,7 @@ const FILES = {
   '/vendor/leaflet/leaflet.css': 'public/vendor/leaflet/leaflet.css',
   '/lib/geo.mjs': 'lib/geo.mjs',
   '/lib/releases.mjs': 'lib/releases.mjs',
+  '/lib/share.mjs': 'lib/share.mjs',
   '/CHANGELOG.md': 'CHANGELOG.md',
   '/lib/area.mjs': 'lib/area.mjs',
   '/lib/series.mjs': 'lib/series.mjs',

@@ -31,15 +31,23 @@ function request(run) {
 const read = (key) => request((kv) => kv.get(key));
 const write = (key, value) => request((kv) => kv.put(value, key));
 
-// The key of the access link, remembered so that the bare address works on
-// the next visit.
+// The key of the access link. It is remembered, so that the bare address
+// works on the next visit, and taken out of the address bar : the address is
+// what people copy to share a search, and it must not carry their key.
+let keyFromLink = null;
+
 function accessKey() {
   const fromLink = /[#&]k=([\w-]+)/.exec(location.hash);
+  if (fromLink) {
+    keyFromLink = fromLink[1];
+    history.replaceState(null, '', location.pathname + location.search);
+  }
   try {
-    if (fromLink) localStorage.setItem(KEY_STORE, fromLink[1]);
-    return fromLink ? fromLink[1] : localStorage.getItem(KEY_STORE);
+    if (keyFromLink) localStorage.setItem(KEY_STORE, keyFromLink);
+    return keyFromLink || localStorage.getItem(KEY_STORE);
   } catch {
-    return fromLink ? fromLink[1] : null;
+    // Private window : the key lasts for this visit.
+    return keyFromLink;
   }
 }
 
