@@ -1059,7 +1059,8 @@ fetch('CHANGELOG.md', { cache: 'no-cache' })
         el(
           'section',
           null,
-          el('h3', null, `Version ${version}`, date ? el('span', { className: 'muted' }, ` — ${rangeLabel(date, date).replace(/^le /, '')}`) : ''),
+          el('h3', null, `Version ${version}`),
+          date ? el('div', { className: 'release-date' }, rangeLabel(date, date).replace(/^le /, '')) : '',
           el('ul', null, ...items.map((item) => el('li', null, item))),
         ),
       ),

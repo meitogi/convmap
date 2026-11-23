@@ -282,7 +282,9 @@ button.primary.copied { background: var(--regular); border-color: var(--regular)
 /* Version in the footer, and the release notes it opens. */
 button.link { border: 0; background: none; padding: 0; min-height: 0; font: inherit; color: var(--accent); text-decoration: underline; cursor: pointer; }
 #releases { max-height: 60dvh; overflow-y: auto; }
-#releases h3 { margin: 10px 0 4px; font-size: 15px; }
+#releases h3 { margin: 10px 0 0; font-size: 15px; }
+/* The date stays in the background : small, under the version. */
+#releases .release-date { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
 #releases ul { margin: 0; padding-left: 20px; }
 #releases li { margin-bottom: 3px; }
 
