@@ -172,7 +172,7 @@ site pour tous les liens d'accès.
   | `link` | ajoute des liens à une édition, de l'agenda ou de la base |
   | `list [texte]` | liste la base |
   | `edit` | ouvre la base en JSON dans VS Code (`CONVMAP_EDITOR` pour un autre éditeur), la re-scelle à la fermeture |
-  | `open` / `seal` | la même chose en deux temps, via `.tmp/manual.json` (hors git) |
+  | `open` / `seal [message]` | la même chose en deux temps, via `.tmp/manual.json` (hors git) ; le message sert au commit |
 
   Chaque changement est validé, scellé, reporté dans la base locale et
   commité (`snapshot/manual.bin` seul ; `--no-commit` pour s'en passer). Un

@@ -20,7 +20,7 @@ agenda local…). Elle est publiée avec le site pour tous les liens d'accès.
   list [texte]  lister la base, ou ce qui contient « texte »
   edit          ouvrir la base en JSON dans l'éditeur, puis la re-sceller
   open          écrire la base en clair dans .tmp/manual.json
-  seal          re-sceller .tmp/manual.json (puis le supprimer)
+  seal [msg]    re-sceller .tmp/manual.json (puis le supprimer), msg en commit
 
 Chaque changement est committé (snapshot/manual.bin seul) ; --no-commit
 l'écrit sans committer. Pousser la branche main publie.`;
@@ -312,7 +312,7 @@ async function sealClear() {
     console.error(`${CLEAR_SHOWN} est gardé, à corriger :\n  ${problems.join('\n  ')}`);
     process.exit(1);
   }
-  await save(doc, 'Update the manual base');
+  await save(doc, rest.join(' ') || 'Update the manual base');
   rmSync(CLEAR);
 }
 
