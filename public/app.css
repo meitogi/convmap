@@ -132,7 +132,7 @@ button[aria-pressed="true"] { background: var(--accent); border-color: var(--acc
 #unlocated > summary { cursor: pointer; color: var(--muted); margin-bottom: 8px; }
 
 dialog { background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 18px; width: min(720px, 94vw); }
-dialog::backdrop { background: #1c1f2466; }
+dialog::backdrop { background: #1c1f2440; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 dialog form { display: flex; flex-direction: column; gap: 10px; }
 .formats { display: flex; gap: 14px; flex-wrap: wrap; }
 .check { display: flex; gap: 6px; align-items: center; }

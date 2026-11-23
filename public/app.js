@@ -1027,14 +1027,23 @@ $('edit-delete').addEventListener('click', () => {
 
 // ─── Version and release notes ──────────────────────────────────────────
 
-// A click beside the release notes closes them, as Escape does. The dialog's
-// own padding is the dialog too : only a click outside its box counts.
-$('releases-dialog').addEventListener('click', (event) => {
-  const dialog = event.currentTarget;
-  if (event.target !== dialog) return;
+// Any dialog closes on a click beside it, as on Escape. The dialog's own
+// padding is the dialog too : only a press and a release both outside its
+// box count, so that a text selection dragged out of a field closes nothing.
+function outside(dialog, event) {
   const box = dialog.getBoundingClientRect();
-  if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close();
-});
+  return event.target === dialog && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom);
+}
+for (const dialog of document.querySelectorAll('dialog')) {
+  let pressedOutside = false;
+  dialog.addEventListener('pointerdown', (event) => {
+    pressedOutside = outside(dialog, event);
+  });
+  dialog.addEventListener('click', (event) => {
+    if (pressedOutside && outside(dialog, event)) dialog.close();
+    pressedOutside = false;
+  });
+}
 
 // The footer shows the latest version of CHANGELOG.md ; a click lists them all.
 fetch('CHANGELOG.md', { cache: 'no-cache' })
