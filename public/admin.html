@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Agenda Geek — accès</title>
+<script>
+  try { document.documentElement.dataset.theme = localStorage.getItem('agenda-geek-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = 'light'; }
+</script>
+<link rel="stylesheet" href="app.css">
+</head>
+<body class="admin">
+<header class="top">
+  <h1>Agenda Geek <span>accès</span></h1>
+  <a href="./">Retour à la page</a>
+</header>
+
+<div class="admin-body">
+  <section class="card">
+    <h2>Réglages</h2>
+    <p class="muted">Gardés dans ce navigateur uniquement. Le jeton est un « fine-grained token » GitHub limité à ce dépôt, avec la permission Contents en lecture et écriture.</p>
+    <form id="settings" class="grid">
+      <label>Dépôt <input name="repo" placeholder="compte/depot" required></label>
+      <label>Jeton GitHub <input name="token" type="password" autocomplete="off" required></label>
+      <label class="wide">Clé maître <input name="key" type="password" autocomplete="off" required></label>
+      <div class="actions wide">
+        <button id="forget" type="button" class="danger">Oublier ces réglages</button>
+        <button type="submit" class="primary">Enregistrer et charger la liste</button>
+      </div>
+    </form>
+  </section>
+
+  <p id="status" class="status" hidden></p>
+
+  <section class="card" id="access" hidden>
+    <h2>Liens d'accès</h2>
+    <p class="muted">Un lien par personne. Révoquer un lien le rend inutilisable dès la publication suivante, une à deux minutes après.</p>
+    <table>
+      <thead><tr><th>Nom</th><th>Créé le</th><th>Lien</th><th></th></tr></thead>
+      <tbody id="people"></tbody>
+    </table>
+    <form id="add" class="inline">
+      <input name="name" placeholder="Nom de la personne" required>
+      <button type="submit" class="primary">Ajouter un lien</button>
+    </form>
+  </section>
+</div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>

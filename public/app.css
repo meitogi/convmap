@@ -133,3 +133,14 @@ textarea { font-family: ui-monospace, Menlo, monospace; font-size: 12px; resize:
 :root[data-theme="dark"] .leaflet-container { background: #14161a; }
 :root[data-theme="dark"] .leaflet-bar a, :root[data-theme="dark"] .leaflet-control-attribution { background: var(--card); color: var(--ink); border-color: var(--line); }
 :root[data-theme="dark"] .leaflet-control-attribution a { color: var(--accent); }
+
+/* The access page of the hosted site. */
+body.admin { display: block; }
+.admin-body { max-width: 900px; margin: 0 auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.card p { margin: 0; }
+.card table { border-collapse: collapse; width: 100%; }
+.card th, .card td { text-align: left; padding: 6px 8px 6px 0; border-bottom: 1px solid var(--line); vertical-align: middle; white-space: nowrap; }
+.card td:nth-child(3) { width: 100%; }
+.card td input { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+.card td .danger { margin-right: 0; }

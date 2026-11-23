@@ -1,7 +1,8 @@
-import { areaOf, DEPARTMENTS, REGIONS } from '/lib/area.mjs';
-import { monthLabel, rangeLabel, TAG_LABELS, toCsv, toMarkdown, toText, toTsv } from '/lib/export.mjs';
-import { distanceKm } from '/lib/geo.mjs';
-import { buildSeries } from '/lib/series.mjs';
+import { areaOf, DEPARTMENTS, REGIONS } from './lib/area.mjs';
+import { monthLabel, rangeLabel, TAG_LABELS, toCsv, toMarkdown, toText, toTsv } from './lib/export.mjs';
+import { distanceKm } from './lib/geo.mjs';
+import { buildSeries } from './lib/series.mjs';
+import * as store from './store.js';
 
 const L = window.L;
 const $ = (id) => document.getElementById(id);
@@ -179,7 +180,7 @@ function sortKey(s) {
 }
 
 async function load() {
-  const body = await (await fetch('/api/events')).json();
+  const body = await store.listEvents();
   events = body.events;
   series = buildSeries(events, today);
 
@@ -229,8 +230,10 @@ async function load() {
   select.value = chosen;
 
   const fetchedAt = body.fetchedAt;
-  $('fetched').textContent = fetchedAt ? `Agenda lu le ${new Date(fetchedAt).toLocaleString('fr-FR', { dateStyle: 'medium', timeStyle: 'short' })}` : '';
-  if (!events.length) showStatus("Aucun évènement en base. Clique « Mettre à jour depuis l'agenda » pour les récupérer (2 à 3 minutes).");
+  $('fetched').textContent = fetchedAt ? `${body.snapshot ? 'Instantané du' : 'Agenda lu le'} ${new Date(fetchedAt).toLocaleString('fr-FR', { dateStyle: 'medium', timeStyle: 'short' })}` : '';
+  if (body.locked === 'revoked') showStatus("Ce lien d'accès n'est plus valide. Demande un nouveau lien à la personne qui te l'a partagé.");
+  else if (body.locked) showStatus("Cette page s'ouvre avec son lien d'accès, qui contient la clé des données. Demande-le à la personne qui te l'a partagé.");
+  else if (!events.length) showStatus("Aucun évènement en base. Clique « Mettre à jour depuis l'agenda » pour les récupérer (2 à 3 minutes).");
   render();
 }
 
@@ -550,13 +553,6 @@ function showSearches(list, selected) {
   $('search-delete').disabled = !select.value;
 }
 
-async function searchRequest(method, path, body) {
-  const response = await fetch(path, { method, headers: { 'content-type': 'application/json' }, body: body && JSON.stringify(body) });
-  const result = await response.json();
-  if (!response.ok) throw new Error(result.error);
-  return result;
-}
-
 $('searches').addEventListener('change', (event) => {
   const name = event.target.value;
   const found = searches.find((search) => search.name === name);
@@ -599,13 +595,13 @@ $('search-save').addEventListener('click', async () => {
     category: $('category').value,
     search: $('search').value,
   };
-  showSearches(await searchRequest('POST', '/api/searches', { name, params }), name);
+  showSearches(await store.saveSearch(name, params), name);
   showStatus(`Recherche « ${name} » enregistrée.`);
 });
 
 $('search-delete').addEventListener('click', async () => {
   const name = $('searches').value;
-  showSearches(await searchRequest('DELETE', `/api/searches?name=${encodeURIComponent(name)}`));
+  showSearches(await store.deleteSearch(name));
   $('search-name').value = '';
   showStatus(`Recherche « ${name} » supprimée.`);
 });
@@ -706,27 +702,30 @@ fields.city.addEventListener('change', () => {
   }
 });
 
-async function sendEdit(method, path, body) {
-  const response = await fetch(path, { method, headers: { 'content-type': 'application/json' }, body: body && JSON.stringify(body) });
-  if (response.ok) {
-    $('edit-dialog').close();
-    return load();
+// saving : the store's promise for an add, an edit or a removal.
+async function sendEdit(saving) {
+  try {
+    await saving;
+  } catch (failure) {
+    const error = $('edit-error');
+    error.hidden = false;
+    error.textContent = failure.message;
+    return;
   }
-  const error = $('edit-error');
-  error.hidden = false;
-  error.textContent = (await response.json()).error;
+  $('edit-dialog').close();
+  load();
 }
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const body = {};
   for (const field of fields) if (field.name) body[field.name] = field.value;
-  if (editing) sendEdit('PUT', `/api/events/${editing.id}`, body);
-  else sendEdit('POST', '/api/events', body);
+  if (editing) sendEdit(store.updateEvent(editing.id, body));
+  else sendEdit(store.createEvent(body));
 });
 
 $('edit-delete').addEventListener('click', () => {
-  if (confirm(`Supprimer « ${editing.title} » ?`)) sendEdit('DELETE', `/api/events/${editing.id}`);
+  if (confirm(`Supprimer « ${editing.title} » ?`)) sendEdit(store.deleteEvent(editing.id));
 });
 
 // ─── Re-fetch ───────────────────────────────────────────────────────────
@@ -737,9 +736,9 @@ $('refetch').addEventListener('click', async () => {
   button.disabled = true;
   button.textContent = 'Mise à jour… (2 à 3 minutes)';
   try {
-    const response = await fetch('/api/refetch', { method: 'POST' });
-    const body = await response.json();
-    if (!response.ok) throw new Error(body.error);
+    const body = await store.refetch((page, pages) => {
+      button.textContent = `Mise à jour… page ${page} / ${pages}`;
+    });
     await load();
     showStatus(`Agenda relu : ${body.total} évènements — ${body.added} nouveaux, ${body.changed} modifiés, ${body.gone} disparus.`);
   } catch (error) {
@@ -752,4 +751,4 @@ $('refetch').addEventListener('click', async () => {
 syncFilters();
 drawZone();
 load();
-searchRequest('GET', '/api/searches').then(showSearches);
+store.listSearches().then(showSearches);

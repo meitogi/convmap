@@ -59,6 +59,66 @@ l'agenda** (2 à 3 minutes, une cinquantaine de requêtes espacées).
 
   Les contacts des organisateurs ne sortent que si la case est cochée.
 
+## Version hébergée (GitHub Pages)
+
+La même page, sans serveur : `node scripts/build-site.mjs` l'assemble dans
+`_site/`, et le workflow `.github/workflows/pages.yml` la publie à chaque push
+sur `main`.
+
+- **Les données partent avec la page.** `snapshot/events.bin` est une copie
+  complète de l'agenda : la page s'ouvre tout de suite, et fonctionne encore
+  quand l'agenda ne répond pas. Le workflow la rafraîchit chaque lundi ; si
+  l'agenda est injoignable ce jour-là, la copie précédente reste en place.
+- **Les données sont chiffrées** (AES-256-GCM). Le dépôt et la page sont
+  publics, les données ne se lisent qu'avec un lien d'accès :
+  `https://<compte>.github.io/<dépôt>/#k=<clé>`. Ce qui suit le `#` reste dans
+  le navigateur, il n'est jamais envoyé à GitHub. Une fois le lien ouvert, le
+  navigateur retient la clé.
+- **Un lien par personne.** La page `admin.html` liste les liens, en crée un
+  pour un nom, en révoque un. Un lien révoqué cesse de fonctionner à la
+  publication suivante, une à deux minutes plus tard.
+- **Ce que chacun ajoute reste chez lui.** Évènements ajoutés, corrections,
+  notes et recherches enregistrées vivent dans le navigateur du visiteur
+  (IndexedDB), pas dans le dépôt.
+- « Mettre à jour depuis l'agenda » lit l'agenda directement depuis le
+  navigateur (2 à 3 minutes), sans attendre le lundi.
+
+### Mise en place, une fois
+
+1. `node scripts/key.mjs` crée la clé maître (fichier `.agenda-key`, hors
+   git) et affiche le lien maître.
+2. `node scripts/snapshot.mjs` écrit la première copie chiffrée ; la commiter.
+3. Sur GitHub : créer le dépôt, pousser, ajouter la clé maître comme secret
+   `AGENDA_KEY` (Settings > Secrets and variables > Actions), et choisir
+   « GitHub Actions » comme source dans Settings > Pages.
+4. Créer un « fine-grained token » limité à ce dépôt, permission Contents en
+   lecture et écriture, et le saisir dans `admin.html` avec la clé maître.
+
+### Comment les accès tiennent
+
+Le secret GitHub ne contient que la clé maître, et ne change plus : un secret
+GitHub s'écrit mais ne se relit pas, il ne peut donc pas servir à lister des
+liens. La liste des personnes (nom + clé personnelle) est le fichier
+`snapshot/access.bin`, chiffré avec la clé maître ; `admin.html` le lit et le
+réécrit par un commit, qui déclenche la publication.
+
+À chaque publication, les données sont rechiffrées avec une clé neuve, et
+cette clé est publiée une fois par personne, enveloppée dans sa clé
+personnelle (`data/keys.json`, sans aucun nom). Une clé retirée de la liste
+n'ouvre donc ni l'enveloppe ni les données suivantes.
+
+Ce que cette protection ne fait pas :
+
+- Quelqu'un qui a eu accès a pu copier ce qu'il voyait ; révoquer ne reprend
+  rien, cela coupe la suite.
+- La clé maître ouvre tout, y compris les anciennes copies dans l'historique
+  git. Si elle fuit : `node scripts/key.mjs --new`, refaire la copie, mettre
+  à jour le secret — et recréer les liens, la liste étant scellée avec elle.
+- Les réglages de `admin.html` (jeton compris) sont gardés par le navigateur
+  pour l'adresse `<compte>.github.io`, que partagent tous les sites Pages du
+  même compte : n'y héberger que des pages de confiance, ou cliquer « Oublier
+  ces réglages » après usage.
+
 ## Mise à jour depuis l'agenda
 
 Les évènements sont rapprochés par leur identifiant d'agenda. Une mise à jour :
@@ -70,7 +130,7 @@ Les évènements sont rapprochés par leur identifiant d'agenda. Une mise à jou
 
 ## Données
 
-`data/agenda.db` (SQLite, hors git — il contient des contacts d'organisateurs).
+Version locale : `data/agenda.db` (SQLite, hors git — il contient des contacts d'organisateurs).
 
 | Table | Contenu |
 |---|---|
