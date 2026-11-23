@@ -152,13 +152,19 @@ body.admin { display: block; }
 .card td .danger { margin-right: 0; }
 
 /* Contact icons on a row, and the small menu under mail and phone. */
-.row .contact { display: flex; flex-wrap: wrap; align-items: center; column-gap: 4px; }
-.icons { display: inline-flex; align-items: center; gap: 4px; margin-left: 4px; }
+.row .contact { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 3px 0 1px; }
+.contact-text { min-width: 0; line-height: 26px; }
+.icons { display: inline-flex; align-items: center; gap: 4px; }
+.icon svg { display: block; }
 .icon { display: inline-flex; }
 .icon-button { display: inline-flex; align-items: center; gap: 1px; height: 26px; padding: 0 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); color: var(--ink); cursor: pointer; list-style: none; }
 .icon-button::-webkit-details-marker { display: none; }
 .icon-button:hover, .pop[open] > .icon-button { border-color: var(--accent); color: var(--accent); }
-.pop { position: relative; display: inline-block; margin: 0; font-size: 13px; }
+.pop { position: relative; display: block; font-size: 13px; }
+/* `.row details` gives the editions list a top margin ; on a contact menu it
+   would push the icon a pixel and a half below the ones beside it. */
+.row details.pop { margin: 0; }
+.pop > summary { display: flex; }
 .pop-panel { position: absolute; z-index: 1000; top: calc(100% + 4px); left: 0; width: max-content; max-width: 300px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px; box-shadow: 0 6px 20px var(--shadow); display: flex; flex-direction: column; gap: 8px; }
 .pop-panel .value { color: var(--ink); font-weight: 600; user-select: all; overflow-wrap: anywhere; }
 .pop-actions { display: flex; gap: 6px; }
@@ -170,3 +176,5 @@ button.copied { background: var(--regular); border-color: var(--regular); color:
 button.primary.copied { background: var(--regular); border-color: var(--regular); }
 @keyframes copied { 0% { transform: scale(0.92); } 55% { transform: scale(1.08); } 100% { transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { button.copied { animation: none; } }
+
+.credits { margin-top: 24px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }

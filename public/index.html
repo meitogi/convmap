@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agenda Geek — par zone</title>
+<title>Conv'Map — conventions par zone</title>
 <script>
   // Before the first paint : the saved theme, else the system's.
   try { document.documentElement.dataset.theme = localStorage.getItem('agenda-geek-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = 'light'; }
@@ -13,7 +13,7 @@
 </head>
 <body>
 <header class="top">
-  <h1>Agenda Geek <span>par zone</span></h1>
+  <h1>Conv'Map <span>conventions par zone</span></h1>
   <span id="fetched" class="muted"></span>
   <button id="theme" type="button"></button>
   <button id="refetch" type="button">Mettre à jour depuis l'agenda</button>
@@ -92,6 +92,7 @@
       <summary></summary>
       <div id="unlocated-list"></div>
     </details>
+    <footer class="credits">Conv'Map — développé par <a href="https://github.com/meitogi" target="_blank" rel="noopener">meitogi</a> · données : <a href="https://lagendageek.com" target="_blank" rel="noopener">L'Agenda Geek</a> · carte © les contributeurs d'<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></footer>
   </section>
   <div id="map"></div>
 </main>

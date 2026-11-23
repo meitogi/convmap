@@ -18,7 +18,7 @@ to yourself : personal links are made on the site's admin.html page.
    New repository secret, named AGENDA_KEY, with the key as its value.
 
 2. Your own link to the page (and the key admin.html asks for) :
-   https://<account>.github.io/<repository>/#k=${key}
+   https://convmap.suuuper.app/#k=${key}
    The part after # stays in the browser : it is never sent to GitHub.
 ${fresh ? `
 The key changed : run node scripts/snapshot.mjs, commit and push, update the

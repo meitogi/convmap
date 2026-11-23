@@ -358,7 +358,7 @@ function editionLine(edition) {
     null,
     rangeLabel(edition.start_date, edition.end_date).replace(/^(le|du) /, ''),
     edition.url ? ' · ' : '',
-    edition.url ? link(edition.url, 'fiche agenda') : '',
+    edition.url ? link(edition.url, 'fiche agenda geek') : '',
     flags.length ? el('span', { className: 'flag' }, flags.join(', ')) : '',
     button,
     edition.note ? el('div', { className: 'muted' }, edition.note) : '',
@@ -381,8 +381,14 @@ function row({ series: s, km }) {
   const social = (s.facebook || s.instagram) && /facebook\.com|fb\.me|instagram\.com/i.test(website);
   if (website && !social) contact.push(link(website, website.replace(/^https?:\/\/(www\.)?/i, '').replace(/\/.*$/, '')));
   if (s.organizer) contact.push(s.organizer);
+  // The website and the organizer are one run of text ; the icons sit beside
+  // it, centred on its line.
   const contactLine = el('div', { className: 'line contact' });
-  contact.forEach((part, index) => contactLine.append(index ? ' · ' : '', part));
+  if (contact.length) {
+    const text = el('span', { className: 'contact-text' });
+    contact.forEach((part, index) => text.append(index ? ' · ' : '', part));
+    contactLine.append(text);
+  }
   const icons = el('span', { className: 'icons' });
   if (email) icons.append(contactMenu('mail', 'E-mail', email, `mailto:${email}`, 'Envoyer un mail'));
   if (s.phone) icons.append(contactMenu('phone', 'Téléphone', s.phone, `tel:${s.phone.replace(/[^\d+]/g, '')}`, 'Appeler'));

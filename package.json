@@ -1,8 +1,8 @@
 {
-  "name": "agenda-geek",
+  "name": "convmap",
   "version": "0.1.0",
   "private": true,
-  "description": "Find geek events around a place — past, announced and probable editions — and export the list.",
+  "description": "Conv'Map — find geek conventions around a place: past, announced and probable editions, and export the list.",
   "author": "meitogi",
   "type": "module",
   "engines": {
@@ -10,6 +10,8 @@
   },
   "scripts": {
     "start": "node server.mjs",
+    "site": "node scripts/build-site.mjs",
+    "preview": "node scripts/build-site.mjs && node scripts/preview-site.mjs",
     "test": "node --test test/*.test.mjs"
   }
 }

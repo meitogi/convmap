@@ -1,4 +1,4 @@
-# agenda-geek
+# Conv'Map
 
 Trouver les évènements geek autour d'un lieu — éditions passées, annoncées et
 probables — et en sortir une liste à donner à quelqu'un.
@@ -78,7 +78,7 @@ sur `main`.
   l'agenda est injoignable ce jour-là, la copie précédente reste en place.
 - **Les données sont chiffrées** (AES-256-GCM). Le dépôt et la page sont
   publics, les données ne se lisent qu'avec un lien d'accès :
-  `https://<compte>.github.io/<dépôt>/#k=<clé>`. Ce qui suit le `#` reste dans
+  `https://convmap.suuuper.app/#k=<clé>`. Ce qui suit le `#` reste dans
   le navigateur, il n'est jamais envoyé à GitHub. Une fois le lien ouvert, le
   navigateur retient la clé.
 - **Un lien par personne.** La page `admin.html` liste les liens, en crée un
@@ -89,6 +89,10 @@ sur `main`.
   (IndexedDB), pas dans le dépôt.
 - « Mettre à jour depuis l'agenda » lit l'agenda directement depuis le
   navigateur (2 à 3 minutes), sans attendre le lundi.
+
+La marche à suivre complète — dépôt, secret, domaine `convmap.suuuper.app`
+chez Cloudflare, jeton, essai de la page d'accès — est dans
+[docs/mise-en-ligne.md](docs/mise-en-ligne.md). En résumé :
 
 ### Mise en place, une fois
 
@@ -122,9 +126,8 @@ Ce que cette protection ne fait pas :
   git. Si elle fuit : `node scripts/key.mjs --new`, refaire la copie, mettre
   à jour le secret — et recréer les liens, la liste étant scellée avec elle.
 - Les réglages de `admin.html` (jeton compris) sont gardés par le navigateur
-  pour l'adresse `<compte>.github.io`, que partagent tous les sites Pages du
-  même compte : n'y héberger que des pages de confiance, ou cliquer « Oublier
-  ces réglages » après usage.
+  où ils ont été saisis : sur un poste partagé, cliquer « Oublier ces
+  réglages » après usage.
 
 ## Mise à jour depuis l'agenda
 
@@ -169,6 +172,12 @@ demandes pourra se rattacher.
 ```
 npm test
 ```
+
+## Crédits
+
+Développé par [meitogi](https://github.com/meitogi). Les évènements viennent
+de [L'Agenda Geek](https://lagendageek.com), qui les recense et les tient à
+jour.
 
 ## Licences
 
