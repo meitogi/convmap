@@ -33,6 +33,7 @@ const state = {
   radius: saved.radius || 100,
   period: saved.period || 'all',
   from: saved.from || '',
+  sort: saved.sort || 'date',
   regions: saved.regions || [],
   departments: saved.departments || [],
   checked: saved.checked || {},
@@ -80,6 +81,24 @@ function showStatus(text) {
   status.textContent = text;
 }
 
+// ─── Theme ──────────────────────────────────────────────────────────────
+
+function showTheme() {
+  $('theme').textContent = document.documentElement.dataset.theme === 'dark' ? 'Thème clair' : 'Thème sombre';
+}
+$('theme').addEventListener('click', () => {
+  const root = document.documentElement;
+  const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = theme;
+  try {
+    localStorage.setItem('agenda-geek-theme', theme);
+  } catch {
+    // Private window : the choice lasts for this visit.
+  }
+  showTheme();
+});
+showTheme();
+
 // ─── Map ────────────────────────────────────────────────────────────────
 
 const map = L.map('map', { preferCanvas: true }).setView([46.6, 2.4], 6);
@@ -103,7 +122,7 @@ function drawMarkers() {
   for (const { series: s } of visible) {
     if (s.lat == null) continue;
     const id = s.id;
-    L.circleMarker([s.lat, s.lng], { radius: 6, color: '#fff', weight: 1, fillColor: TAG_COLORS[s.tag], fillOpacity: 0.9 })
+    L.circleMarker([s.lat, s.lng], { radius: 6, color: '#14161a', weight: 1, fillColor: TAG_COLORS[s.tag], fillOpacity: 0.9 })
       .bindTooltip(`${s.name} — ${s.city}`)
       .on('click', (event) => {
         L.DomEvent.stopPropagation(event);
@@ -138,6 +157,7 @@ function nearestCity(lat, lng) {
 function setAnchor(anchor) {
   state.anchor = anchor;
   $('place').value = anchor ? anchor.label : '';
+  syncSort();
   save();
   showStatus('');
   drawZone();
@@ -214,6 +234,7 @@ async function load() {
   render();
 }
 
+// By next edition : announced or probable first, then the most recent past.
 function compare(a, b) {
   const ea = extras[a.series.id];
   const eb = extras[b.series.id];
@@ -261,7 +282,8 @@ function compute() {
       if (km <= radius) visible.push({ series: s, km });
     }
   }
-  visible.sort(compare);
+  // Proximity needs an anchor ; without one the list falls back to dates.
+  visible.sort(anchor && state.sort === 'distance' ? (a, b) => a.km - b.km || compare(a, b) : compare);
   unlocated.sort(compare);
 }
 
@@ -462,7 +484,21 @@ function syncFilters() {
   $('from').value = state.from;
   $('from').disabled = state.period !== 'upcoming' && state.period !== 'announced';
   $('place').value = state.anchor ? state.anchor.label : '';
+  syncSort();
 }
+
+function syncSort() {
+  const anchor = state.anchor;
+  const sort = $('sort');
+  sort.lastElementChild.disabled = !anchor;
+  sort.value = anchor ? state.sort : 'date';
+}
+
+$('sort').addEventListener('change', (event) => {
+  state.sort = event.target.value;
+  save();
+  render();
+});
 
 $('filters').addEventListener('submit', (event) => event.preventDefault());
 $('radius').addEventListener('input', (event) => {
@@ -526,6 +562,7 @@ $('searches').addEventListener('change', (event) => {
   state.radius = params.radius || 100;
   state.period = params.period || 'all';
   state.from = params.from || '';
+  state.sort = params.sort || 'date';
   state.regions = params.regions || [];
   state.departments = params.departments || [];
   syncMulti('regions');
@@ -550,6 +587,7 @@ $('search-save').addEventListener('click', async () => {
     radius: state.radius,
     period: state.period,
     from: state.from,
+    sort: state.sort,
     regions: state.regions,
     departments: state.departments,
     tag: $('tag').value,

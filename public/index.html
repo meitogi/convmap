@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agenda Geek — par zone</title>
+<script>
+  // Before the first paint : the saved theme, else the system's.
+  try { document.documentElement.dataset.theme = localStorage.getItem('agenda-geek-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = 'light'; }
+</script>
 <link rel="stylesheet" href="/vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="/app.css">
 </head>
@@ -11,6 +15,7 @@
 <header class="top">
   <h1>Agenda Geek <span>par zone</span></h1>
   <span id="fetched" class="muted"></span>
+  <button id="theme" type="button"></button>
   <button id="refetch" type="button">Mettre à jour depuis l'agenda</button>
   <button id="add" type="button">+ Ajouter un évènement</button>
 </header>
@@ -70,6 +75,10 @@
 
     <div class="bar">
       <strong id="count"></strong>
+      <select id="sort" aria-label="Trier par">
+        <option value="date">Trier par date</option>
+        <option value="distance">Trier par proximité</option>
+      </select>
       <button id="check-all" type="button">Tout cocher</button>
       <button id="check-none" type="button">Tout décocher</button>
       <button id="export" type="button" class="primary">Exporter…</button>

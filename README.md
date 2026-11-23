@@ -41,6 +41,8 @@ l'agenda** (2 à 3 minutes, une cinquantaine de requêtes espacées).
   C'est une extrapolation : elle est toujours libellée « non annoncé ».
 - **Période** — « à venir : annoncé ou probable » avec « à partir de » répond
   à la question « qu'est-ce qu'il y aura dans le coin après telle date ? ».
+- **Tri** — par prochaine date, ou par proximité dès qu'un lieu est choisi.
+- **Thème** — clair ou sombre ; celui du système au premier lancement.
 - **Facebook et Instagram** — lus dans ce que l'agenda publie pour chaque
   évènement (site, site de l'organisateur, champs libres, description en
   dernier recours). Une page Facebook est préférée à un lien d'évènement.
