@@ -11,12 +11,12 @@ import { editChanges, manualValues, mergeAgenda, present } from './lib/events.mj
 
 const SNAPSHOT = 'data/events.bin';
 const KEYS = 'data/keys.json';
-const KEY_STORE = 'agenda-geek-key';
+const KEY_STORE = 'convmap-key';
 const FIRST_MANUAL_ID = 1e9;
 
 function request(run) {
   return new Promise((resolve, reject) => {
-    const opening = indexedDB.open('agenda-geek', 1);
+    const opening = indexedDB.open('convmap', 1);
     opening.onupgradeneeded = () => opening.result.createObjectStore('kv');
     opening.onerror = () => reject(opening.error);
     opening.onsuccess = () => {

@@ -95,4 +95,4 @@ const server = createServer(async (request, response) => {
   }
 });
 
-server.listen(PORT, HOST, () => console.log(`agenda-geek : http://localhost:${PORT}`));
+server.listen(PORT, HOST, () => console.log(`convmap : http://localhost:${PORT}`));

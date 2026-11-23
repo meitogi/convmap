@@ -8,8 +8,8 @@ import { fromBase64Url, toBase64Url } from './lib/crypto.mjs';
 
 const API = 'https://api.github.com';
 const FILE = 'snapshot/access.bin';
-const SETTINGS = 'agenda-geek-admin';
-const KEY_STORE = 'agenda-geek-key';
+const SETTINGS = 'convmap-admin';
+const KEY_STORE = 'convmap-key';
 const $ = (id) => document.getElementById(id);
 const settings = $('settings').elements;
 // The page the links open : this page's folder.

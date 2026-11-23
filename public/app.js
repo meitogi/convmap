@@ -7,7 +7,7 @@ import * as store from './store.js';
 
 const L = window.L;
 const $ = (id) => document.getElementById(id);
-const STORE = 'agenda-geek';
+const STORE = 'convmap';
 const TAG_COLORS = { regular: '#1a7f4b', new: '#b25e00', paused: '#8a5cc7', oneoff: '#667085' };
 const FORMATS = {
   text: { make: toText, ext: 'txt', mime: 'text/plain', hint: 'À coller tel quel dans un SMS ou un mail.' },
@@ -105,7 +105,7 @@ $('theme').addEventListener('click', () => {
   const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
   root.dataset.theme = theme;
   try {
-    localStorage.setItem('agenda-geek-theme', theme);
+    localStorage.setItem('convmap-theme', theme);
   } catch {
     // Private window : the choice lasts for this visit.
   }

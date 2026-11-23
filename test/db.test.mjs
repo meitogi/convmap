@@ -198,7 +198,7 @@ test('socialLinks : a page beats an event link, redirects and posts are ignored'
 test('a base created before a column existed is migrated on open', async () => {
   const { DatabaseSync } = await import('node:sqlite');
   const { mkdtempSync } = await import('node:fs');
-  const path = `${mkdtempSync('/tmp/agenda-geek-')}/old.db`;
+  const path = `${mkdtempSync('/tmp/convmap-')}/old.db`;
   const old = new DatabaseSync(path);
   old.exec("CREATE TABLE events (id INTEGER PRIMARY KEY, source TEXT NOT NULL, source_id INTEGER UNIQUE, title TEXT NOT NULL, start_date TEXT NOT NULL, end_date TEXT, venue TEXT, city TEXT, zip TEXT, lat REAL, lng REAL, category TEXT, url TEXT, website TEXT, organizer TEXT, email TEXT, phone TEXT, overrides TEXT, note TEXT, gone_at TEXT, fetched_at TEXT)");
   old.exec("INSERT INTO events (source, title, start_date, note) VALUES ('manual', 'Ancien', '2026-01-01', 'gardé')");

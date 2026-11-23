@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#14161a">
 <script>
   // Before the first paint : the saved theme, else the system's.
-  try { document.documentElement.dataset.theme = localStorage.getItem('agenda-geek-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = 'light'; }
+  try { document.documentElement.dataset.theme = localStorage.getItem('convmap-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); } catch { document.documentElement.dataset.theme = 'light'; }
 </script>
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="app.css">
