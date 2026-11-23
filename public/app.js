@@ -234,7 +234,13 @@ function setPicking(on) {
   $('map').classList.toggle('picking', on);
   // On a small screen the map is its own view : go there to pick, come back
   // to the list once done.
-  if (SMALL.matches) setView(on ? 'map' : 'list');
+  if (!SMALL.matches) return;
+  // The unfolded filters would leave the map a thin strip : fold them.
+  if (on) {
+    document.body.classList.remove('filters-open');
+    $('filters-toggle').ariaExpanded = 'false';
+  }
+  setView(on ? 'map' : 'list');
 }
 
 $('pick-place').addEventListener('click', () => setPicking(!picking));
