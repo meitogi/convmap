@@ -6,8 +6,11 @@ name: Pages
 #
 # Two jobs, as the deploy action recommends : `build` uploads the site,
 # `deploy` publishes it once that upload is complete. In one job, the deploy
-# step could look for the upload before GitHub listed it, and fail with
-# "No artifacts named github-pages were found".
+# step can look for the upload before GitHub lists it and fail with
+# "No artifacts named github-pages were found" — a known race, reported as
+# https://github.com/actions/deploy-pages/issues/451. Should the listing
+# still lag, `deploy` waits and tries once more ; it uploads nothing itself,
+# so trying again cannot create a second artifact.
 
 on:
   push:
@@ -59,7 +62,13 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.retry.outputs.page_url }}
     steps:
       - id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v5
+      - if: steps.deployment.outcome == 'failure'
+        run: sleep 45
+      - id: retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v5
