@@ -8,7 +8,7 @@
 //
 // Every file of the page is asked for under the build's id (app.js?v=…), so
 // that a browser never mixes a new page with files kept from the previous
-// one ; public/fresh.js reloads a page older than version.json.
+// one ; public/fresh.js offers to reload a page older than version.json.
 
 import { createHash } from 'node:crypto';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
