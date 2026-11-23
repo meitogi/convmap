@@ -28,8 +28,9 @@ Pour publier le site : [mise-en-ligne.md](mise-en-ligne.md).
 - **Tri** — par prochaine date, ou par proximité dès qu'un lieu est choisi.
 - **Thème** — clair ou sombre, par l'icône en haut à droite ; celui du système
   au premier lancement.
-- **Sur téléphone** — la liste et la carte sont deux vues, basculées depuis
-  l'en-tête ; le lieu et les filtres se replient derrière un bouton ; les
+- **Sur téléphone** — le lieu et les filtres se replient derrière un bouton
+  et valent pour les deux vues ; juste en dessous, une bascule choisit entre
+  la liste et la carte ; les
   menus s'ouvrent en bas de l'écran ; toucher un point de la carte affiche
   l'évènement dans une fiche par-dessus la carte.
 - **Contacts** — une icône par moyen de contact. E-mail et téléphone ouvrent

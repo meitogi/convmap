@@ -89,7 +89,7 @@ button[aria-pressed="true"] { background: var(--accent); border-color: var(--acc
 .bar { display: flex; align-items: center; gap: 8px; margin: 14px 0 8px; position: sticky; top: -12px; background: var(--ground); padding: 8px 0; z-index: 2; flex-wrap: wrap; }
 .bar strong { margin-right: auto; }
 .bar select { width: auto; }
-.status { background: var(--note); border: 1px solid var(--note-line); border-radius: 6px; padding: 8px 10px; }
+.status { margin: 12px 0 0; background: var(--note); border: 1px solid var(--note-line); border-radius: 6px; padding: 8px 10px; }
 
 .row { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; margin-bottom: 7px; }
 .row.flash { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent); }
@@ -188,20 +188,22 @@ button.primary.copied { background: var(--regular); border-color: var(--regular)
   button, select, input:not([type=checkbox]):not([type=radio]):not([type=range]) { min-height: 40px; }
 
   .top { padding: 8px 12px; gap: 8px; }
-  .top h1 { font-size: 16px; margin-right: 0; }
+  .top h1 { font-size: 16px; }
   .top h1 span, #fetched, .long { display: none; }
-  /* Wide enough a basis that the two actions always go to the second line. */
-  .views { display: grid; grid-template-columns: 1fr 1fr; flex: 1 1 60%; min-width: 150px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-  .views button { border: 0; border-radius: 0; min-height: 36px; font-size: 15px; font-weight: 600; }
-  /* Second line of the header : the two actions, side by side. */
-  .top > button { font-size: 14px; padding: 4px 10px; min-height: 34px; order: 2; flex: 1 1 40%; white-space: nowrap; }
-  .top .icon-button { order: 1; flex: none; min-height: 36px; height: 36px; width: 40px; }
+  .top > button { font-size: 14px; padding: 4px 10px; min-height: 36px; white-space: nowrap; }
+  .top .icon-button { flex: none; height: 36px; width: 40px; }
 
-  main { display: block; position: relative; }
-  .panel { height: 100%; padding: 10px 12px 24px; }
-  #map { position: absolute; inset: 0; min-height: 0; border: 0; }
-  body:not([data-view="map"]) #map { visibility: hidden; pointer-events: none; }
-  body[data-view="map"] .panel { display: none; }
+  /* Top to bottom : the place and filters, the list / map switch, then
+     whichever of the two is chosen. The filters apply to both. */
+  main { display: flex; flex-direction: column; position: relative; min-height: 0; }
+  .panel { display: contents; }
+  .panel-head { flex: none; max-height: 64dvh; overflow-y: auto; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .panel-list { flex: 1; min-height: 0; overflow-y: auto; padding: 0 12px 24px; }
+  #map { flex: 1; min-height: 0; border: 0; }
+  body:not([data-view="map"]) #map { display: none; }
+  body[data-view="map"] .panel-list { display: none; }
+  .views { display: grid; grid-template-columns: 1fr 1fr; margin-top: 10px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .views button { border: 0; border-radius: 0; min-height: 40px; font-weight: 600; }
 
   #filters-toggle { display: block; width: 100%; text-align: left; font-weight: 600; }
   #filters-toggle::after { content: '▸'; float: right; }
@@ -212,7 +214,7 @@ button.primary.copied { background: var(--regular); border-color: var(--regular)
   .filters .wide { grid-column: 1 / -1; }
   .km input { width: 96px; }
 
-  .bar { top: -10px; margin-top: 10px; }
+  .bar { top: 0; margin-top: 0; padding-top: 10px; }
   .bar strong { flex-basis: 100%; }
   .bar select { flex: 1; }
   #check-all, #check-none { display: none; }

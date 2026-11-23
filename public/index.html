@@ -17,10 +17,6 @@
 <body>
 <header class="top">
   <h1><img class="logo" src="favicon.svg" alt="" width="26" height="26">Conv'Map <span>conventions par zone</span></h1>
-  <nav class="views" aria-label="Affichage">
-    <button type="button" data-view="list" aria-pressed="true">Liste</button>
-    <button type="button" data-view="map" aria-pressed="false">Carte</button>
-  </nav>
   <span id="fetched" class="muted"></span>
   <button id="refetch" type="button">Mettre à jour<span class="long"> depuis l'agenda</span></button>
   <button id="add" type="button">+ Ajouter<span class="long"> un évènement</span></button>
@@ -29,6 +25,7 @@
 
 <main>
   <section class="panel">
+    <div class="panel-head">
     <button id="filters-toggle" type="button" aria-expanded="false"></button>
     <div id="filters-box">
     <div class="searches">
@@ -84,6 +81,13 @@
       <datalist id="cities"></datalist>
     </form>
     </div>
+    <p id="status" class="status" hidden></p>
+    <nav class="views" aria-label="Affichage">
+      <button type="button" data-view="list" aria-pressed="true">Liste</button>
+      <button type="button" data-view="map" aria-pressed="false">Carte</button>
+    </nav>
+    </div>
+    <div class="panel-list">
 
     <div class="bar">
       <strong id="count"></strong>
@@ -96,13 +100,13 @@
       <button id="export" type="button" class="primary">Exporter…</button>
     </div>
 
-    <p id="status" class="status" hidden></p>
     <div id="list"></div>
     <details id="unlocated" hidden>
       <summary></summary>
       <div id="unlocated-list"></div>
     </details>
     <footer class="credits">Conv'Map — développé par <a href="https://github.com/meitogi" target="_blank" rel="noopener">meitogi</a> · données : <a href="https://lagendageek.com" target="_blank" rel="noopener">L'Agenda Geek</a> · carte © les contributeurs d'<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></footer>
+    </div>
   </section>
   <div id="map"></div>
   <aside id="map-card" hidden></aside>
