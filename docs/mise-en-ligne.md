@@ -39,6 +39,13 @@ que si la clé maître a changé.
 La première publication échouera tant que les étapes 3 et 4 ne sont pas
 faites : c'est attendu.
 
+Sur la page du dépôt, la roue dentée à côté de « About » ouvre sa
+présentation. À y mettre :
+
+- « Description » : `Les conventions geek autour d'un lieu : éditions passées, annoncées et probables, sur une carte.`
+- « Website » : `https://convmap.suuuper.app`
+- « Topics » : `conventions`, `geek`, `anime`, `map`, `leaflet`, `github-pages`
+
 ## 3. Le secret `AGENDA_KEY`
 
 Dans le dépôt : « Settings » > « Secrets and variables » > « Actions » >
