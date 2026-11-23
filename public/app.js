@@ -474,16 +474,33 @@ function fillMulti(id, options) {
   const selected = state[id];
   const clear = el('button', { type: 'button' }, 'Tout décocher');
   clear.dataset.clear = id;
+  const search = el('input', { type: 'search', placeholder: 'Filtrer la liste', ariaLabel: 'Filtrer la liste' });
   $(id).lastElementChild.replaceChildren(
-    clear,
-    ...options.map(({ value, label, count }) => el('label', null, el('input', { type: 'checkbox', value, checked: selected.includes(value) }), label, el('span', null, String(count)))),
+    el('div', { className: 'multi-head' }, search, clear),
+    ...options.map(({ value, label, count }) => {
+      const option = el('label', null, el('input', { type: 'checkbox', value, checked: selected.includes(value) }), label, el('span', null, String(count)));
+      option.dataset.text = plain(label);
+      return option;
+    }),
   );
   multiSummary(id);
 }
 
+// Letters and digits only : "ille et vilaine" finds "Ille-et-Vilaine".
+function plain(text) {
+  return fold(text).replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+// Typing in a list's own search field narrows its checkboxes ; what is
+// checked stays checked, shown or not.
+function filterMulti(id, text) {
+  const words = plain(text);
+  for (const option of $(id).querySelectorAll('label')) option.hidden = !option.dataset.text.includes(words);
+}
+
 function syncMulti(id) {
   const selected = state[id];
-  for (const box of $(id).querySelectorAll('input')) box.checked = selected.includes(box.value);
+  for (const box of $(id).querySelectorAll('input[type=checkbox]')) box.checked = selected.includes(box.value);
   multiSummary(id);
 }
 
@@ -503,7 +520,15 @@ function areaChanged(id) {
 }
 
 for (const id of ['regions', 'departments']) {
-  $(id).addEventListener('change', () => {
+  $(id).addEventListener('input', (event) => {
+    if (event.target.type === 'search') filterMulti(id, event.target.value);
+  });
+  // Opening a list puts the cursor in its search field.
+  $(id).addEventListener('toggle', () => {
+    if ($(id).open) $(id).querySelector('input[type=search]').focus();
+  });
+  $(id).addEventListener('change', (event) => {
+    if (event.target.type !== 'checkbox') return;
     const values = [];
     for (const box of $(id).querySelectorAll('input:checked')) values.push(box.value);
     state[id] = values;

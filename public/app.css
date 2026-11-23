@@ -73,7 +73,10 @@ main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(380p
 .multi .options { position: absolute; z-index: 1000; top: calc(100% + 4px); left: 0; width: max-content; min-width: 100%; max-width: 340px; max-height: 320px; overflow-y: auto; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 6px; box-shadow: 0 6px 20px var(--shadow); }
 .multi .options label { flex-direction: row; align-items: center; gap: 6px; font-size: 13px; color: var(--ink); padding: 2px 4px; }
 .multi .options label span { color: var(--muted); margin-left: auto; padding-left: 10px; }
-.multi .options button { font-size: 12px; padding: 1px 8px; margin-bottom: 4px; }
+.multi-head { position: sticky; top: -6px; display: flex; gap: 6px; background: var(--card); padding: 6px 0; margin-top: -6px; z-index: 1; }
+.multi-head input { font-size: 13px; padding: 3px 8px; }
+.multi-head button { font-size: 12px; padding: 1px 8px; white-space: nowrap; }
+.multi .options label[hidden] { display: none; }
 
 .searches { display: grid; grid-template-columns: 1fr 1fr auto auto; gap: 6px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
 .bar { display: flex; align-items: center; gap: 8px; margin: 14px 0 8px; position: sticky; top: -12px; background: var(--ground); padding: 8px 0; z-index: 2; flex-wrap: wrap; }
