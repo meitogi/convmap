@@ -10,10 +10,9 @@ particulier.
 
 ## 1.1.0 — 2026-11-23
 
-- Une base partagée, tenue à la main, ajoute ce que l'agenda a raté : on part enfin en mission hors de la carte du monde de départ.
-- Une édition peut porter ses propres liens, évènement Facebook ou billetterie, juste à côté de sa date. Plus besoin de fouiller le grimoire.
-- Les nouveautés se ferment d'un clic à côté. Pas besoin de chercher la sortie du donjon.
-- Champs, menus et boutons ont enfin tous la même taille. L'équipe est alignée, comme dans un bon sentai.
+- Les conventions que l'agenda avait ratées arrivent, de la Bretagne à La Réunion. La carte du monde s'agrandit, comme après le premier boss.
+- Toutes les fenêtres se ferment d'un clic à côté, sur un fond flouté. Pas besoin de chercher la sortie du donjon.
+- Champs, menus et boutons font tous la même taille, avec des flèches plus fines. Alignés comme un sentai avant la transformation.
 
 ## 1.0.0 — 2026-11-23
 
