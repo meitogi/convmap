@@ -16,6 +16,8 @@ const FILES = {
   '/app.js': 'public/app.js',
   '/store.js': 'public/store-api.js',
   '/copy.js': 'public/copy.js',
+  '/favicon.svg': 'public/favicon.svg',
+  '/apple-touch-icon.png': 'public/apple-touch-icon.png',
   '/app.css': 'public/app.css',
   '/vendor/leaflet/leaflet.js': 'public/vendor/leaflet/leaflet.js',
   '/vendor/leaflet/leaflet.css': 'public/vendor/leaflet/leaflet.css',
@@ -24,7 +26,7 @@ const FILES = {
   '/lib/series.mjs': 'lib/series.mjs',
   '/lib/export.mjs': 'lib/export.mjs',
 };
-const TYPES = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript', css: 'text/css' };
+const TYPES = { html: 'text/html', js: 'text/javascript', mjs: 'text/javascript', css: 'text/css', svg: 'image/svg+xml', png: 'image/png' };
 
 mkdirSync(`${ROOT}data`, { recursive: true });
 const db = openDb(`${ROOT}data/agenda.db`);

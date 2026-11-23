@@ -1,176 +1,85 @@
 # Conv'Map
 
-Trouver les évènements geek autour d'un lieu — éditions passées, annoncées et
-probables — et en sortir une liste à donner à quelqu'un.
+**Les conventions geek autour d'un lieu — passées, annoncées et probables.**
 
-Les données viennent de l'API publique de [lagendageek.com](https://lagendageek.com),
-dont les filtres par lieu, par date et par évènement vivent sur trois pages
-différentes. Ici tout est au même endroit, et les éditions d'un même évènement
-sont regroupées.
+Conv'Map répond à une question que les agendas en ligne posent mal : *qu'est-ce
+qu'il y a, et qu'est-ce qu'il y aura, dans un rayon donné autour d'ici ?* On
+choisit un point et un rayon, ou des régions et des départements ; la page
+regroupe les éditions d'un même évènement, repère ceux qui reviennent chaque
+année et annonce un mois probable quand la prochaine date n'est pas encore
+publiée.
 
-## Lancer
+Les évènements viennent de [L'Agenda Geek](https://lagendageek.com), qui les
+recense et les tient à jour.
+
+![Conv'Map sur ordinateur : les évènements à venir à 150 km de Rennes](docs/screenshots/ordinateur.png)
+
+## Ce qu'on peut faire
+
+- **Chercher par zone** — un lieu et un rayon, ou des régions et des
+  départements, ou les deux.
+- **Voir l'histoire d'un évènement** — une ligne par évènement récurrent, avec
+  toutes ses éditions depuis fin 2022.
+- **Savoir ce qui revient** — chaque évènement est marqué *régulier*,
+  *nouveau*, *en pause ?* ou *ponctuel*.
+- **Anticiper** — un évènement régulier sans date annoncée reçoit un mois
+  probable, toujours signalé comme non annoncé.
+- **Joindre les organisateurs** — site, e-mail, téléphone, Facebook et
+  Instagram quand l'agenda les publie.
+- **Emporter la liste** — cocher des évènements et les exporter en texte prêt
+  pour un SMS ou un mail, en texte à coller dans un tableur, en Markdown ou
+  en CSV.
+- **Retrouver ses recherches** — lieu, rayon et filtres enregistrés sous un nom.
+- **Compléter** — ajouter un évènement ou corriger une information, sans que
+  la mise à jour suivante ne l'écrase.
+
+Le tout sur ordinateur comme sur téléphone, en thème clair ou sombre.
+
+<img src="docs/screenshots/telephone.png" alt="Conv'Map sur téléphone" width="280">
+
+## Y accéder
+
+Le site est sur **https://convmap.suuuper.app**. Il s'ouvre avec un lien
+d'accès personnel : la page et ce dépôt sont publics, mais les données
+publiées avec le site sont chiffrées, et c'est le lien qui porte la clé. Sans
+lien, la page ne montre aucun évènement.
+
+Pour obtenir un lien, s'adresser à [meitogi](https://github.com/meitogi).
+
+## Le faire tourner chez soi
+
+Node 24 ou plus récent, aucune dépendance à installer.
 
 ```
 npm start
 ```
 
-Puis ouvrir http://localhost:4180. Node 24 ou plus récent, aucune dépendance à
-installer. `PORT=8093 npm start` pour un autre port.
+Puis ouvrir http://localhost:4180 et cliquer **Mettre à jour depuis l'agenda**
+(2 à 3 minutes la première fois). Cette version locale garde ses données dans
+un fichier SQLite et ne demande aucun lien d'accès. `PORT=8093 npm start` pour
+un autre port.
 
 Dans un devcontainer qui ne relaie aucun port de lui-même, relayer le port à
 la main : panneau « Ports » de VS Code > « Forward a Port » > 4180.
 
-Au premier lancement la base est vide : cliquer **Mettre à jour depuis
-l'agenda** (2 à 3 minutes, une cinquantaine de requêtes espacées).
+## Comment c'est fait
 
-## Ce que fait la page
+- Une page statique sans framework ; [Leaflet](https://leafletjs.com) pour la
+  carte, rien d'autre.
+- En local, un petit serveur Node (`node:http` + `node:sqlite`) ; en ligne,
+  pas de serveur du tout : GitHub Pages sert la page, et ce que chacun ajoute
+  reste dans son navigateur.
+- Une copie de l'agenda est publiée avec le site, rafraîchie chaque semaine :
+  la page s'ouvre aussitôt et fonctionne même quand l'agenda ne répond pas.
+- Cette copie est chiffrée (AES-256-GCM). Chaque personne a son lien, qui se
+  crée et se révoque depuis une page d'administration.
 
-- **Lieu + rayon** — taper une ville, ou « Sur la carte » puis cliquer
-  un point ; régler le rayon.
-- **Régions et départements** — sélection multiple, seule ou combinée au
-  rayon. Le département vient du code postal du lieu ; hors de France, le pays
-  tient lieu de région.
-- **Séries** — une ligne par évènement récurrent, avec toutes ses éditions.
-- **Tags**
+Pour aller plus loin :
 
-  | Tag | Règle |
-  |---|---|
-  | régulier | des éditions sur au moins deux années |
-  | nouveau | une seule année, à venir ou datant de moins de 12 mois |
-  | en pause ? | régulier, mais plus rien depuis 18 mois et rien d'annoncé |
-  | ponctuel | le reste |
-
-- **Édition probable** — un évènement régulier sans date annoncée reçoit un
-  mois probable (le mois médian de ses éditions, reporté sur l'année à venir).
-  C'est une extrapolation : elle est toujours libellée « non annoncé ».
-- **Période** — « à venir : annoncé ou probable » avec « à partir de » répond
-  à la question « qu'est-ce qu'il y aura dans le coin après telle date ? ».
-- **Tri** — par prochaine date, ou par proximité dès qu'un lieu est choisi.
-- **Thème** — clair ou sombre, par l'icône en haut à droite ; celui du système
-  au premier lancement.
-- **Sur téléphone** — la liste et la carte sont deux vues, basculées depuis
-  l'en-tête ; le lieu et les filtres se replient derrière un bouton ; les
-  menus s'ouvrent en bas de l'écran ; toucher un point de la carte affiche
-  l'évènement dans une fiche par-dessus la carte.
-- **Contacts** — une icône par moyen de contact. E-mail et téléphone ouvrent
-  un petit menu : la valeur, « Envoyer un mail » ou « Appeler », et « Copier »,
-  dont le bouton confirme lui-même la copie.
-- **Facebook et Instagram** — lus dans ce que l'agenda publie pour chaque
-  évènement (site, site de l'organisateur, champs libres, description en
-  dernier recours). Une page Facebook est préférée à un lien d'évènement.
-- **Recherches enregistrées** — lieu, rayon, régions et filtres sous un nom, à rappeler
-  d'un clic.
-- **Ajouter / Modifier** — un évènement ajouté à la main, ou un champ corrigé
-  sur un évènement de l'agenda, n'est jamais écrasé par une mise à jour.
-- **Exporter** — les lignes cochées (ou toutes les lignes affichées si rien
-  n'est coché), en quatre formats :
-  - texte brut pour un SMS ou un mail ;
-  - texte tabulé : collé dans Excel, Numbers ou Sheets, il remplit les colonnes ;
-  - Markdown ;
-  - CSV (point-virgule, UTF-8 avec BOM).
-
-  Les contacts des organisateurs ne sortent que si la case est cochée.
-
-## Version hébergée (GitHub Pages)
-
-La même page, sans serveur : `node scripts/build-site.mjs` l'assemble dans
-`_site/`, et le workflow `.github/workflows/pages.yml` la publie à chaque push
-sur `main`.
-
-- **Les données partent avec la page.** `snapshot/events.bin` est une copie
-  complète de l'agenda : la page s'ouvre tout de suite, et fonctionne encore
-  quand l'agenda ne répond pas. Le workflow la rafraîchit chaque lundi ; si
-  l'agenda est injoignable ce jour-là, la copie précédente reste en place.
-- **Les données sont chiffrées** (AES-256-GCM). Le dépôt et la page sont
-  publics, les données ne se lisent qu'avec un lien d'accès :
-  `https://convmap.suuuper.app/#k=<clé>`. Ce qui suit le `#` reste dans
-  le navigateur, il n'est jamais envoyé à GitHub. Une fois le lien ouvert, le
-  navigateur retient la clé.
-- **Un lien par personne.** La page `admin.html` liste les liens, en crée un
-  pour un nom, en révoque un. Un lien révoqué cesse de fonctionner à la
-  publication suivante, une à deux minutes plus tard.
-- **Ce que chacun ajoute reste chez lui.** Évènements ajoutés, corrections,
-  notes et recherches enregistrées vivent dans le navigateur du visiteur
-  (IndexedDB), pas dans le dépôt.
-- « Mettre à jour depuis l'agenda » lit l'agenda directement depuis le
-  navigateur (2 à 3 minutes), sans attendre le lundi.
-
-La marche à suivre complète — dépôt, secret, domaine `convmap.suuuper.app`
-chez Cloudflare, jeton, essai de la page d'accès — est dans
-[docs/mise-en-ligne.md](docs/mise-en-ligne.md). En résumé :
-
-### Mise en place, une fois
-
-1. `node scripts/key.mjs` crée la clé maître (fichier `.agenda-key`, hors
-   git) et affiche le lien maître.
-2. `node scripts/snapshot.mjs` écrit la première copie chiffrée ; la commiter.
-3. Sur GitHub : créer le dépôt, pousser, ajouter la clé maître comme secret
-   `AGENDA_KEY` (Settings > Secrets and variables > Actions), et choisir
-   « GitHub Actions » comme source dans Settings > Pages.
-4. Créer un « fine-grained token » limité à ce dépôt, permission Contents en
-   lecture et écriture, et le saisir dans `admin.html` avec la clé maître.
-
-### Comment les accès tiennent
-
-Le secret GitHub ne contient que la clé maître, et ne change plus : un secret
-GitHub s'écrit mais ne se relit pas, il ne peut donc pas servir à lister des
-liens. La liste des personnes (nom + clé personnelle) est le fichier
-`snapshot/access.bin`, chiffré avec la clé maître ; `admin.html` le lit et le
-réécrit par un commit, qui déclenche la publication.
-
-À chaque publication, les données sont rechiffrées avec une clé neuve, et
-cette clé est publiée une fois par personne, enveloppée dans sa clé
-personnelle (`data/keys.json`, sans aucun nom). Une clé retirée de la liste
-n'ouvre donc ni l'enveloppe ni les données suivantes.
-
-Ce que cette protection ne fait pas :
-
-- Quelqu'un qui a eu accès a pu copier ce qu'il voyait ; révoquer ne reprend
-  rien, cela coupe la suite.
-- La clé maître ouvre tout, y compris les anciennes copies dans l'historique
-  git. Si elle fuit : `node scripts/key.mjs --new`, refaire la copie, mettre
-  à jour le secret — et recréer les liens, la liste étant scellée avec elle.
-- Les réglages de `admin.html` (jeton compris) sont gardés par le navigateur
-  où ils ont été saisis : sur un poste partagé, cliquer « Oublier ces
-  réglages » après usage.
-
-## Mise à jour depuis l'agenda
-
-Les évènements sont rapprochés par leur identifiant d'agenda. Une mise à jour :
-
-- rafraîchit les champs venus de l'agenda ;
-- ne touche ni aux corrections, ni aux notes, ni aux évènements ajoutés à la main ;
-- garde un évènement disparu de l'agenda, marqué « retiré de l'agenda » ;
-- ne change rien du tout si une page de l'agenda échoue après trois essais.
-
-## Données
-
-Version locale : `data/agenda.db` (SQLite, hors git — il contient des contacts d'organisateurs).
-
-| Table | Contenu |
-|---|---|
-| `events` | un évènement daté, venu de l'agenda (`source_id`) ou ajouté à la main ; `overrides` porte les champs corrigés, `gone_at` la date de disparition |
-| `searches` | les recherches enregistrées |
-| `meta` | date de la dernière lecture de l'agenda |
-
-Les séries ne sont pas stockées : elles sont recalculées à partir de `events`
-(même titre une fois l'année et le numéro d'édition retirés, lieux à moins de
-50 km). `events.id` est stable : c'est la clé à laquelle un futur suivi de
-demandes pourra se rattacher.
-
-## Limites
-
-- L'agenda ne remonte pas avant novembre 2022.
-- Deux éditions d'un même évènement à plus de 50 km l'une de l'autre sont
-  comptées comme deux séries.
-- Un évènement sans coordonnées est listé à part, hors rayon, jusqu'à ce qu'on
-  lui donne une latitude et une longitude via « Modifier ».
-- Un évènement sans code postal exploitable n'apparaît dans aucune région ni
-  aucun département.
-- Les champs libres de l'agenda contiennent aussi des adresses e-mail de
-  personnes ayant soumis un évènement : elles ne sont pas lues, seuls les
-  liens Facebook et Instagram le sont.
-- Les cases cochées sont gardées par le navigateur, pas par la base.
+- [docs/fonctionnement.md](docs/fonctionnement.md) — ce que fait la page en
+  détail, les deux versions, les données, les accès, les limites ;
+- [docs/mise-en-ligne.md](docs/mise-en-ligne.md) — publier le site sur son
+  domaine, pas à pas.
 
 ## Tests
 
@@ -180,9 +89,11 @@ npm test
 
 ## Crédits
 
-Développé par [meitogi](https://github.com/meitogi). Les évènements viennent
-de [L'Agenda Geek](https://lagendageek.com), qui les recense et les tient à
-jour.
+Conçu et développé par [meitogi](https://github.com/meitogi).
+
+Les évènements viennent de [L'Agenda Geek](https://lagendageek.com) ; Conv'Map
+n'en est qu'une autre façon de les parcourir. Pour annoncer ou corriger un
+évènement à la source, c'est chez eux que ça se passe.
 
 ## Licences
 
