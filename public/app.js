@@ -437,10 +437,16 @@ function linkLabel(url) {
   return host;
 }
 
+// An edition from the shared base says so in a small "i", which explains
+// itself on hover, or on a click or a touch as a tag does.
+const SHARED_HELP = "Ajoutée à la main dans la base partagée de Conv'Map : L'Agenda Geek ne la liste pas.";
+function sharedInfo() {
+  return el('details', { className: 'pop tag-pop info-pop' }, el('summary', { className: 'info', title: SHARED_HELP, ariaLabel: SHARED_HELP }, 'i'), el('div', { className: 'pop-panel' }, SHARED_HELP));
+}
+
 function editionLine(edition) {
   const flags = [];
   if (edition.source === 'manual') flags.push('ajouté à la main');
-  else if (edition.origin === 'shared') flags.push('base partagée');
   else if (edition.overridden.length) flags.push('corrigé');
   if (edition.gone_at) flags.push("retiré de l'agenda");
   const button = el('button', { type: 'button' }, 'Modifier');
@@ -452,6 +458,7 @@ function editionLine(edition) {
     edition.url ? ' · ' : '',
     edition.url ? link(edition.url, 'fiche agenda geek') : '',
     ...(edition.links ? edition.links.split('\n') : []).flatMap((url) => [' · ', link(url, linkLabel(url))]),
+    edition.origin === 'shared' ? sharedInfo() : '',
     flags.length ? el('span', { className: 'flag' }, flags.join(', ')) : '',
     button,
     edition.note ? el('div', { className: 'muted' }, edition.note) : '',
